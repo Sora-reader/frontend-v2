@@ -8,14 +8,14 @@ import {
 import {createWrapper, HYDRATE} from 'next-redux-wrapper';
 
 const combinedReducer = combineReducers({
+  // TODO: remove
   blank: function(state, action) {
     if (state == null) state = [];
     return state;
   },
 });
 
-const reducer = (
-    state: ReturnType<typeof combinedReducer>, action: AnyAction) => {
+const reducer = (state: ReturnType<typeof combinedReducer>, action: AnyAction) => {
   if (action.type === HYDRATE) {
     return {
       ...state, // use previous state
