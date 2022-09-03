@@ -42,4 +42,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,
     Action<string>>;
 
 export const wrapper = createWrapper(makeStore,
-    {debug: process.env.NODE_ENV === 'development'});
+    // Uncomment when working with hydration and stuff
+    // {debug: process.env.NODE_ENV === 'development'}
+);
