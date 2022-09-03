@@ -1,7 +1,17 @@
+const bundleAnalyzerConfig = {
+  enabled: true
+};
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true
 }
 
-module.exports = nextConfig
+
+if (process.env.ANALYZE === "true") {
+  const withBundleAnalyzer = require("@next/bundle-analyzer")(bundleAnalyzerConfig);
+  module.exports = withBundleAnalyzer(nextConfig);
+} else {
+  module.exports = nextConfig
+}
