@@ -1,65 +1,128 @@
-import type { NextPage } from 'next'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type {NextPage} from 'next';
+import Card from '@mui/joy/Card';
+import {AspectRatio, Container, Grid, IconButton, Sheet, Theme, Typography} from '@mui/joy';
+
+import HomeIcon from '@mui/icons-material/Home';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import LogoutIcon from '@mui/icons-material/Logout';
+
+const bpKey = 'lg';
+
+const Navbar = () => {
+  const buttonContainerSx = (theme: Theme) => ({
+    display: 'flex',
+    [theme.breakpoints.down(bpKey)]: {
+      'flex-flow': 'row nowrap',
+    },
+    [theme.breakpoints.up(bpKey)]: {
+      'flex-flow': 'column nowrap',
+    },
+    gap: '1rem',
+  });
+  return <Card sx={(theme) => ({
+    // position
+    [theme.breakpoints.down(bpKey)]: {
+      bottom: 0,
+      // size
+      width: '100vw',
+      height: '4rem',
+      // flex
+      'flex-flow': 'row nowrap',
+    },
+    [theme.breakpoints.up(bpKey)]: {
+      top: 0,
+      // size
+      width: '4rem',
+      height: '100vh',
+      // borders
+      'border-top-left-radius': 0,
+      'border-bottom-left-radius': 0,
+    },
+    position: 'fixed',
+    left: 0,
+    'z-index': 1,
+    // flex
+    display: 'flex',
+    'justify-content': 'space-between',
+    'align-items': 'center',
+  })}>
+    <Sheet id="main-buttons" sx={buttonContainerSx}>
+      <IconButton>
+        <HomeIcon/>
+      </IconButton>
+
+      <IconButton>
+        <FormatListBulletedIcon/>
+      </IconButton>
+    </Sheet>
+
+    <Sheet id="main-buttons" sx={buttonContainerSx}>
+      <IconButton color="neutral">
+        <AccountBoxIcon/>
+      </IconButton>
+
+      <IconButton color="neutral">
+        <LogoutIcon/>
+      </IconButton>
+    </Sheet>
+  </Card>;
+};
+
+const MangaCard = () => (
+    <Card component="a" variant="outlined"
+          href="https://github.com/vercel/next.js/tree/canary/examples">
+      <Typography component="h2" fontWeight="bold" marginBottom="1rem !important">
+        Demon slayer
+      </Typography>
+      <AspectRatio sx={{my: 2}}>
+        <img src="/assets/demon_slayer.png" alt=""/>
+      </AspectRatio>
+      <Typography sx={{
+        'text-overflow': 'ellipsis',
+        height: '3rem',
+        overflow: 'auto',
+      }}>
+        Tanjirou Kamado lives with his impoverished family on a remote mountain. As the oldest sibling,
+        he took upon the responsibility of ensuring his family’s livelihood after the death of his father.
+        On a cold winter day, he goes down to the local village in order to sell some charcoal. As dusk falls,
+        he is forced to spend the night in the house of a curious man who cautions him of strange creatures
+        that roam the night: malevolent demons who crave human flesh. When he finally makes his way home,
+        Tanjirou’s worst nightmare comes true. His entire family has been brutally slaughtered with the sole
+        exception of his sister Nezuko, who has turned into a flesh-eating demon. Engulfed in hatred and
+        despair, Tanjirou desperately tries to stop Nezuko from attacking other people, setting out on a
+        journey to avenge his family and find a way to turn his beloved sister back into a human.
+      </Typography>
+    </Card>
+);
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <>
+        <Navbar/>
+        <Container sx={(theme) => ({
+          [theme.breakpoints.down(bpKey)]: {
+            paddingBottom: '5rem',
+          },
+          [theme.breakpoints.up(bpKey)]: {
+            paddingLeft: '4rem',
+          },
+        })}>
+          <h1>
+            Welcome to <a href="https://sora-reader.app">Sora reader!</a>
+          </h1>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+          <Grid container spacing={2}>
+            {[...Array(7)].map((_, i) => <Grid xs={6} md={3}>
+                  <MangaCard/>
+                </Grid>,
+            )}
+          </Grid>
+        </Container>
+      </>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+  );
+};
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div>
-  )
-}
-
-export default Home
+export default Home;
