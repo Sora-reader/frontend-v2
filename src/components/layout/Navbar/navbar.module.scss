@@ -1,0 +1,23 @@
+@keyframes expand {
+  from {width: 4rem;}
+  to {width: 10rem;}
+}
+@keyframes shrink {
+  from {width: 10rem;}
+  to {width: 4rem;}
+}
+
+.navbar {
+  $duration: 0.1s;
+  animation-name: shrink;
+  animation-fill-mode: forwards;
+  animation-duration: $duration;
+  &:hover {
+    animation-name: expand;
+    animation-fill-mode: forwards;
+    animation-duration: $duration;
+    & > div, a {
+      width: 100%;
+    }
+  }
+}

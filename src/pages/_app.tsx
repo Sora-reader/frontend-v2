@@ -1,13 +1,16 @@
 import '../styles/globals.scss';
 import type {AppProps} from 'next/app';
 import {wrapper} from '../redux/store';
-import Head from 'next/head';
 import React from 'react';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import {CssVarsProvider, useTheme} from '@mui/joy/styles';
-import { useColorScheme } from '@mui/joy/styles';
+import {CssVarsProvider, useColorScheme} from '@mui/joy/styles';
 import Button from '@mui/joy/Button';
+import {extendTheme} from '@mui/joy';
+import {themeBase} from '../common/theme';
+import Head from 'next/head';
+import {useMounted} from '../common/hooks';
+import {MainLayout} from '../components/layout/MainLayout';
 
 function ModeToggle() {
   const { mode, setMode } = useColorScheme();
@@ -28,7 +31,8 @@ function ModeToggle() {
 }
 
 function MyApp({Component, pageProps}: AppProps) {
-  const theme = useTheme();
+  const theme = extendTheme(themeBase);
+  const mounted = useMounted();
 
   return <div id="app">
       <CssVarsProvider theme={theme}>
@@ -39,11 +43,12 @@ function MyApp({Component, pageProps}: AppProps) {
               id="viewport"
               content="width=device-width, viewport-fit=cover, initial-scale=1"
           />
-          <link rel="icon" href="/favicon.ico"/>
         </Head>
         {/* TODO: remove after normal theme switcher, or at least refactor */}
-        {process.env.NODE_ENV === 'development' && <ModeToggle/>}
-        <Component {...pageProps} />
+        {process.env.NODE_ENV === 'development' && mounted && <ModeToggle/>}
+        <MainLayout>
+          <Component {...pageProps} />
+        </MainLayout>
       </CssVarsProvider>
   </div>;
 }
