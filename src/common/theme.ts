@@ -1,6 +1,7 @@
 import {CssVarsThemeOptions} from '@mui/joy';
+import {extendTheme as extendJoyTheme} from '@mui/joy/styles';
 
-export const themeBase: CssVarsThemeOptions = {
+export const themeBase: CssVarsThemeOptions = extendJoyTheme({
   fontFamily: {
     body: [
       '-apple-system',
@@ -16,4 +17,4 @@ export const themeBase: CssVarsThemeOptions = {
       'sans-serif',
     ].join(','),
   },
-};
+});
