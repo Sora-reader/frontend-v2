@@ -17,6 +17,7 @@ export const routes = {
   ...extraRoutes,
 };
 
+// TODO: move this util or rename the file
 export const useActiveRoute = () => {
   const router = useRouter();
 

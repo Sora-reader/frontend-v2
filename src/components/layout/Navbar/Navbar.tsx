@@ -58,6 +58,7 @@ export const Navbar = () => {
     gap: '1rem',
   });
 
+  // TODO: move it
   const activeRoute = useActiveRoute();
   type NavbarIconProps = Omit<IconButtonProps, 'color' | 'component'> & { name: string, href: string };
   const NavbarIcon = ({children, name, href, ...props}: NavbarIconProps) => {

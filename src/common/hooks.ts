@@ -10,8 +10,8 @@ export const useMounted = () => {
     setMounted(true);
   }, []);
 
-  return mounted
-}
+  return mounted;
+};
 
 /** Next Link doesn't allow multiple children which makes it useless sometimes.
  * This is a hack to allow url previews like with <a>, but still route clicks through Next.
@@ -31,4 +31,4 @@ export const useFakeAnchorProps = (href: string = '#') => {
   });
 
   return props;
-}
+};
