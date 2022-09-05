@@ -1,18 +1,9 @@
-import {
-  Action,
-  AnyAction,
-  combineReducers,
-  configureStore,
-  ThunkAction,
-} from '@reduxjs/toolkit';
+import {Action, AnyAction, combineReducers, configureStore, ThunkAction} from '@reduxjs/toolkit';
 import {createWrapper, HYDRATE} from 'next-redux-wrapper';
+import {mangaApi} from './api/manga';
 
 const combinedReducer = combineReducers({
-  // TODO: remove
-  blank: function(state, action) {
-    if (state == null) state = [];
-    return state;
-  },
+  [mangaApi.reducerPath]: mangaApi.reducer,
 });
 
 const reducer = (state: ReturnType<typeof combinedReducer>, action: AnyAction) => {
@@ -26,11 +17,12 @@ const reducer = (state: ReturnType<typeof combinedReducer>, action: AnyAction) =
   }
 };
 
-export const makeStore = () =>
-    configureStore({
-      // @ts-ignore
-      reducer,
-    });
+export const makeStore = () => configureStore({
+  // @ts-ignore
+  reducer,
+  // @ts-ignore
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(mangaApi.middleware),
+});
 
 type Store = ReturnType<typeof makeStore>;
 
