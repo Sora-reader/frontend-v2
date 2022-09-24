@@ -4,7 +4,7 @@ import {Box, Chip, Grid, Sheet, Typography} from '@mui/joy';
 import Rating from '@mui/material/Rating';
 import {Chapters, emptyManga, Manga} from '../../common/apiTypes';
 import {ChapterList} from '../manga/detail/ChapterList';
-import {useWithOptionalSkeleton} from '../../common/components';
+import {useWithOptionalSkeleton} from '../../common/hooks';
 
 type BgProps = {
   img?: string,
@@ -32,8 +32,6 @@ type Props = {
   chaptersLoading: boolean,
 }
 export const MangaDetail = ({manga, loading, chapters, chaptersLoading}: Props) => {
-  // manga = emptyManga;
-  // loading = true;
   const WithOptionalSkeleton = useWithOptionalSkeleton(loading);
 
   return <div>

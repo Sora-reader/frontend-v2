@@ -1,5 +1,6 @@
-import {Navbar, navbarSize, navbarWrapBreakpointKey} from './Navbar';
+import {Navbar, navbarWrapBreakpointKey} from './Navbar';
 import {Container} from '@mui/joy';
+import {navbarSize} from '../../common/const';
 
 export const MainLayout = ({children}) => {
   return <>

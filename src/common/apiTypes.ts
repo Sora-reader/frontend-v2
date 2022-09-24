@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
 
-// TODO: not implemeted yet
+// TODO: not implemented yet
 // export interface Category {
 //
 // }

@@ -1,11 +1,13 @@
 import {Skeleton, SkeletonProps} from '@mui/material';
 import {forwardRef} from 'react';
 
+// Util type to add loading prop
 export type LoadingProps = {
   loading: boolean,
 }
 
-type SoraSkeletonProps = SkeletonProps
+export type SoraSkeletonProps = SkeletonProps
+// Skeleton override with better defaults (use joy theme style overrides when it's supported by JoyUI).
 export const SoraSkeleton = forwardRef<any, SoraSkeletonProps>(
     ({sx, variant, ...props}, ref) => {
       const mySx = {
@@ -16,10 +18,3 @@ export const SoraSkeleton = forwardRef<any, SoraSkeletonProps>(
       return <Skeleton variant={variant} sx={mySx} {...props} ref={ref}/>;
     },
 );
-
-export const useWithOptionalSkeleton = (shouldWrap: boolean) =>
-    ({children, ...props}) => shouldWrap ?
-        <SoraSkeleton {...props}>
-          {children}
-        </SoraSkeleton> :
-        children;

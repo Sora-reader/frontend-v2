@@ -7,6 +7,7 @@ specifiers:
   '@mui/icons-material': ^5.10.3
   '@mui/joy': 5.0.0-alpha.43
   '@mui/material': ^5.10.3
+  '@mui/types': ^7.2.0
   '@mui/utils': ^5.10.3
   '@next/bundle-analyzer': ^12.2.5
   '@redux-devtools/extension': ^3.2.3
@@ -49,6 +50,7 @@ dependencies:
   sass: 1.54.8
 
 devDependencies:
+  '@mui/types': 7.2.0_@types+react@18.0.18
   '@next/bundle-analyzer': 12.2.5
   '@types/node': 18.7.14
   '@types/react': 18.0.18
@@ -690,7 +692,6 @@ packages:
         optional: true
     dependencies:
       '@types/react': 18.0.18
-    dev: false
 
   /@mui/utils/5.10.3_react@18.2.0:
     resolution: {integrity: sha512-4jXMDPfx6bpMVuheLaOpKTjpzw39ogAZLeaLj5+RJec3E37/hAZMYjURfblLfTWMMoGoqkY03mNsZaEwNobBow==}

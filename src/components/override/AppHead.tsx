@@ -7,5 +7,5 @@ export const AppHead = forwardRef<any, AppHeadProps>((props, ref: Ref<any>) => {
   // @ts-ignore
   const MyHead: Component<AppHeadProps> = Head;
   // @ts-ignore
-  return <MyHead {...props}></MyHead>;
+  return <MyHead {...props} ref={ref}></MyHead>;
 });

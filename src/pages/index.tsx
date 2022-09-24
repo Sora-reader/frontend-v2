@@ -6,14 +6,13 @@ import {getRunningOperationPromises, search, useSearchQuery} from '../redux/api/
 import {emptyManga} from '../common/apiTypes';
 import {wrapper} from '../redux/store';
 
-const query = 'поднятие уровня';
+const query = 'невероятные джоджо 1';
 
 const Home: NextPage = () => {
   const {data, isLoading} = useSearchQuery(query);
 
   return <>
     <h1>Sora Reader</h1>
-    <h4>Last viewed</h4>
 
     <Grid container spacing={2}>
       {data && data.map((manga) => <Grid xs={6} sm={4} md={3} key={manga.id}>

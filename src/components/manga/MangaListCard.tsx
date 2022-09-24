@@ -1,9 +1,8 @@
 import Card from '@mui/joy/Card';
 import {Typography} from '@mui/joy';
-import {useFakeAnchorProps} from '../../common/hooks';
+import {useFakeAnchorProps, useWithOptionalSkeleton} from '../../common/hooks';
 import {Manga, useIsEmptyManga} from '../../common/apiTypes';
 import {MangaImage} from './MangaImage';
-import {useWithOptionalSkeleton} from '../../common/components';
 
 const lineClampSx = (line: number) => ({
   overflow: 'hidden',

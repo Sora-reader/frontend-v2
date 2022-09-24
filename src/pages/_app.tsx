@@ -6,7 +6,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import {CssVarsProvider, useColorScheme} from '@mui/joy/styles';
 import Button from '@mui/joy/Button';
-import {themeBase} from '../common/materialUiBackport';
+import {themeBase} from '../common/theme';
 import Head from 'next/head';
 import {useMounted} from '../common/hooks';
 import {MainLayout} from '../components/layout/MainLayout';

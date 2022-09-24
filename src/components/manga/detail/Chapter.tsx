@@ -1,7 +1,7 @@
 import Card from '@mui/joy/Card';
-import {LoadingProps, useWithOptionalSkeleton} from '../../../common/components';
+import {LoadingProps} from '../../../common/components';
 import {ChapterType} from '../../../common/apiTypes';
-import {useFakeAnchorProps} from '../../../common/hooks';
+import {useFakeAnchorProps, useWithOptionalSkeleton} from '../../../common/hooks';
 
 type Props = {
   chapter: ChapterType,

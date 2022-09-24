@@ -4,16 +4,9 @@ import {ColorPaletteProp, IconButton, IconButtonProps, Sheet, Theme} from '@mui/
 import style from './navbar.module.scss';
 import clsx from 'clsx';
 import {navbarWrapBreakpointKey, useAllowNavbarAnimation} from './utils';
-
-import HomeIcon from '@mui/icons-material/Home';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import LogoutIcon from '@mui/icons-material/Logout';
-import SearchIcon from '@mui/icons-material/Search';
-import {useActiveRoute} from '../../../common/routes';
+import {baseRoutes, extraRoutes, useActiveRoute} from '../../../common/routes';
 import {useFakeAnchorProps} from '../../../common/hooks';
-
-export const navbarSize = 4;
+import {navbarSize} from '../../../common/const';
 
 const navbarSx = (theme) => ({
   position: 'fixed',
@@ -75,33 +68,21 @@ export const Navbar = () => {
     </Sheet>;
   };
 
-  return <Card
-      className={clsx(allowAnimation && style.navbar)}
-      {...hoverListeners}
-      sx={navbarSx}>
-    {/* TODO: use routes mapping */}
-    <Sheet id="main-buttons" sx={buttonContainerSx}>
-      <NavbarIcon name="Home" href="/">
-        <HomeIcon/>
-      </NavbarIcon>
-
-      <NavbarIcon name="Lists" href="/lists">
-        <FormatListBulletedIcon/>
-      </NavbarIcon>
-
-      <NavbarIcon name="Search" href="/search">
-        <SearchIcon/>
-      </NavbarIcon>
+  return <Card className={clsx(allowAnimation && style.navbar)} {...hoverListeners} sx={navbarSx}>
+    <Sheet id="base-routes" sx={buttonContainerSx}>
+      {Object.entries(baseRoutes).map(
+          ([href, {name, icon}]) => <NavbarIcon key={href} name={name} href={href}>
+            {icon}
+          </NavbarIcon>,
+      )}
     </Sheet>
 
-    <Sheet id="main-buttons" sx={buttonContainerSx}>
-      <NavbarIcon name="Profile" href="/profile">
-        <AccountBoxIcon/>
-      </NavbarIcon>
-
-      <NavbarIcon name="Logout" href="/logout">
-        <LogoutIcon/>
-      </NavbarIcon>
+    <Sheet id="extra-routes" sx={buttonContainerSx}>
+      {Object.entries(extraRoutes).map(
+          ([href, {name, icon}]) => <NavbarIcon key={href} name={name} href={href}>
+            {icon}
+          </NavbarIcon>,
+      )}
     </Sheet>
   </Card>;
 };
