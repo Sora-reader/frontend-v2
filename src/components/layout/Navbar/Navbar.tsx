@@ -32,6 +32,9 @@ const navbarSx = (theme) => ({
     height: `${navbarSize}rem`,
     // flex
     flexFlow: 'row nowrap',
+    // borders
+    borderBottomRightRadius: 0,
+    borderBottomLeftRadius: 0,
   },
   [theme.breakpoints.up(navbarWrapBreakpointKey)]: {
     top: 0,
@@ -44,24 +47,24 @@ const navbarSx = (theme) => ({
   },
 });
 
+const buttonContainerSx = (theme: Theme) => ({
+  display: 'flex',
+  [theme.breakpoints.down(navbarWrapBreakpointKey)]: {
+    flexFlow: 'row nowrap',
+  },
+  [theme.breakpoints.up(navbarWrapBreakpointKey)]: {
+    flexFlow: 'column nowrap',
+  },
+  gap: '1rem',
+});
+
+type NavbarIconProps = Omit<IconButtonProps, 'color' | 'component'> & { name: string, href: string };
+
 export const Navbar = () => {
   const {allowAnimation, hovered, ...hoverListeners} = useAllowNavbarAnimation();
 
-  const buttonContainerSx = (theme: Theme) => ({
-    display: 'flex',
-    [theme.breakpoints.down(navbarWrapBreakpointKey)]: {
-      flexFlow: 'row nowrap',
-    },
-    [theme.breakpoints.up(navbarWrapBreakpointKey)]: {
-      flexFlow: 'column nowrap',
-    },
-    gap: '1rem',
-  });
-
-  // TODO: move it
-  const activeRoute = useActiveRoute();
-  type NavbarIconProps = Omit<IconButtonProps, 'color' | 'component'> & { name: string, href: string };
   const NavbarIcon = ({children, name, href, ...props}: NavbarIconProps) => {
+    const activeRoute = useActiveRoute();
     const color: ColorPaletteProp = activeRoute === href ? 'primary' : 'neutral';
 
     return <Sheet>

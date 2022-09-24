@@ -44,8 +44,7 @@ function MyApp({Component, pageProps}: AppProps) {
                 content="width=device-width, viewport-fit=cover, initial-scale=1"
             />
           </Head>
-          {/* TODO: remove after normal theme switcher, or at least refactor */}
-          {process.env.NODE_ENV === 'development' && mounted && <ModeToggle/>}
+          {mounted && <ModeToggle/>}
           <MainLayout>
             <Component {...pageProps} />
           </MainLayout>
