@@ -1,2 +1,2 @@
-export {Navbar, navbarSize} from './Navbar';
+export {Navbar} from './Navbar';
 export {navbarWrapBreakpointKey} from './utils';
