@@ -38,8 +38,8 @@ export const useFakeAnchorProps = (href: string = '#') => {
 /** Determine if manga can be counted as "empty" or "not loaded"
  * @param value manda or it's id parameter */
 export const useIsEmptyManga = (value: MangaType | number) => useMemo(
-    () => Number.isInteger(value) ? !~value : !~(value as MangaType).id,
-    [value],
+  () => Number.isInteger(value) ? !~value : !~(value as MangaType).id,
+  [value],
 );
 
 /** Hook to support rendering optional Skeleton wrapper depending on some value.
@@ -47,11 +47,11 @@ export const useIsEmptyManga = (value: MangaType | number) => useMemo(
  * @param shouldWrap bool to determine if skeleton should be rendered
  */
 export const useWithOptionalSkeleton = (shouldWrap: boolean) => (
-    // @ts-ignore
-    {children, ...props}: SoraSkeletonProps): JSX.Element => (
-    shouldWrap ? <SoraSkeleton {...props}>
-          {children}
-        </SoraSkeleton> :
-        children
+  // @ts-ignore
+  {children, ...props}: SoraSkeletonProps): JSX.Element => (
+  shouldWrap ? <SoraSkeleton {...props}>
+      {children}
+    </SoraSkeleton> :
+    children
 );
 

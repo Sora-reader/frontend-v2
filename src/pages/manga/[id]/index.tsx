@@ -43,31 +43,31 @@ const Manga: NextPage = () => {
   const {id} = router.query as QueryProps;
 
   const mangaQuery = useParsePollingQuery<MangaWithStatus>(
-      useDetailQuery, id, {skip: !id}, 500);
+    useDetailQuery, id, {skip: !id}, 500);
   const chaptersQuery = useParsePollingQuery<ChaptersWithStatus>(
-      useChaptersQuery, id, {skip: !id}, 500);
+    useChaptersQuery, id, {skip: !id}, 500);
 
   return <MangaDetail
-      manga={mangaQuery.data?.data}
-      loading={mangaQuery.isLoading}
-      chapters={chaptersQuery.data?.data}
-      chaptersLoading={chaptersQuery.isLoading}/>;
+    manga={mangaQuery.data?.data}
+    loading={mangaQuery.isLoading}
+    chapters={chaptersQuery.data?.data}
+    chaptersLoading={chaptersQuery.isLoading}/>;
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
-    (store) => async (context) => {
-      const id = context.params?.id;
-      if (typeof id === 'string') {
-        store.dispatch(detail.initiate(id));
-        store.dispatch(chapters.initiate(id));
-      }
+  (store) => async (context) => {
+    const id = context.params?.id;
+    if (typeof id === 'string') {
+      store.dispatch(detail.initiate(id));
+      store.dispatch(chapters.initiate(id));
+    }
 
-      await Promise.all(getRunningOperationPromises());
+    await Promise.all(getRunningOperationPromises());
 
-      return {
-        props: {},
-      };
-    },
+    return {
+      props: {},
+    };
+  },
 );
 
 export default Manga;

@@ -14,18 +14,18 @@ import {MainLayout} from '../components/layout/MainLayout';
 function ModeToggle() {
   const {mode, setMode} = useColorScheme();
   return (
-      <Button
-          variant="plain"
-          color="neutral"
-          sx={{
-            position: 'absolute',
-            right: '0px',
-            top: '0px',
-          }}
-          onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}
-      >
-        {mode === 'dark' ? <Brightness7Icon/> : <Brightness4Icon/>}
-      </Button>
+    <Button
+      variant="plain"
+      color="neutral"
+      sx={{
+        position: 'absolute',
+        right: '0px',
+        top: '0px',
+      }}
+      onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}
+    >
+      {mode === 'dark' ? <Brightness7Icon/> : <Brightness4Icon/>}
+    </Button>
   );
 }
 
@@ -34,22 +34,22 @@ function MyApp({Component, pageProps}: AppProps) {
   const mounted = useMounted();
 
   return (
-      <div id="app">
-        <CssVarsProvider theme={theme}>
-          <Head>
-            <title>Sora reader</title>
-            <meta
-                name="viewport"
-                id="viewport"
-                content="width=device-width, viewport-fit=cover, initial-scale=1"
-            />
-          </Head>
-          {mounted && <ModeToggle/>}
-          <MainLayout>
-            <Component {...pageProps} />
-          </MainLayout>
-        </CssVarsProvider>
-      </div>
+    <div id="app">
+      <CssVarsProvider theme={theme}>
+        <Head>
+          <title>Sora reader</title>
+          <meta
+            name="viewport"
+            id="viewport"
+            content="width=device-width, viewport-fit=cover, initial-scale=1"
+          />
+        </Head>
+        {mounted && <ModeToggle/>}
+        <MainLayout>
+          <Component {...pageProps} />
+        </MainLayout>
+      </CssVarsProvider>
+    </div>
   );
 }
 

@@ -1,9 +1,8 @@
 import {Navbar, navbarWrapBreakpointKey} from './Navbar';
-import {Box, Container} from '@mui/joy';
+import {Box, Container, Theme} from '@mui/joy';
 import {navbarSize} from '../../common/const';
 import {useCallback} from 'react';
 import {baseRoutes, extraRoutes, useActiveRoute} from '../../common/routes';
-import {Theme} from '@mui/joy';
 import {NavbarRouteIcon} from "./Navbar/NavbarRouteIcon";
 
 const buttonContainerSx = (theme: Theme) => ({

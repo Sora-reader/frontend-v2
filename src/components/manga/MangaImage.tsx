@@ -11,9 +11,9 @@ type Props = {
 }
 
 export const MangaImage = ({src}: Props) => (
-    <AspectRatio ratio="310/500">
-      <ScaledImage src={src}/>
-    </AspectRatio>
+  <AspectRatio ratio="310/500">
+    <ScaledImage src={src}/>
+  </AspectRatio>
 );
 
 MangaImage.defaultProps = {

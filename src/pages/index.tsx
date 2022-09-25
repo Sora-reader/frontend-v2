@@ -16,27 +16,27 @@ const Home: NextPage = () => {
 
     <Grid container spacing={2}>
       {data && data.map((manga) => <Grid xs={6} sm={4} md={3} key={manga.id}>
-            <MangaListCard {...manga}/>
-          </Grid>,
+          <MangaListCard {...manga}/>
+        </Grid>,
       ) || isLoading && [...Array(8)].map(
-          (_, i) => <Grid xs={6} sm={4} md={3} key={`skeleton-${i}`}>
-            <MangaListCard {...emptyManga}/>
-          </Grid>,
+        (_, i) => <Grid xs={6} sm={4} md={3} key={`skeleton-${i}`}>
+          <MangaListCard {...emptyManga}/>
+        </Grid>,
       )}
     </Grid>
   </>;
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
-    (store) => async () => {
-      store.dispatch(search.initiate(query));
+  (store) => async () => {
+    store.dispatch(search.initiate(query));
 
-      await Promise.all(getRunningOperationPromises());
+    await Promise.all(getRunningOperationPromises());
 
-      return {
-        props: {},
-      };
-    },
+    return {
+      props: {},
+    };
+  },
 );
 
 export default Home;
