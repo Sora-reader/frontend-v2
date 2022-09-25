@@ -2,7 +2,7 @@ import {MangaImage} from '../manga/MangaImage';
 import {styled} from '@mui/material/styles';
 import {Box, Chip, Grid, Sheet, Typography} from '@mui/joy';
 import Rating from '@mui/material/Rating';
-import {Chapters, emptyManga, Manga} from '../../common/apiTypes';
+import {Chapters, emptyManga, MangaType} from '../../common/apiTypes';
 import {ChapterList} from '../manga/detail/ChapterList';
 import {useWithOptionalSkeleton} from '../../common/hooks';
 
@@ -26,7 +26,7 @@ const Bg = styled('div')<BgProps>(({img}) => {
 });
 
 type Props = {
-  manga: Manga,
+  manga: MangaType,
   loading: boolean,
   chapters?: Chapters,
   chaptersLoading: boolean,
@@ -66,7 +66,7 @@ export const MangaDetail = ({manga, loading, chapters, chaptersLoading}: Props) 
       </Grid>
 
       <Grid xs={12}>
-        <ChapterList chapters={chapters} loading={chaptersLoading}/>
+        <ChapterList mangaId={manga.id} chapters={chapters} loading={chaptersLoading}/>
       </Grid>
     </Grid>
   </div>;

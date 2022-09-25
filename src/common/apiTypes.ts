@@ -5,11 +5,14 @@ import {useMemo} from 'react';
 //
 // }
 
+// Base types and aliases
+
+type Image = string;
 type Genre = string;
 type Author = string;
 type ParsingStatus = 'parsing' | 'upToDate';
 
-export interface Manga {
+export interface MangaType {
   id: number,
   source_url: string,
   title: string,
@@ -26,17 +29,23 @@ export interface Manga {
 }
 
 export interface ChapterType {
+  id: number,
   title: string,
   link: string,
   number: number,
   volume: number,
 }
 
+// Collections
+
 export type Chapters = Array<ChapterType>;
+export type ChapterImageList = Array<Image>;
+
+// Complex types
 
 export interface MangaWithStatus {
   status: ParsingStatus,
-  data: Manga,
+  data: MangaType,
 }
 
 export interface ChaptersWithStatus {
@@ -44,8 +53,9 @@ export interface ChaptersWithStatus {
   data: Chapters,
 }
 
-// TODO: find a better place for those utils
-export const emptyManga: Manga = {
+// Value examples/stubs
+
+export const emptyManga: MangaType = {
   id: -1,
   title: '',
   source_url: '',
@@ -54,9 +64,4 @@ export const emptyManga: Manga = {
   authors: [],
   genres: [],
 };
-
-export const useIsEmptyManga = (value: Manga | number) => useMemo(
-    () => Number.isInteger(value) ? !~value : !~(value as Manga).id,
-    [value],
-);
 

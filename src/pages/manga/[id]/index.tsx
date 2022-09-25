@@ -5,12 +5,12 @@ import {
   getRunningOperationPromises,
   useChaptersQuery,
   useDetailQuery,
-} from '../../redux/api/manga';
+} from '../../../redux/api/manga';
 import {useRouter} from 'next/router';
 import {useEffect, useState} from 'react';
-import {wrapper} from '../../redux/store';
-import {MangaDetail} from '../../components/views/MangaDetail';
-import {ChaptersWithStatus, MangaWithStatus} from '../../common/apiTypes';
+import {wrapper} from '../../../redux/store';
+import {MangaDetail} from '../../../components/views/MangaDetail';
+import {ChaptersWithStatus, MangaWithStatus} from '../../../common/apiTypes';
 
 interface PollingQueryResult<T> {
   data: T | undefined;

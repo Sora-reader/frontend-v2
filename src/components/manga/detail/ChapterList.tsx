@@ -6,7 +6,8 @@ import {Chapters, ChapterType} from '../../../common/apiTypes';
 import {useMemo, useState} from 'react';
 
 type Props = {
-  chapters?: Chapters;
+  mangaId?: number,
+  chapters?: Chapters,
 } & LoadingProps;
 
 type Sort = 'new' | 'old';
@@ -16,7 +17,7 @@ const sortMapping: Record<Sort, (a: ChapterType, b: ChapterType) => number> = {
 };
 
 // Handle sorting
-export const ChapterList = ({chapters, loading}: Props) => {
+export const ChapterList = ({mangaId, chapters, loading}: Props) => {
   const [sort, setSort] = useState('new');
   const chaptersSorted = useMemo(
       () => chapters && [...chapters].sort(sortMapping[sort]),
@@ -43,8 +44,8 @@ export const ChapterList = ({chapters, loading}: Props) => {
           [...Array(8)].map((_, i) =>
               <Chapter loading={true} key={`chapter-${i}`}/>)
           ||
-          chaptersSorted && chaptersSorted.map((chapter) =>
-              <Chapter chapter={chapter} key={JSON.stringify(chapter)}/>)
+          chaptersSorted && mangaId && chaptersSorted.map((chapter) =>
+              <Chapter mangaId={mangaId} chapter={chapter} key={JSON.stringify(chapter)}/>)
       }
     </Stack>
   </>;

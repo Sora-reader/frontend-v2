@@ -1,6 +1,7 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import {useRouter} from 'next/router';
 import {SoraSkeleton, SoraSkeletonProps} from './components';
+import {MangaType} from './apiTypes';
 
 /** A hook to determine if a component was already mounted.
  * Useful for client-only-side conditional rendering. */
@@ -33,6 +34,13 @@ export const useFakeAnchorProps = (href: string = '#') => {
 
   return props;
 };
+
+/** Determine if manga can be counted as "empty" or "not loaded"
+ * @param value manda or it's id parameter */
+export const useIsEmptyManga = (value: MangaType | number) => useMemo(
+    () => Number.isInteger(value) ? !~value : !~(value as MangaType).id,
+    [value],
+);
 
 /** Hook to support rendering optional Skeleton wrapper depending on some value.
  * Returns a component which accepts children which should be wrapped and usual <Skeleton/> props.

@@ -1,7 +1,7 @@
 import Card from '@mui/joy/Card';
 import {Typography} from '@mui/joy';
-import {useFakeAnchorProps, useWithOptionalSkeleton} from '../../common/hooks';
-import {Manga, useIsEmptyManga} from '../../common/apiTypes';
+import {useFakeAnchorProps, useIsEmptyManga, useWithOptionalSkeleton} from '../../common/hooks';
+import {MangaType} from '../../common/apiTypes';
 import {MangaImage} from './MangaImage';
 
 const lineClampSx = (line: number) => ({
@@ -11,7 +11,7 @@ const lineClampSx = (line: number) => ({
   WebkitBoxOrient: 'vertical',
 });
 
-type Props = Manga;
+type Props = MangaType;
 
 export const MangaListCard = ({id, title, image}: Props) => {
   const isEmptyManga = useIsEmptyManga(id);

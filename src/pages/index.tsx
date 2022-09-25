@@ -6,7 +6,7 @@ import {getRunningOperationPromises, search, useSearchQuery} from '../redux/api/
 import {emptyManga} from '../common/apiTypes';
 import {wrapper} from '../redux/store';
 
-const query = 'невероятные джоджо 1';
+const query = 'невероятные джоджо';
 
 const Home: NextPage = () => {
   const {data, isLoading} = useSearchQuery(query);
