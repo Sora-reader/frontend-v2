@@ -1,6 +1,6 @@
 import {ImageProps} from "../types";
 
-export const DefaultImage = ({src}: ImageProps) => {
+export const DefaultImage = ({src, setShowNavbar}: ImageProps) => {
   return <img
     style={{
       height: 'fit-content', maxHeight: '100vh', maxWidth: '100%',
@@ -10,5 +10,6 @@ export const DefaultImage = ({src}: ImageProps) => {
       transform: "translateY(-50%)",
     }}
     loading="lazy" src={src} alt=""
+    onClick={setShowNavbar}
   />;
 };

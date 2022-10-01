@@ -26,13 +26,11 @@ export const useFakeAnchorProps = (href: string = '#') => {
     router.push(href);
   }, [href]);
 
-  const [props] = useState({
+  return useMemo(() => ({
     component: 'a' as 'a',
     href: href,
     onClick,
-  });
-
-  return props;
+  }), [href]);
 };
 
 /** Determine if manga can be counted as "empty" or "not loaded"

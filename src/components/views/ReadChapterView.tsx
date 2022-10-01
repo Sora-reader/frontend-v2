@@ -1,20 +1,23 @@
 import {Box, IconButton} from '@mui/joy';
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {ChapterImageList} from "../../common/apiTypes";
-import {buttonContainerSx} from "../layout/Navbar/Navbar";
+import {buttonContainerSx, Navbar} from "../layout/Navbar/Navbar";
 import {useFakeAnchorProps} from "../../common/hooks";
 import {getPagerType, PagerType} from "../../common/types";
 import {WebtoonPager} from "../pager/webtoon/WebtoonPager";
 import {PageAlert} from "../pager/PageAlert";
 import {DefaultPager} from "../pager/default/DefaultPager";
+import {PagerProps} from "../pager/types";
 
 type Props = {
+  mangaId: string,
   images?: ChapterImageList,
 }
-export const ReadChapterView = ({images}: Props) => {
+export const ReadChapterView = ({images, mangaId}: Props) => {
   const [page, setPage] = useState(1);
-  const mangaAnchorProps = useFakeAnchorProps('/');
+  const mangaAnchorProps = useFakeAnchorProps(`/manga/${mangaId}/`);
+  const [showNavbar, setShowNavbar] = useState(true);
 
   const [pagerType, setPagerType] = useState<PagerType>('default');
   useEffect(() => {
@@ -35,12 +38,19 @@ export const ReadChapterView = ({images}: Props) => {
     </Box>
   }
 
+  const basePagerProps = {
+    images,
+    setPage,
+    setShowNavbar: useCallback(() => setShowNavbar(p => !p), [setShowNavbar]),
+  } as PagerProps;
+  // Force type as images won't be undefined when used
+
   return <>
-    {/*<Navbar render={renderNavbarIcons}/>*/}
+    {showNavbar && <Navbar render={renderNavbarIcons}/>}
     {images && <PageAlert page={page} images={images}/>}
     {
-      images && (pagerType === 'webtoon' ? <WebtoonPager images={images} setPage={setPage}/> :
-        <DefaultPager images={images} setPage={setPage} page={page}/>)
+      images && (pagerType === 'webtoon' ? <WebtoonPager {...basePagerProps}/> :
+        <DefaultPager {...basePagerProps} page={page}/>)
     }
   </>
 };

@@ -24,15 +24,15 @@ export const PageAlert = ({page, images}: PageAlertProps) => {
       color="neutral"
       sx={{
         position: 'fixed',
-        right: '46%',
-        left: '46%',
+        right: '50%',
+        left: '50%',
         justifyContent: "center",
         top: '1rem',
         width: 'max-content',
         zIndex: 1,
       }}
     >
-      {page || 0} / {images.length - 1}
+      {page || 0} / {images.length}
     </Alert>
   </Fade>
 }

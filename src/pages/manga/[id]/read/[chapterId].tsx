@@ -16,7 +16,7 @@ const ReadChapter: NextPage = () => {
     {skip: !chapterId || !id},
   );
 
-  return <ReadChapterView images={data}/>
+  return <ReadChapterView mangaId={id} images={data}/>
 };
 
 export default ReadChapter;
