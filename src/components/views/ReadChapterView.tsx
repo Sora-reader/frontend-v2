@@ -2,11 +2,12 @@ import {Box, IconButton} from '@mui/joy';
 import {useEffect, useState} from "react";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {ChapterImageList} from "../../common/apiTypes";
-import {buttonContainerSx, Navbar} from "../layout/Navbar/Navbar";
+import {buttonContainerSx} from "../layout/Navbar/Navbar";
 import {useFakeAnchorProps} from "../../common/hooks";
 import {getPagerType, PagerType} from "../../common/types";
 import {WebtoonPager} from "../pager/webtoon/WebtoonPager";
 import {PageAlert} from "../pager/PageAlert";
+import {DefaultPager} from "../pager/default/DefaultPager";
 
 type Props = {
   images?: ChapterImageList,
@@ -35,10 +36,11 @@ export const ReadChapterView = ({images}: Props) => {
   }
 
   return <>
-    <Navbar render={renderNavbarIcons}/>
+    {/*<Navbar render={renderNavbarIcons}/>*/}
     {images && <PageAlert page={page} images={images}/>}
     {
-      images && (pagerType === 'webtoon' ? <WebtoonPager images={images} setPage={setPage}/> : null)
+      images && (pagerType === 'webtoon' ? <WebtoonPager images={images} setPage={setPage}/> :
+        <DefaultPager images={images} setPage={setPage} page={page}/>)
     }
   </>
 };

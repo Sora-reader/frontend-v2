@@ -1,6 +1,6 @@
 import {Navbar, navbarWrapBreakpointKey} from './Navbar';
 import {Box, Container, Theme} from '@mui/joy';
-import {useCallback} from 'react';
+import {useCallback, useMemo} from 'react';
 import {baseRoutes, extraRoutes, useActiveRoute, useIsReaderRoute} from '../../common/routes';
 import {NavbarRouteIcon} from "./Navbar/NavbarRouteIcon";
 import {buttonContainerSx} from "./Navbar/Navbar";
@@ -46,9 +46,14 @@ export const MainLayout = ({children}) => {
   const isReaderRoute = useIsReaderRoute();
   const render = useCallback(renderBaseNavbarIcons, []);
 
+  const sx = useMemo(() => {
+    if (isReaderRoute) return [navbarPaddingSx, {height: '100vh'}]
+    return navbarPaddingSx;
+  }, [isReaderRoute])
+
   return <>
     {!isReaderRoute && <Navbar render={render}/>}
-    <Container sx={navbarPaddingSx}>
+    <Container sx={sx}>
       {children}
     </Container>
   </>;

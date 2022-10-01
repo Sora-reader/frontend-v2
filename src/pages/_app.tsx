@@ -10,6 +10,7 @@ import {themeBase} from '../common/theme';
 import Head from 'next/head';
 import {useMounted} from '../common/hooks';
 import {MainLayout} from '../components/layout/MainLayout';
+import {useIsReaderRoute} from "../common/routes";
 
 function ModeToggle() {
   const {mode, setMode} = useColorScheme();
@@ -32,6 +33,7 @@ function ModeToggle() {
 function MyApp({Component, pageProps}: AppProps) {
   const theme = themeBase;
   const mounted = useMounted();
+  const isReaderRoute = useIsReaderRoute();
 
   return (
     <div id="app">
@@ -44,7 +46,7 @@ function MyApp({Component, pageProps}: AppProps) {
             content="width=device-width, viewport-fit=cover, initial-scale=1"
           />
         </Head>
-        {mounted && <ModeToggle/>}
+        {mounted && !isReaderRoute && <ModeToggle/>}
         <MainLayout>
           <Component {...pageProps} />
         </MainLayout>

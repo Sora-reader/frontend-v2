@@ -6,6 +6,7 @@ export default function Document() {
   return (
     <Html>
       <AppHead>
+        <meta name="referrer" content="no-referrer"/>
         <link rel="icon" href="/favicon.ico"/>
       </AppHead>
       <body>

@@ -22,9 +22,17 @@ export const PageAlert = ({page, images}: PageAlertProps) => {
   return <Fade in={alertShow}>
     <Alert
       color="neutral"
-      sx={{position: 'fixed', right: '46%', left: '46%', justifyContent: "center", top: '1rem'}}
+      sx={{
+        position: 'fixed',
+        right: '46%',
+        left: '46%',
+        justifyContent: "center",
+        top: '1rem',
+        width: 'max-content',
+        zIndex: 1,
+      }}
     >
-      {page || 0} / {images && images.length}
+      {page || 0} / {images.length - 1}
     </Alert>
   </Fade>
 }

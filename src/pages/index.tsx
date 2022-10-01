@@ -5,6 +5,7 @@ import {MangaListCard} from '../components/manga/MangaListCard';
 import {getRunningOperationPromises, search, useSearchQuery} from '../redux/api/manga';
 import {emptyManga} from '../common/apiTypes';
 import {wrapper} from '../redux/store';
+import {isClientNavigation} from "../common/utils";
 
 const query = 'невероятные джоджо';
 
@@ -28,10 +29,13 @@ const Home: NextPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
-  (store) => async () => {
-    store.dispatch(search.initiate(query));
+  (store) => async ({req}) => {
+    const isClient = isClientNavigation(req);
+    if (!isClient) {
+      store.dispatch(search.initiate(query));
 
-    await Promise.all(getRunningOperationPromises());
+      await Promise.all(getRunningOperationPromises());
+    }
 
     return {
       props: {},

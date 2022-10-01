@@ -63,11 +63,10 @@ const Manga: NextPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
-  (store) => async (context) => {
-    // TODO: add to other routes to make it faster
-    const isClient = isClientNavigation(context.req);
+  (store) => async ({req, params}) => {
+    const isClient = isClientNavigation(req);
     if (!isClient) {
-      const id = context.params?.id;
+      const id = params?.id;
       if (typeof id === 'string') {
         store.dispatch(detail.initiate(id));
         store.dispatch(chapters.initiate(id));
