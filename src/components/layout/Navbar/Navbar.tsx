@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import {navbarWrapBreakpointKey, useAllowNavbarAnimation} from './utils';
 import {navbarSize} from '../../../common/const';
 import {Theme} from "@mui/joy";
+import {forwardRef} from "react";
 
 const navbarSx = (theme) => ({
   position: 'fixed',
@@ -52,10 +53,10 @@ type NavbarProps = {
   render: (allowAnimation: boolean, hovered: boolean) => JSX.Element,
 }
 
-export const Navbar = ({render}: NavbarProps) => {
+export const Navbar = forwardRef<any, any>(({render}: NavbarProps, ref) => {
   const {allowAnimation, hovered, ...hoverListeners} = useAllowNavbarAnimation();
 
-  return <Card className={clsx(allowAnimation && style.navbar)} {...hoverListeners} sx={navbarSx}>
+  return <Card className={clsx(allowAnimation && style.navbar)} {...hoverListeners} sx={navbarSx} ref={ref}>
     {render(allowAnimation, hovered)}
   </Card>;
-};
+});

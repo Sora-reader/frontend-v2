@@ -9,6 +9,8 @@ import {WebtoonPager} from "../pager/webtoon/WebtoonPager";
 import {PageAlert} from "../pager/PageAlert";
 import {DefaultPager} from "../pager/default/DefaultPager";
 import {PagerProps} from "../pager/types";
+import {Slide} from "@mui/material";
+import {useIsNavbarWrapped} from "../layout/Navbar/utils";
 
 type Props = {
   mangaId: string,
@@ -18,6 +20,7 @@ export const ReadChapterView = ({images, mangaId}: Props) => {
   const [page, setPage] = useState(1);
   const mangaAnchorProps = useFakeAnchorProps(`/manga/${mangaId}/`);
   const [showNavbar, setShowNavbar] = useState(true);
+  const isNavbarWrapped = useIsNavbarWrapped();
 
   const [pagerType, setPagerType] = useState<PagerType>('default');
   useEffect(() => {
@@ -46,7 +49,9 @@ export const ReadChapterView = ({images, mangaId}: Props) => {
   // Force type as images won't be undefined when used
 
   return <>
-    {showNavbar && <Navbar render={renderNavbarIcons}/>}
+    <Slide direction={isNavbarWrapped ? "up" : "right"} in={showNavbar} appear={false}>
+      <Navbar render={renderNavbarIcons}/>
+    </Slide>
     {images && <PageAlert page={page} images={images}/>}
     {
       images && (pagerType === 'webtoon' ? <WebtoonPager {...basePagerProps}/> :
