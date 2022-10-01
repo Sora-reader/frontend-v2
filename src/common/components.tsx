@@ -1,10 +1,6 @@
 import {Skeleton, SkeletonProps} from '@mui/material';
 import {forwardRef} from 'react';
 
-// Util type to add loading prop
-export type LoadingProps = {
-  loading: boolean,
-}
 
 export type SoraSkeletonProps = SkeletonProps
 // Skeleton override with better defaults (use joy theme style overrides when it's supported by JoyUI).

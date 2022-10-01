@@ -3,6 +3,7 @@ import style from './navbar.module.scss';
 import clsx from 'clsx';
 import {navbarWrapBreakpointKey, useAllowNavbarAnimation} from './utils';
 import {navbarSize} from '../../../common/const';
+import {Theme} from "@mui/joy";
 
 const navbarSx = (theme) => ({
   position: 'fixed',
@@ -36,6 +37,16 @@ const navbarSx = (theme) => ({
   },
 });
 
+export const buttonContainerSx = (theme: Theme) => ({
+  display: 'flex',
+  [theme.breakpoints.down(navbarWrapBreakpointKey)]: {
+    flexFlow: 'row nowrap',
+  },
+  [theme.breakpoints.up(navbarWrapBreakpointKey)]: {
+    flexFlow: 'column nowrap',
+  },
+  gap: '1rem',
+});
 
 type NavbarProps = {
   render: (allowAnimation: boolean, hovered: boolean) => JSX.Element,

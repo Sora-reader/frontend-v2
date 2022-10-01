@@ -1,5 +1,5 @@
 import Card from '@mui/joy/Card';
-import {LoadingProps} from '../../../common/components';
+import {LoadingProps} from '../../../common/types';
 import {ChapterType} from '../../../common/apiTypes';
 import {useFakeAnchorProps, useWithOptionalSkeleton} from '../../../common/hooks';
 

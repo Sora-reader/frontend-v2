@@ -1,7 +1,7 @@
 import {Chapter} from './Chapter';
 import {Option, Select, Stack} from '@mui/joy';
 import SortIcon from '@mui/icons-material/Sort';
-import {LoadingProps} from '../../../common/components';
+import {LoadingProps} from '../../../common/types';
 import {Chapters, ChapterType} from '../../../common/apiTypes';
 import {useMemo, useState} from 'react';
 
@@ -29,7 +29,7 @@ export const ChapterList = ({mangaId, chapters, loading}: Props) => {
       startDecorator={<SortIcon/>}
       placeholder=""
       value={sort}
-      onChange={(v) => setSort(v as Sort)}
+      onChange={(e, v) => setSort(v as Sort)}
       variant="soft"
       sx={[
         {marginBottom: 1, backgroundColor: 'var(--joy-palette-neutral-softBg)', width: 'fit-content'},

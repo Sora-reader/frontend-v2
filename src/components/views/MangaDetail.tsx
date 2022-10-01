@@ -38,7 +38,7 @@ export const MangaDetail = ({manga, loading, chapters, chaptersLoading}: Props) 
     <Grid container spacing={2}>
       <Bg img={manga.image}/>
 
-      <Grid sm={12} md={4}>
+      <Grid xs={12} sm={12} md={4}>
         <WithOptionalSkeleton sx={{maxWidth: '300px', my: 3}}>
           <Sheet variant="solid" sx={{maxWidth: '300px', borderRadius: 'md', overflow: 'auto', my: 3}}>
             <MangaImage src={manga.image}/>

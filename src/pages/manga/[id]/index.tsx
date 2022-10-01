@@ -11,6 +11,7 @@ import {useEffect, useState} from 'react';
 import {wrapper} from '../../../redux/store';
 import {MangaDetail} from '../../../components/views/MangaDetail';
 import {ChaptersWithStatus, MangaWithStatus} from '../../../common/apiTypes';
+import {isClientNavigation} from "../../../common/utils";
 
 interface PollingQueryResult<T> {
   data: T | undefined;
@@ -21,10 +22,11 @@ interface PollingQueryResult<T> {
 
 const useParsePollingQuery = <R, >(hook, arg, options, interval): PollingQueryResult<R> => {
   const [pollingOptions, setPollingOptions] = useState({});
-  const {data, ...otherQueryProps} = hook(arg, {
+  const {data, isError, error, refetch, ...otherQueryProps} = hook(arg, {
     ...options,
     ...pollingOptions,
   });
+
   useEffect(() => {
     if (data && data.status === 'parsing')
       setPollingOptions({pollingInterval: interval});
@@ -32,7 +34,13 @@ const useParsePollingQuery = <R, >(hook, arg, options, interval): PollingQueryRe
       setPollingOptions({});
   }, [data]);
 
-  return {data, ...otherQueryProps} as PollingQueryResult<R>;
+  useEffect(() => {
+    if (isError && error.originalStatus === 425) {
+      refetch();
+    }
+  }, [otherQueryProps]);
+
+  return {data, isError, error, refetch, ...otherQueryProps} as PollingQueryResult<R>;
 };
 
 type QueryProps = {
@@ -56,13 +64,17 @@ const Manga: NextPage = () => {
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const id = context.params?.id;
-    if (typeof id === 'string') {
-      store.dispatch(detail.initiate(id));
-      store.dispatch(chapters.initiate(id));
-    }
+    // TODO: add to other routes to make it faster
+    const isClient = isClientNavigation(context.req);
+    if (!isClient) {
+      const id = context.params?.id;
+      if (typeof id === 'string') {
+        store.dispatch(detail.initiate(id));
+        store.dispatch(chapters.initiate(id));
+      }
 
-    await Promise.all(getRunningOperationPromises());
+      await Promise.all(getRunningOperationPromises());
+    }
 
     return {
       props: {},
