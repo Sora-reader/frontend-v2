@@ -17,17 +17,19 @@ const renderBaseNavbarIcons = (allowAnimation, hovered) => {
   return <>
     <Box id="base-routes" sx={buttonContainerSx}>
       {Object.entries(baseRoutes).map(
-        ([href, {name, icon}]) => <NavbarRouteIcon key={href} name={name} href={href} {...iconExtraProps}>
-          {icon}
-        </NavbarRouteIcon>,
+        ([href, {name, icon: Icon}]) =>
+          <NavbarRouteIcon key={href} name={name} href={href} {...iconExtraProps}>
+            <Icon sx={{margin: '8px'}}/>
+          </NavbarRouteIcon>,
       )}
     </Box>
 
     <Box id="extra-routes" sx={buttonContainerSx}>
       {Object.entries(extraRoutes).map(
-        ([href, {name, icon}]) => <NavbarRouteIcon key={href} name={name} href={href} {...iconExtraProps}>
-          {icon}
-        </NavbarRouteIcon>,
+        ([href, {name, icon: Icon}]) =>
+          <NavbarRouteIcon key={href} name={name} href={href} {...iconExtraProps}>
+            <Icon sx={{margin: '8px'}}/>
+          </NavbarRouteIcon>,
       )}
     </Box>
   </>;

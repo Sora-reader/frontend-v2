@@ -15,6 +15,7 @@ const navbarSx = (theme) => ({
   justifyContent: 'space-between',
   alignItems: 'center',
   gap: '1rem',
+  padding: '.8rem',
   // media
   [theme.breakpoints.down(navbarWrapBreakpointKey)]: {
     bottom: 0,
@@ -40,11 +41,13 @@ const navbarSx = (theme) => ({
 
 export const buttonContainerSx = (theme: Theme) => ({
   display: 'flex',
+  maxWidth: '100%',
   [theme.breakpoints.down(navbarWrapBreakpointKey)]: {
     flexFlow: 'row nowrap',
   },
   [theme.breakpoints.up(navbarWrapBreakpointKey)]: {
     flexFlow: 'column nowrap',
+    width: '100%',
   },
   gap: '1rem',
 });

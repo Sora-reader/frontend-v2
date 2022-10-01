@@ -21,9 +21,14 @@ export const NavbarRouteIcon = (
   const color: ColorPaletteProp = activeRoute === href ? 'primary' : 'neutral';
 
   return <Sheet>
-    <IconButton color={color} {...useFakeAnchorProps(href)} {...props}>
+    <IconButton color={color} {...useFakeAnchorProps(href)} {...props} sx={{
+      padding: 0,
+      overflowX: 'hidden',
+      display: 'flex',
+      justifyContent: 'flex-start',
+    }}>
       {children}
-      {allowAnimation && hovered && <span>{name}</span>}
+      {allowAnimation && <span>{name}</span>}
     </IconButton>
   </Sheet>;
 };
