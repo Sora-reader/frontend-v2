@@ -63,3 +63,4 @@ export const emptyManga: MangaType = {
   genres: [],
 };
 
+export type MangaListType = Array<MangaType>;

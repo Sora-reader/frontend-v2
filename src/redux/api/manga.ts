@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {ChapterImageList, ChaptersWithStatus, MangaType, MangaWithStatus} from '../../common/apiTypes';
+import {ChapterImageList, ChaptersWithStatus, MangaListType, MangaWithStatus} from '../../common/apiTypes';
 import {apiUrl} from '../../common/const';
 import {HYDRATE} from 'next-redux-wrapper';
 
@@ -14,7 +14,7 @@ export const mangaApi = createApi({
     if (action.type === HYDRATE) return action.payload[reducerPath];
   },
   endpoints: (builder) => ({
-    search: builder.query<Array<MangaType>, string>({
+    search: builder.query<MangaListType, string>({
       query: (pk: string) => `search/?title=${pk}`,
     }),
     detail: builder.query<MangaWithStatus, PK>({

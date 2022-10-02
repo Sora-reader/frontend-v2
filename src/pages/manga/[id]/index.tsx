@@ -40,7 +40,7 @@ const useParsePollingQuery = <R, >(hook, arg, options, interval): PollingQueryRe
       if (!refetchRef.current) refetchRef.current = setTimeout(() => {
         refetch();
         refetchRef.current = null;
-      },500);
+      }, 500);
     }
   }, [otherQueryProps]);
 
