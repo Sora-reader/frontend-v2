@@ -7,7 +7,7 @@ import {
   useDetailQuery,
 } from '../../../redux/api/manga';
 import {useRouter} from 'next/router';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {wrapper} from '../../../redux/store';
 import {MangaDetail} from '../../../components/views/MangaDetail';
 import {ChaptersWithStatus, MangaWithStatus} from '../../../common/apiTypes';
@@ -26,6 +26,7 @@ const useParsePollingQuery = <R, >(hook, arg, options, interval): PollingQueryRe
     ...options,
     ...pollingOptions,
   });
+  const refetchRef = useRef<any>(null);
 
   useEffect(() => {
     if (data && data.status === 'parsing')
@@ -36,7 +37,10 @@ const useParsePollingQuery = <R, >(hook, arg, options, interval): PollingQueryRe
 
   useEffect(() => {
     if (isError && error.originalStatus === 425) {
-      refetch();
+      if (!refetchRef.current) refetchRef.current = setTimeout(() => {
+        refetch();
+        refetchRef.current = null;
+      },500);
     }
   }, [otherQueryProps]);
 

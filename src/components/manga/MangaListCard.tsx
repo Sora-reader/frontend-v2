@@ -20,7 +20,7 @@ export const MangaListCard = ({id, title, image}: Props) => {
 
   return <Card {...fakeLinkProps} variant="outlined">
     <div>
-      <WithOptionalSkeleton width="100%" height="4rem">
+      <WithOptionalSkeleton width="100%" height="3rem" sx={{mb: '1rem'}}>
         <Typography component="h2" fontWeight="bold" marginBottom="1rem !important" sx={{
           height: '3rem',
           ...lineClampSx(2),
@@ -28,7 +28,7 @@ export const MangaListCard = ({id, title, image}: Props) => {
           {title}
         </Typography>
       </WithOptionalSkeleton>
-      <WithOptionalSkeleton width="100%" height="300px">
+      <WithOptionalSkeleton width="100%" height="329px">
         <MangaImage src={image}/>
       </WithOptionalSkeleton>
     </div>
