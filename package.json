@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gcp-build": "next build",
+    "create-env": "printenv > .env",
+    "deploy": "gcloud app deploy --appyaml infra/app.yaml"
   },
   "dependencies": {
     "@babel/core": "^7.19.1",
