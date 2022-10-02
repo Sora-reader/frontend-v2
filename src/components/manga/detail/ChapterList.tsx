@@ -16,7 +16,6 @@ const sortMapping: Record<Sort, (a: ChapterType, b: ChapterType) => number> = {
   old: (a, b) => (a.volume - b.volume || a.number - b.number),
 };
 
-// Handle sorting
 export const ChapterList = ({mangaId, chapters, loading}: Props) => {
   const [sort, setSort] = useState('new');
   const chaptersSorted = useMemo(
@@ -49,8 +48,4 @@ export const ChapterList = ({mangaId, chapters, loading}: Props) => {
       }
     </Stack>
   </>;
-};
-
-ChapterList.defaultProps = {
-  loading: false,
 };

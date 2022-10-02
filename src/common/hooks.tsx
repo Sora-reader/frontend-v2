@@ -99,7 +99,7 @@ export const usePollingQuery = <R, >(hook, arg, options, interval): PollingQuery
     error,
     refetch,
     ...otherQueryProps,
-    // Simulate "loading" status when we receive 425
-    isLoading: isLoading || error?.originalStatus === 425,
+    // Return IsLoading or (simulate it when we receive 425 ~OR~ it's really "parsing")
+    isLoading: isLoading || error?.originalStatus === 425 || (data && data.status === 'parsing'),
   } as PollingQueryResult<R>;
 };

@@ -9,7 +9,7 @@ import {
 import {useRouter} from 'next/router';
 import {wrapper} from '../../../redux/store';
 import {MangaDetail} from '../../../components/views/MangaDetail';
-import {ChaptersWithStatus, MangaWithStatus} from '../../../common/apiTypes';
+import {ChaptersWithStatus, emptyManga, MangaWithStatus} from '../../../common/apiTypes';
 import {isClientNavigation} from "../../../common/utils";
 import {usePollingQuery} from "../../../common/hooks";
 
@@ -24,7 +24,14 @@ const Manga: NextPage = () => {
   const mangaQuery = usePollingQuery<MangaWithStatus>(useDetailQuery, id, {skip: !id}, 500);
   const chaptersQuery = usePollingQuery<ChaptersWithStatus>(useChaptersQuery, id, {skip: !id}, 500);
 
-  return <MangaDetail mangaQuery={mangaQuery} chaptersQuery={chaptersQuery}/>;
+  const manga = mangaQuery.data?.data || emptyManga;
+  const mangaLoading = mangaQuery.isLoading;
+  const chapters = chaptersQuery.data?.data;
+  const chaptersLoading = chaptersQuery.isLoading;
+
+  return <MangaDetail
+    manga={manga} mangaLoading={mangaLoading} chapters={chapters} chaptersLoading={chaptersLoading}
+  />;
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(

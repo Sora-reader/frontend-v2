@@ -12,7 +12,7 @@ type Props = {
 
 export const MangaImage = ({src}: Props) => (
   <AspectRatio ratio="310/500">
-    <ScaledImage src={src}/>
+    <ScaledImage src={src} loading="lazy"/>
   </AspectRatio>
 );
 

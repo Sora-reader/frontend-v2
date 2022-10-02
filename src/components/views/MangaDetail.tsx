@@ -2,9 +2,10 @@ import {MangaImage} from '../manga/MangaImage';
 import {styled} from '@mui/material/styles';
 import {Box, Chip, Grid, Sheet, Typography} from '@mui/joy';
 import Rating from '@mui/material/Rating';
-import {ChaptersWithStatus, emptyManga, MangaWithStatus} from '../../common/apiTypes';
 import {ChapterList} from '../manga/detail/ChapterList';
-import {PollingQueryResult, useWithOptionalSkeleton} from '../../common/hooks';
+import {useWithOptionalSkeleton} from '../../common/hooks';
+import {memo} from "react";
+import {Chapters, MangaType} from "../../common/apiTypes";
 
 type BgProps = {
   img?: string,
@@ -26,15 +27,12 @@ const Bg = styled('div')<BgProps>(({img}) => {
 });
 
 type Props = {
-  mangaQuery: PollingQueryResult<MangaWithStatus>,
-  chaptersQuery: PollingQueryResult<ChaptersWithStatus>,
+  manga: MangaType,
+  mangaLoading: boolean,
+  chapters?: Chapters,
+  chaptersLoading: boolean,
 }
-export const MangaDetail = ({mangaQuery, chaptersQuery}: Props) => {
-  const manga = mangaQuery.data?.data;
-  const mangaLoading = mangaQuery.isLoading;
-  const chapters = chaptersQuery.data?.data;
-  const chaptersLoading = chaptersQuery.isLoading;
-
+export const MangaDetail = memo(({manga, mangaLoading, chapters, chaptersLoading}: Props) => {
   const WithOptionalSkeleton = useWithOptionalSkeleton(mangaLoading);
 
   return <div>
@@ -73,9 +71,4 @@ export const MangaDetail = ({mangaQuery, chaptersQuery}: Props) => {
       </Grid>
     </Grid>
   </div>;
-};
-
-MangaDetail.defaultProps = {
-  manga: emptyManga,
-  loading: false,
-};
+});

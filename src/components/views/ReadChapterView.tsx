@@ -33,13 +33,13 @@ export const ReadChapterView = ({images, mangaId}: Props) => {
     }
   }, [images]);
 
-  const renderNavbarIcons = () => {
+  const renderNavbarIcons = useCallback(() => {
     return <Box sx={buttonContainerSx}>
       <IconButton {...mangaAnchorProps}>
         <ArrowBackIcon/>
       </IconButton>
     </Box>
-  }
+  }, [mangaAnchorProps]);
 
   const basePagerProps = {
     images,
