@@ -2,9 +2,9 @@ import {MangaImage} from '../manga/MangaImage';
 import {styled} from '@mui/material/styles';
 import {Box, Chip, Grid, Sheet, Typography} from '@mui/joy';
 import Rating from '@mui/material/Rating';
-import {Chapters, emptyManga, MangaType} from '../../common/apiTypes';
+import {ChaptersWithStatus, emptyManga, MangaWithStatus} from '../../common/apiTypes';
 import {ChapterList} from '../manga/detail/ChapterList';
-import {useWithOptionalSkeleton} from '../../common/hooks';
+import {PollingQueryResult, useWithOptionalSkeleton} from '../../common/hooks';
 
 type BgProps = {
   img?: string,
@@ -26,47 +26,50 @@ const Bg = styled('div')<BgProps>(({img}) => {
 });
 
 type Props = {
-  manga: MangaType,
-  loading: boolean,
-  chapters?: Chapters,
-  chaptersLoading: boolean,
+  mangaQuery: PollingQueryResult<MangaWithStatus>,
+  chaptersQuery: PollingQueryResult<ChaptersWithStatus>,
 }
-export const MangaDetail = ({manga, loading, chapters, chaptersLoading}: Props) => {
-  const WithOptionalSkeleton = useWithOptionalSkeleton(loading);
+export const MangaDetail = ({mangaQuery, chaptersQuery}: Props) => {
+  const manga = mangaQuery.data?.data;
+  const mangaLoading = mangaQuery.isLoading;
+  const chapters = chaptersQuery.data?.data;
+  const chaptersLoading = chaptersQuery.isLoading;
+
+  const WithOptionalSkeleton = useWithOptionalSkeleton(mangaLoading);
 
   return <div>
     <Grid container spacing={2}>
-      <Bg img={manga.image}/>
+      <Bg img={manga?.image}/>
 
       <Grid xs={12} sm={12} md={4}>
         <WithOptionalSkeleton sx={{maxWidth: '300px', my: 3}}>
           <Sheet variant="solid" sx={{maxWidth: '300px', borderRadius: 'md', overflow: 'auto', my: 3}}>
-            <MangaImage src={manga.image}/>
+            <MangaImage src={manga?.image}/>
           </Sheet>
         </WithOptionalSkeleton>
       </Grid>
 
       <Grid sm={12} md={8}>
         <WithOptionalSkeleton width="467px" height="37px" sx={{my: 3}}>
-          <h1>{manga.title}</h1>
+          <h1>{manga?.title}</h1>
         </WithOptionalSkeleton>
         <WithOptionalSkeleton width="300px" height="37px" sx={{my: 1}}>
           <Box sx={{display: 'flex', gap: 1, marginBottom: 1, flexFlow: 'column nowrap'}}>
             <div>
-              {manga.genres.map((g) => <Chip variant="soft" key={g}>{g}</Chip>)}
+              {manga?.genres.map((g) => <Chip variant="soft" key={g}>{g}</Chip>)}
             </div>
-            {manga.rating && <Rating value={Number(manga.rating)} readOnly precision={0.1}/>}
+            {manga?.rating && <Rating value={Number(manga.rating)} readOnly precision={0.1}/>}
           </Box>
         </WithOptionalSkeleton>
         <WithOptionalSkeleton width="467px" height="300px" sx={{my: 3}}>
           <Typography level="h6">
-            {manga.description}
+            {manga?.description}
           </Typography>
         </WithOptionalSkeleton>
       </Grid>
 
       <Grid xs={12}>
-        <ChapterList mangaId={manga.id} chapters={chapters} loading={chaptersLoading}/>
+        <ChapterList mangaId={manga?.id} chapters={chapters} loading={chaptersLoading}/>
       </Grid>
     </Grid>
   </div>;
