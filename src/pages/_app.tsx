@@ -1,4 +1,5 @@
 import '../styles/globals.scss';
+import 'nprogress/nprogress.css';
 import type {AppProps} from 'next/app';
 import {wrapper} from '../redux/store';
 import React from 'react';
@@ -11,6 +12,8 @@ import Head from 'next/head';
 import {useMounted} from '../common/hooks';
 import {MainLayout} from '../components/layout/MainLayout';
 import {useIsReaderRoute} from "../common/routes";
+import {Router} from "next/router";
+import NProgress from 'nprogress'
 
 function ModeToggle() {
   const {mode, setMode} = useColorScheme();
@@ -29,6 +32,15 @@ function ModeToggle() {
     </Button>
   );
 }
+
+NProgress.configure({showSpinner: false});
+Router.events.on("routeChangeStart", () => {
+  NProgress.start()
+})
+
+Router.events.on("routeChangeComplete", () => {
+  NProgress.done(false)
+});
 
 function MyApp({Component, pageProps}: AppProps) {
   const theme = themeBase;

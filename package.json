@@ -24,6 +24,7 @@
     "clsx": "^1.2.1",
     "next": "12.2.5",
     "next-redux-wrapper": "^7.0.5",
+    "nprogress": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-intersection-observer": "^9.4.0",
