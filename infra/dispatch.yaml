@@ -1,4 +1,3 @@
-# I'm not sure why I needed this for my DNS to work, but I'll keep it just in case
 dispatch:
   - url: "sora-reader.app/*"
-    service: default
+    service: frontend
