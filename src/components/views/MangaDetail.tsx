@@ -3,7 +3,7 @@ import {styled} from '@mui/material/styles';
 import {Box, Chip, Grid, Sheet, Typography} from '@mui/joy';
 import Rating from '@mui/material/Rating';
 import {ChapterList} from '../manga/detail/ChapterList';
-import {useWithOptionalSkeleton} from '../../common/hooks';
+import {useIsEmptyManga, useIsPartialManga, useWithOptionalSkeleton} from '../../common/hooks';
 import {memo} from "react";
 import {Chapters, MangaType} from "../../common/apiTypes";
 
@@ -28,12 +28,13 @@ const Bg = styled('div')<BgProps>(({img}) => {
 
 type Props = {
   manga: MangaType,
-  mangaLoading: boolean,
   chapters?: Chapters,
   chaptersLoading: boolean,
 }
-export const MangaDetail = memo(({manga, mangaLoading, chapters, chaptersLoading}: Props) => {
-  const WithOptionalSkeleton = useWithOptionalSkeleton(mangaLoading);
+export const MangaDetail = memo(({manga, chapters, chaptersLoading}: Props) => {
+  const isEmptyManga = useIsEmptyManga(manga);
+  const isPartialManga = useIsPartialManga(manga);
+  const WithOptionalSkeleton = useWithOptionalSkeleton(isEmptyManga);
 
   return <div>
     <Grid container spacing={2}>
@@ -51,7 +52,7 @@ export const MangaDetail = memo(({manga, mangaLoading, chapters, chaptersLoading
         <WithOptionalSkeleton width="467px" height="37px" sx={{my: 3}}>
           <h1>{manga?.title}</h1>
         </WithOptionalSkeleton>
-        <WithOptionalSkeleton width="300px" height="37px" sx={{my: 1}}>
+        <WithOptionalSkeleton width="300px" height="37px" sx={{my: 1}} forceWrap={isPartialManga}>
           <Box sx={{display: 'flex', gap: 1, marginBottom: 1, flexFlow: 'column nowrap'}}>
             <div>
               {manga?.genres.map((g) => <Chip variant="soft" key={g}>{g}</Chip>)}
@@ -59,7 +60,7 @@ export const MangaDetail = memo(({manga, mangaLoading, chapters, chaptersLoading
             {manga?.rating && <Rating value={Number(manga.rating)} readOnly precision={0.1}/>}
           </Box>
         </WithOptionalSkeleton>
-        <WithOptionalSkeleton width="467px" height="300px" sx={{my: 3}}>
+        <WithOptionalSkeleton width="467px" height="300px" sx={{my: 3}} forceWrap={isPartialManga}>
           <Typography level="h6">
             {manga?.description}
           </Typography>

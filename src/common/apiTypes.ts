@@ -15,7 +15,7 @@ export interface MangaType {
   source_url: string,
   title: string,
   alt_title?: string,
-  rating?: string,
+  rating: string,
   thumbnail: string,
   image?: string,
   description: string,
@@ -59,6 +59,7 @@ export const emptyManga: MangaType = {
   source_url: '',
   description: '',
   thumbnail: '',
+  rating: '-1',
   authors: [],
   genres: [],
 };

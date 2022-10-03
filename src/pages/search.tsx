@@ -23,8 +23,8 @@ const SearchPage: NextPage = () => {
 
   return <>
     <h1>Поиск</h1>
-    <TextField size="lg" label="Название манги" value={input} onChange={onChange}
-               sx={{my: 2}}/>
+    <TextField
+      size="lg" label="Название манги" value={input} onChange={onChange} sx={{my: 2}} autoFocus={true}/>
     <MangaList mangaList={data} loading={isLoading}/>
   </>;
 }

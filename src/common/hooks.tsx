@@ -34,24 +34,29 @@ export const useFakeAnchorProps = (href: string = '#') => {
 };
 
 /** Determine if manga can be counted as "empty" or "not loaded"
- * @param value manda or it's id parameter */
+ * @param value manga or it's id parameter */
 export const useIsEmptyManga = (value: MangaType | number) => useMemo(
   () => Number.isInteger(value) ? !~value : !~(value as MangaType).id,
   [value],
 );
 
+/** Determine if manga is partially parsed. Meaning there are still details to be parsed
+ * @param value manda or it's id parameter */
+export const useIsPartialManga = (value: MangaType) => useMemo(
+  () => !~+value.rating,
+  [value],
+);
+
+type OptionalSkeletonHookProps = SoraSkeletonProps & { forceWrap?: boolean };
 /** Hook to support rendering optional Skeleton wrapper depending on some value.
  * Returns a component which accepts children which should be wrapped and usual <Skeleton/> props.
+ *
+ * You can override initial shouldWrap argument with forceWrap argument to the component itself.
  * @param shouldWrap bool to determine if skeleton should be rendered
  */
-export const useWithOptionalSkeleton = (shouldWrap: boolean) => (
-  // @ts-ignore
-  {children, ...props}: SoraSkeletonProps): JSX.Element => (
-  shouldWrap ? <SoraSkeleton {...props}>
-      {children}
-    </SoraSkeleton> :
-    children
-);
+export const useWithOptionalSkeleton = (shouldWrap: boolean) =>
+  ({forceWrap, children, ...props}: OptionalSkeletonHookProps): JSX.Element =>
+    (shouldWrap || forceWrap ? <SoraSkeleton children={children} {...props} /> : children as any);
 
 export interface PollingQueryResult<T> {
   data: T | undefined,

@@ -25,13 +25,10 @@ const Manga: NextPage = () => {
   const chaptersQuery = usePollingQuery<ChaptersWithStatus>(useChaptersQuery, id, {skip: !id}, 500);
 
   const manga = mangaQuery.data?.data || emptyManga;
-  const mangaLoading = mangaQuery.isLoading;
   const chapters = chaptersQuery.data?.data;
   const chaptersLoading = chaptersQuery.isLoading;
 
-  return <MangaDetail
-    manga={manga} mangaLoading={mangaLoading} chapters={chapters} chaptersLoading={chaptersLoading}
-  />;
+  return <MangaDetail manga={manga} chapters={chapters} chaptersLoading={chaptersLoading}/>;
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(

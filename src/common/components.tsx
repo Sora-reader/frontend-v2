@@ -2,7 +2,7 @@ import {Skeleton, SkeletonProps} from '@mui/material';
 import {forwardRef} from 'react';
 
 
-export type SoraSkeletonProps = SkeletonProps
+export type SoraSkeletonProps = SkeletonProps;
 // Skeleton override with better defaults (use joy theme style overrides when it's supported by JoyUI).
 export const SoraSkeleton = forwardRef<any, SoraSkeletonProps>(
   ({sx, variant, ...props}, ref) => {
