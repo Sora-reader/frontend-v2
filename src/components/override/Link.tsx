@@ -2,10 +2,10 @@
 // With tweaks to support joy ui
 import * as React from 'react';
 import clsx from 'clsx';
-import {useRouter} from 'next/router';
-import NextLink, {LinkProps as NextLinkProps} from 'next/link';
-import MuiLink, {LinkProps as MuiLinkProps} from '@mui/joy/Link';
-import {styled} from '@mui/material/styles';
+import { useRouter } from 'next/router';
+import NextLink, { LinkProps as NextLinkProps } from 'next/link';
+import MuiLink, { LinkProps as MuiLinkProps } from '@mui/joy/Link';
+import { styled } from '@mui/material/styles';
 
 // Add support for the sx prop for consistency with the other branches.
 const Anchor = styled('a')({});
@@ -19,7 +19,7 @@ interface NextLinkComposedProps
 
 export const NextLinkComposed = React.forwardRef<HTMLAnchorElement, NextLinkComposedProps>(
   function NextLinkComposed(props, ref) {
-    const {to, linkAs, replace, scroll, shallow, prefetch, locale, ...other} = props;
+    const { to, linkAs, replace, scroll, shallow, prefetch, locale, ...other } = props;
 
     return (
       <NextLink
@@ -35,7 +35,7 @@ export const NextLinkComposed = React.forwardRef<HTMLAnchorElement, NextLinkComp
         <Anchor ref={ref} {...other} />
       </NextLink>
     );
-  },
+  }
 );
 
 export type LinkProps = {
@@ -85,19 +85,11 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(function Link
   }
 
   const linkAs = linkAsProp || as;
-  const nextjsProps = {to: href, linkAs, replace, scroll, shallow, prefetch, locale};
+  const nextjsProps = { to: href, linkAs, replace, scroll, shallow, prefetch, locale };
 
   if (noLinkStyle) {
     return <NextLinkComposed className={className} ref={ref} {...nextjsProps} {...other} />;
   }
 
-  return (
-    <MuiLink
-      component={NextLinkComposed}
-      className={className}
-      ref={ref}
-      {...nextjsProps}
-      {...other}
-    />
-  );
+  return <MuiLink component={NextLinkComposed} className={className} ref={ref} {...nextjsProps} {...other} />;
 });

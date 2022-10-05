@@ -1,5 +1,5 @@
-import {useRouter} from 'next/router';
-import {useMemo} from 'react';
+import { useRouter } from 'next/router';
+import { useMemo } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -57,4 +57,4 @@ export const useIsReaderRoute = (): boolean => {
   const router = useRouter();
 
   return router.pathname.includes('/read/');
-}
+};

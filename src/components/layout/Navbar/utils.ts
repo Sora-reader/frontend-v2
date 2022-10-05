@@ -1,6 +1,6 @@
-import {useTheme} from '@mui/joy';
-import {useMediaQuery} from '@mui/material';
-import {useCallback, useEffect, useState} from 'react';
+import { useTheme } from '@mui/joy';
+import { useMediaQuery } from '@mui/material';
+import { useCallback, useEffect, useState } from 'react';
 
 export const navbarWrapBreakpointKey = 'lg';
 
@@ -31,5 +31,5 @@ export const useAllowNavbarAnimation = () => {
     setHovered(false);
   }, []);
 
-  return {allowAnimation, hovered, onMouseEnter, onMouseLeave};
+  return { allowAnimation, hovered, onMouseEnter, onMouseLeave };
 };

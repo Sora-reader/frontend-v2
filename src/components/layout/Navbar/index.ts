@@ -1,2 +1,2 @@
-export {Navbar} from './Navbar';
-export {navbarWrapBreakpointKey} from './utils';
+export { Navbar } from './Navbar';
+export { navbarWrapBreakpointKey } from './utils';

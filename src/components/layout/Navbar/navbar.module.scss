@@ -27,7 +27,8 @@
     animation-fill-mode: forwards;
     animation-duration: $duration;
 
-    & > div, a {
+    & > div,
+    a {
       width: 100%;
     }
   }

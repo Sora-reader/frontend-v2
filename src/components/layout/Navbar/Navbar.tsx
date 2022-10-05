@@ -1,10 +1,10 @@
 import Card from '@mui/joy/Card';
 import style from './navbar.module.scss';
 import clsx from 'clsx';
-import {navbarWrapBreakpointKey, useAllowNavbarAnimation} from './utils';
-import {navbarSize} from '../../../common/const';
-import {Theme} from "@mui/joy";
-import {forwardRef} from "react";
+import { navbarWrapBreakpointKey, useAllowNavbarAnimation } from './utils';
+import { navbarSize } from '../../../common/const';
+import { Theme } from '@mui/joy';
+import { forwardRef } from 'react';
 
 const navbarSx = (theme) => ({
   position: 'fixed',
@@ -53,13 +53,15 @@ export const buttonContainerSx = (theme: Theme) => ({
 });
 
 type NavbarProps = {
-  render: (allowAnimation: boolean, hovered: boolean) => JSX.Element,
-}
+  render: (allowAnimation: boolean, hovered: boolean) => JSX.Element;
+};
 
-export const Navbar = forwardRef<any, any>(({render}: NavbarProps, ref) => {
-  const {allowAnimation, hovered, ...hoverListeners} = useAllowNavbarAnimation();
+export const Navbar = forwardRef<any, any>(({ render }: NavbarProps, ref) => {
+  const { allowAnimation, hovered, ...hoverListeners } = useAllowNavbarAnimation();
 
-  return <Card className={clsx(allowAnimation && style.navbar)} {...hoverListeners} sx={navbarSx} ref={ref}>
-    {render(allowAnimation, hovered)}
-  </Card>;
+  return (
+    <Card className={clsx(allowAnimation && style.navbar)} {...hoverListeners} sx={navbarSx} ref={ref}>
+      {render(allowAnimation, hovered)}
+    </Card>
+  );
 });

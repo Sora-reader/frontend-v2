@@ -1,21 +1,21 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {ChapterImageList, ChaptersWithStatus, MangaListType, MangaWithStatus} from '../../common/apiTypes';
-import {apiUrl} from '../../common/const';
-import {HYDRATE} from 'next-redux-wrapper';
-import {camelCaseKeys} from "../../common/utils";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { ChapterImageList, ChaptersWithStatus, MangaListType, MangaWithStatus } from '../../common/apiTypes';
+import { apiUrl } from '../../common/const';
+import { HYDRATE } from 'next-redux-wrapper';
+import { camelCaseKeys } from '../../common/utils';
 
 const mangaAPIBaseUrl = `${apiUrl}/manga/`;
 type PK = string | number;
-type ImagesQueryArg = { mangaPk: PK, chapterPk: PK };
+type ImagesQueryArg = { mangaPk: PK; chapterPk: PK };
 
 export const mangaApi = createApi({
   reducerPath: 'mangaAPI',
   async baseQuery(...args) {
-    const res = await fetchBaseQuery({baseUrl: mangaAPIBaseUrl})(...args)
+    const res = await fetchBaseQuery({ baseUrl: mangaAPIBaseUrl })(...args);
     res.data = camelCaseKeys(res.data);
-    return res
+    return res;
   },
-  extractRehydrationInfo(action, {reducerPath}) {
+  extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) return action.payload[reducerPath];
   },
   endpoints: (builder) => ({
@@ -29,14 +29,17 @@ export const mangaApi = createApi({
       query: (pk: PK) => `${pk}/chapters/`,
     }),
     images: builder.query<ChapterImageList, ImagesQueryArg>({
-      query: ({mangaPk, chapterPk}: ImagesQueryArg) => `${mangaPk}/chapters/${chapterPk}/images/`,
+      query: ({ mangaPk, chapterPk }: ImagesQueryArg) => `${mangaPk}/chapters/${chapterPk}/images/`,
     }),
   }),
 });
 
 export const {
-  useSearchQuery, useDetailQuery, useChaptersQuery, useImagesQuery,
-  util: {getRunningOperationPromises},
+  useSearchQuery,
+  useDetailQuery,
+  useChaptersQuery,
+  useImagesQuery,
+  util: { getRunningOperationPromises },
 } = mangaApi;
 
-export const {search, detail, chapters, images} = mangaApi.endpoints;
+export const { search, detail, chapters, images } = mangaApi.endpoints;

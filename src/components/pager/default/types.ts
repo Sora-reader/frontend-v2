@@ -1,5 +1,5 @@
-import {PagerProps} from "../types";
+import { PagerProps } from '../types';
 
 export type DefaultPagerProps = Required<PagerProps> & {
-  page: number,
-}
+  page: number;
+};

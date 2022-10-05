@@ -1,8 +1,8 @@
-import {CssVarsThemeOptions} from '@mui/joy';
-import {deepmerge} from '@mui/utils';
-import {experimental_extendTheme as extendMuiTheme} from '@mui/material/styles';
+import { CssVarsThemeOptions } from '@mui/joy';
+import { deepmerge } from '@mui/utils';
+import { experimental_extendTheme as extendMuiTheme } from '@mui/material/styles';
 import colors from '@mui/joy/colors';
-import {extendTheme as extendJoyTheme} from '@mui/joy/styles';
+import { extendTheme as extendJoyTheme } from '@mui/joy/styles';
 
 const joyTheme: CssVarsThemeOptions = extendJoyTheme({
   fontFamily: {

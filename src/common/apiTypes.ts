@@ -11,28 +11,28 @@ type Author = string;
 type ParsingStatus = 'parsing' | 'upToDate';
 
 export interface MangaType {
-  id: number,
-  sourceUrl: string,
-  title: string,
-  altTitle?: string,
-  rssUrl?: string,
-  rating?: string,
-  thumbnail: string,
-  image?: string,
-  description: string,
-  genres: Array<Genre>,
-  authors: Array<Author>,
-  status?: string,
-  year?: string,
-  modified?: string,
+  id: number;
+  sourceUrl: string;
+  title: string;
+  altTitle?: string;
+  rssUrl?: string;
+  rating?: string;
+  thumbnail: string;
+  image?: string;
+  description: string;
+  genres: Array<Genre>;
+  authors: Array<Author>;
+  status?: string;
+  year?: string;
+  modified?: string;
 }
 
 export interface ChapterType {
-  id: number,
-  title: string,
-  link: string,
-  number: number,
-  volume: number,
+  id: number;
+  title: string;
+  link: string;
+  number: number;
+  volume: number;
 }
 
 // Collections
@@ -43,13 +43,13 @@ export type ChapterImageList = Array<Image>;
 // Complex types
 
 export interface MangaWithStatus {
-  status: ParsingStatus,
-  data: MangaType,
+  status: ParsingStatus;
+  data: MangaType;
 }
 
 export interface ChaptersWithStatus {
-  status: ParsingStatus,
-  data: Chapters,
+  status: ParsingStatus;
+  data: Chapters;
 }
 
 // Value examples/stubs

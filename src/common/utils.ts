@@ -1,8 +1,7 @@
 import _ from 'lodash';
-import {IncomingMessage} from "http";
+import { IncomingMessage } from 'http';
 
 export const isClientNavigation = (req: IncomingMessage) => req.url?.startsWith('/_next');
-
 
 /**
  * Get a copy of object with all keys in camelCase
