@@ -12,10 +12,11 @@ type ParsingStatus = 'parsing' | 'upToDate';
 
 export interface MangaType {
   id: number,
-  source_url: string,
+  sourceUrl: string,
   title: string,
-  alt_title?: string,
-  rating: string,
+  altTitle?: string,
+  rssUrl?: string,
+  rating?: string,
   thumbnail: string,
   image?: string,
   description: string,
@@ -56,10 +57,9 @@ export interface ChaptersWithStatus {
 export const emptyManga: MangaType = {
   id: -1,
   title: '',
-  source_url: '',
+  sourceUrl: '',
   description: '',
   thumbnail: '',
-  rating: '-1',
   authors: [],
   genres: [],
 };
