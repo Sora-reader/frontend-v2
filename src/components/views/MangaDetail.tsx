@@ -77,3 +77,5 @@ export const MangaDetail = memo(({ manga, chapters, chaptersLoading }: Props) =>
     </div>
   );
 });
+
+MangaDetail.displayName = 'MangaDetail';

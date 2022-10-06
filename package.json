@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "fix": "yarn prettier --write src",
     "gcp-build": "next build",
-    "create-env": "printenv > .env",
     "deploy": "gcloud app deploy --appyaml infra/app.yaml"
   },
   "dependencies": {

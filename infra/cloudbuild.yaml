@@ -3,9 +3,12 @@ steps:
     entrypoint: yarn
     args: [ "install", "--force" ]
 
-  - name: node:16
-    entrypoint: yarn
-    args: [ "run", "create-env" ]
+  - name: ubuntu
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        printenv >| .env
     env:
       - 'NEXT_PUBLIC_API_URL=${_NEXT_PUBLIC_API_URL}'
       - 'API_URL=${_API_URL}'

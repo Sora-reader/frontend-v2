@@ -9,7 +9,14 @@ type Props = {
 
 export const MangaList = ({ mangaList, loading }: Props) => {
   return (
-    <Grid container spacing={2}>
+    <Grid
+      container
+      spacing={{
+        xs: 0,
+        sm: 1,
+        md: 2,
+      }}
+    >
       {loading
         ? [...Array(8)].map((_, i) => (
             <Grid xs={6} sm={4} md={3} key={`skeleton-${i}`}>

@@ -12,7 +12,7 @@ export const mangaApi = createApi({
   reducerPath: 'mangaAPI',
   async baseQuery(...args) {
     const res = await fetchBaseQuery({ baseUrl: mangaAPIBaseUrl })(...args);
-    res.data = camelCaseKeys(res.data);
+    if (res.data) res.data = camelCaseKeys(res.data);
     return res;
   },
   extractRehydrationInfo(action, { reducerPath }) {

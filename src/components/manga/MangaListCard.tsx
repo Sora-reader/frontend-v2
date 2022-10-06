@@ -19,7 +19,15 @@ export const MangaListCard = ({ id, title, image }: Props) => {
   const WithOptionalSkeleton = useWithOptionalSkeleton(isEmptyManga);
 
   return (
-    <Card {...fakeLinkProps} variant="outlined">
+    <Card
+      {...fakeLinkProps}
+      variant="outlined"
+      sx={(theme) => ({
+        [theme.breakpoints.down('sm')]: {
+          padding: '.7rem',
+        },
+      })}
+    >
       <div>
         <WithOptionalSkeleton width="100%" height="3rem" sx={{ mb: '1rem' }}>
           <Typography
