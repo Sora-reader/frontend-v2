@@ -1,6 +1,6 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
-import { mangaApi } from './api/manga';
+import { mangaApi } from '../api/mangaApi';
 
 const reducer = combineReducers({
   [mangaApi.reducerPath]: mangaApi.reducer,

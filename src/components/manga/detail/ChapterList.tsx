@@ -2,12 +2,12 @@ import { Chapter } from './Chapter';
 import { Option, Select, Stack } from '@mui/joy';
 import SortIcon from '@mui/icons-material/Sort';
 import { LoadingProps } from '../../../common/types';
-import { Chapters, ChapterType } from '../../../common/apiTypes';
+import { ChapterListType, ChapterType } from '../../../api/types';
 import { useMemo, useState } from 'react';
 
 type Props = {
   mangaId?: number;
-  chapters?: Chapters;
+  chapters?: ChapterListType;
 } & LoadingProps;
 
 type Sort = 'new' | 'old';

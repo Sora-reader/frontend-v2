@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useImagesQuery } from '../../../../redux/api/manga';
+import { useImagesQuery } from '../../../../api/mangaApi';
 import { useRouter } from 'next/router';
 import { ReadChapterView } from '../../../../components/views/ReadChapterView';
 

@@ -2,7 +2,7 @@ import Card from '@mui/joy/Card';
 import style from './navbar.module.scss';
 import clsx from 'clsx';
 import { navbarWrapBreakpointKey, useAllowNavbarAnimation } from './utils';
-import { navbarSize } from '../../../common/const';
+import { navbarSize } from './const';
 import { Theme } from '@mui/joy';
 import { forwardRef } from 'react';
 

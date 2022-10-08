@@ -1,5 +1,3 @@
-import { useRouter } from 'next/router';
-import { useMemo } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -35,26 +33,4 @@ export const extraRoutes = {
 export const routes = {
   ...baseRoutes,
   ...extraRoutes,
-};
-
-/** Get active route's base route from the mapping */
-export const useActiveRoute = () => {
-  const router = useRouter();
-
-  return useMemo(() => {
-    let match;
-    Object.keys(routes).forEach((route) => {
-      if (router.asPath.startsWith(route)) {
-        match = route;
-      }
-    });
-    return match;
-  }, [router.asPath]);
-};
-
-/** Hook to determine if current route is a reader view */
-export const useIsReaderRoute = (): boolean => {
-  const router = useRouter();
-
-  return router.pathname.includes('/read/');
 };

@@ -1,14 +1,6 @@
-// TODO: not implemented yet
-// export interface Category {
-//
-// }
-
-// Base types and aliases
-
-type Image = string;
-type Genre = string;
-type Author = string;
-type ParsingStatus = 'parsing' | 'upToDate';
+export type Image = string;
+export type Genre = string;
+export type Author = string;
 
 export interface MangaType {
   id: number;
@@ -37,10 +29,11 @@ export interface ChapterType {
 
 // Collections
 
-export type Chapters = Array<ChapterType>;
-export type ChapterImageList = Array<Image>;
+export type ParsingStatus = 'parsing' | 'upToDate';
 
-// Complex types
+export type ChapterListType = Array<ChapterType>;
+export type ChapterImageList = Array<Image>;
+export type MangaListType = Array<MangaType>;
 
 export interface MangaWithStatus {
   status: ParsingStatus;
@@ -49,19 +42,5 @@ export interface MangaWithStatus {
 
 export interface ChaptersWithStatus {
   status: ParsingStatus;
-  data: Chapters;
+  data: ChapterListType;
 }
-
-// Value examples/stubs
-
-export const emptyManga: MangaType = {
-  id: -1,
-  title: '',
-  sourceUrl: '',
-  description: '',
-  thumbnail: '',
-  authors: [],
-  genres: [],
-};
-
-export type MangaListType = Array<MangaType>;

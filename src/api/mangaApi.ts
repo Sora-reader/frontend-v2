@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ChapterImageList, ChaptersWithStatus, MangaListType, MangaWithStatus } from '../../common/apiTypes';
-import { apiUrl } from '../../common/const';
 import { HYDRATE } from 'next-redux-wrapper';
-import { camelCaseKeys } from '../../common/utils';
+import { camelCaseKeys } from '../common/utils';
+import { ChapterImageList, ChaptersWithStatus, MangaListType, MangaWithStatus } from './types';
+import { apiUrl } from './const';
 
 const mangaAPIBaseUrl = `${apiUrl}/manga/`;
 type PK = string | number;

@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
-import { MangaList } from '../components/manga/MangaList';
+import { MangaList } from '../components/manga/list/MangaList';
 import { TextField } from '@mui/joy';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSearchQuery } from '../redux/api/manga';
+import { useSearchQuery } from '../api/mangaApi';
 
 const SearchPage: NextPage = () => {
   const [input, setInput] = useState<string>('');

@@ -1,46 +1,15 @@
-import '../styles/globals.scss';
-import 'nprogress/nprogress.css';
+import '../core/styles/globals.scss';
+import '../core/routing';
 import type { AppProps } from 'next/app';
-import { wrapper } from '../redux/store';
+import { wrapper } from '../core/store';
 import React from 'react';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
-import Button from '@mui/joy/Button';
-import { themeBase } from '../common/theme';
+import { CssVarsProvider } from '@mui/joy/styles';
 import Head from 'next/head';
 import { useMounted } from '../common/hooks';
 import { MainLayout } from '../components/layout/MainLayout';
-import { useIsReaderRoute } from '../common/routes';
-import { Router } from 'next/router';
-import NProgress from 'nprogress';
-
-function ModeToggle() {
-  const { mode, setMode } = useColorScheme();
-  return (
-    <Button
-      variant="plain"
-      color="neutral"
-      sx={{
-        position: 'absolute',
-        right: '0px',
-        top: '0px',
-      }}
-      onClick={() => setMode(mode === 'dark' ? 'light' : 'dark')}
-    >
-      {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-    </Button>
-  );
-}
-
-NProgress.configure({ showSpinner: false });
-Router.events.on('routeChangeStart', () => {
-  NProgress.start();
-});
-
-Router.events.on('routeChangeComplete', () => {
-  NProgress.done(false);
-});
+import { themeBase } from '../core/styles/theme';
+import { ThemeSwitcher } from '../common/components/ThemeSwitcher';
+import { useIsReaderRoute } from '../core/routing';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const theme = themeBase;
@@ -58,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             content="width=device-width, viewport-fit=cover, initial-scale=1"
           />
         </Head>
-        {mounted && !isReaderRoute && <ModeToggle />}
+        {mounted && !isReaderRoute && <ThemeSwitcher />}
         <MainLayout>
           <Component {...pageProps} />
         </MainLayout>

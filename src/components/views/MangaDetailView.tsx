@@ -2,10 +2,11 @@ import { MangaImage } from '../manga/MangaImage';
 import { styled } from '@mui/material/styles';
 import { Box, Chip, Grid, Sheet, Typography } from '@mui/joy';
 import Rating from '@mui/material/Rating';
-import { ChapterList } from '../manga/detail/ChapterList';
-import { useIsEmptyManga, useIsPartialManga, useWithOptionalSkeleton } from '../../common/hooks';
 import { memo } from 'react';
-import { Chapters, MangaType } from '../../common/apiTypes';
+import { ChapterListType, MangaType } from '../../api/types';
+import { useIsEmptyManga, useIsPartialManga } from '../../api/hooks/manga';
+import { useWithOptionalSkeleton } from '../../common/components/SoraSkeleton';
+import { ChapterList } from '../manga/detail/ChapterList';
 
 type BgProps = {
   img?: string;
@@ -28,10 +29,10 @@ const Bg = styled('div')<BgProps>(({ img }) => {
 
 type Props = {
   manga: MangaType;
-  chapters?: Chapters;
+  chapters?: ChapterListType;
   chaptersLoading: boolean;
 };
-export const MangaDetail = memo(({ manga, chapters, chaptersLoading }: Props) => {
+export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props) => {
   const isEmptyManga = useIsEmptyManga(manga);
   const isPartialManga = useIsPartialManga(manga);
   const WithOptionalSkeleton = useWithOptionalSkeleton(isEmptyManga);
@@ -78,4 +79,4 @@ export const MangaDetail = memo(({ manga, chapters, chaptersLoading }: Props) =>
   );
 });
 
-MangaDetail.displayName = 'MangaDetail';
+MangaDetailView.displayName = 'MangaDetail';

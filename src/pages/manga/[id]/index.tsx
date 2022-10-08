@@ -5,13 +5,14 @@ import {
   getRunningOperationPromises,
   useChaptersQuery,
   useDetailQuery,
-} from '../../../redux/api/manga';
+} from '../../../api/mangaApi';
 import { useRouter } from 'next/router';
-import { wrapper } from '../../../redux/store';
-import { MangaDetail } from '../../../components/views/MangaDetail';
-import { ChaptersWithStatus, emptyManga, MangaWithStatus } from '../../../common/apiTypes';
+import { wrapper } from '../../../core/store';
+import { MangaDetailView } from '../../../components/views/MangaDetailView';
+import { ChaptersWithStatus, MangaWithStatus } from '../../../api/types';
 import { isClientNavigation } from '../../../common/utils';
-import { usePollingQuery } from '../../../common/hooks';
+import { usePollingQuery } from '../../../api/hooks/api';
+import { emptyManga } from '../../../api/stubs';
 
 type QueryProps = {
   id: string;
@@ -27,7 +28,7 @@ const Manga: NextPage = () => {
   const chapters = chaptersQuery.data?.data;
   const chaptersLoading = chaptersQuery.isLoading;
 
-  return <MangaDetail manga={manga} chapters={chapters} chaptersLoading={chaptersLoading} />;
+  return <MangaDetailView manga={manga} chapters={chapters} chaptersLoading={chaptersLoading} />;
 };
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(

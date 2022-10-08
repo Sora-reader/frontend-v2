@@ -1,7 +1,8 @@
 import { Grid } from '@mui/joy';
 import { MangaListCard } from './MangaListCard';
-import { emptyManga, MangaListType } from '../../common/apiTypes';
-import { LoadingProps } from '../../common/types';
+import { MangaListType } from '../../../api/types';
+import { LoadingProps } from '../../../common/types';
+import { emptyManga } from '../../../api/stubs';
 
 type Props = {
   mangaList?: MangaListType;

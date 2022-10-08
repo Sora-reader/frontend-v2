@@ -1,9 +1,9 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
-import { getRunningOperationPromises, search, useSearchQuery } from '../redux/api/manga';
-import { wrapper } from '../redux/store';
+import { getRunningOperationPromises, search, useSearchQuery } from '../api/mangaApi';
+import { wrapper } from '../core/store';
 import { isClientNavigation } from '../common/utils';
-import { MangaList } from '../components/manga/MangaList';
+import { MangaList } from '../components/manga/list/MangaList';
 
 const query = 'поднятия уровня';
 

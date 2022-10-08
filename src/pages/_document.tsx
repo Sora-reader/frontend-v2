@@ -1,6 +1,6 @@
 import { Html, Main, NextScript } from 'next/document';
 import { getInitColorSchemeScript } from '@mui/joy';
-import { AppHead } from '../components/override/AppHead';
+import { AppHead } from '../common/components/AppHead';
 
 export default function Document() {
   return (

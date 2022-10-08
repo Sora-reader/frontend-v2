@@ -1,10 +1,10 @@
-import { Navbar, navbarWrapBreakpointKey } from './Navbar';
 import { Box, Container, Theme } from '@mui/joy';
 import { useCallback, useMemo } from 'react';
-import { baseRoutes, extraRoutes, useActiveRoute, useIsReaderRoute } from '../../common/routes';
+import { baseRoutes, extraRoutes, useActiveRoute, useIsReaderRoute } from '../../core/routing';
 import { NavbarRouteIcon } from './Navbar/NavbarRouteIcon';
-import { buttonContainerSx } from './Navbar/Navbar';
-import { navbarSize } from '../../common/const';
+import { buttonContainerSx, Navbar } from './Navbar';
+import { navbarSize } from './Navbar/const';
+import { navbarWrapBreakpointKey } from './Navbar/utils';
 
 const renderBaseNavbarIcons = (allowAnimation, hovered) => {
   const activeRoute = useActiveRoute();
