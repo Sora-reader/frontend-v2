@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import camelCase from 'lodash.camelcase';
 import { IncomingMessage } from 'http';
 
 export const isClientNavigation = (req: IncomingMessage) => req.url?.startsWith('/_next');
@@ -14,9 +14,9 @@ export function camelCaseKeys(obj: any, _depth = 1) {
 
   for (let prop in obj) {
     if (typeof obj[prop] === 'object' && obj[prop] !== null) {
-      newObject[_.camelCase(prop)] = camelCaseKeys(obj[prop], _depth);
+      newObject[camelCase(prop)] = camelCaseKeys(obj[prop], _depth);
     } else {
-      newObject[_.camelCase(prop)] = obj[prop];
+      newObject[camelCase(prop)] = obj[prop];
     }
   }
 
