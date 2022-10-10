@@ -1,31 +1,18 @@
 steps:
-  - id: pull
-    name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: [ '-c', 'docker pull gcr.io/$PROJECT_ID/frontend:latest || exit 0' ]
+  - name: node:16
+    entrypoint: yarn
+    args: [ "install", "--force" ]
 
-  - id: build
-    name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'build',
-      '--tag', 'gcr.io/$PROJECT_ID/frontend',
-      '--cache-from', 'gcr.io/$PROJECT_ID/frontend:latest',
-      '--build-arg', 'NEXT_PUBLIC_API_URL=${_NEXT_PUBLIC_API_URL}',
-      '.'
-    ]
+  - name: ubuntu
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        printenv >| .env
+    env:
+      - 'NEXT_PUBLIC_API_URL=${_NEXT_PUBLIC_API_URL}'
+      - 'API_URL=${_API_URL}'
 
-  - id: push
-    name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'gcr.io/$PROJECT_ID/frontend:latest' ]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: [ "app", "deploy", "--appyaml=infra/app.yaml" ]
 
-  - id: deploy
-    name: 'gcr.io/cloud-builders/gcloud'
-    args: [
-      'run', 'deploy', 'frontend',
-      '--image', 'gcr.io/$PROJECT_ID/frontend:latest',
-      '--region', 'europe-central2',
-      '--allow-unauthenticated',
-      '--update-env-vars', 'API_URL=${_API_URL}'
-    ]
-images:
-  - 'gcr.io/$PROJECT_ID/frontend:latest'
