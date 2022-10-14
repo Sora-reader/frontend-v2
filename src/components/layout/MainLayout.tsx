@@ -5,6 +5,7 @@ import { NavbarRouteIcon } from './Navbar/NavbarRouteIcon';
 import { buttonContainerSx, Navbar } from './Navbar';
 import { navbarSize } from './Navbar/const';
 import { navbarWrapBreakpointKey } from './Navbar/utils';
+import { NotificationContainer } from '../../core/notificationSystem/components/NotificationContainer';
 
 const renderBaseNavbarIcons = (allowAnimation, hovered) => {
   const activeRoute = useActiveRoute();
@@ -60,6 +61,7 @@ export const MainLayout = ({ children }) => {
     <>
       {!isReaderRoute && <Navbar render={render} />}
       <Container sx={sx}>{children}</Container>
+      <NotificationContainer />
     </>
   );
 };
