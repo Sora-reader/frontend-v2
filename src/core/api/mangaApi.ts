@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HYDRATE } from 'next-redux-wrapper';
-import { camelCaseKeys } from '../common/utils';
+import { camelCaseKeys } from '../../common/utils';
 import { ChapterImageList, ChaptersWithStatus, MangaListType, MangaWithStatus } from './types';
 import { apiUrl } from './const';
 

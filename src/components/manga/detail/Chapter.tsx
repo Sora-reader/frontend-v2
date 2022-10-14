@@ -1,6 +1,6 @@
 import Card from '@mui/joy/Card';
 import { LoadingProps } from '../../../common/types';
-import { ChapterType } from '../../../api/types';
+import { ChapterType } from '../../../core/api/types';
 import { useFakeAnchorProps } from '../../../common/hooks';
 import { useWithOptionalSkeleton } from '../../../common/components/SoraSkeleton';
 

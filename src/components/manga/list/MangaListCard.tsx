@@ -1,9 +1,9 @@
 import Card from '@mui/joy/Card';
 import { Typography } from '@mui/joy';
 import { useFakeAnchorProps } from '../../../common/hooks';
-import { MangaType } from '../../../api/types';
+import { MangaType } from '../../../core/api/types';
 import { MangaImage } from '../MangaImage';
-import { useIsEmptyManga } from '../../../api/hooks/manga';
+import { useIsEmptyManga } from '../../../core/api/hooks/manga';
 import { useWithOptionalSkeleton } from '../../../common/components/SoraSkeleton';
 
 const lineClampSx = (line: number) => ({

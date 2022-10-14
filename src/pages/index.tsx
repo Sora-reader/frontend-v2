@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { GetServerSideProps } from 'next';
-import { getRunningOperationPromises, search, useSearchQuery } from '../api/mangaApi';
+import { getRunningOperationPromises, search, useSearchQuery } from '../core/api/mangaApi';
 import { wrapper } from '../core/store';
 import { isClientNavigation } from '../common/utils';
 import { MangaList } from '../components/manga/list/MangaList';

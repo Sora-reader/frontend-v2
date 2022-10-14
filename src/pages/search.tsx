@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import { MangaList } from '../components/manga/list/MangaList';
 import { TextField } from '@mui/joy';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSearchQuery } from '../api/mangaApi';
+import { useSearchQuery } from '../core/api/mangaApi';
 
 const SearchPage: NextPage = () => {
   const [input, setInput] = useState<string>('');

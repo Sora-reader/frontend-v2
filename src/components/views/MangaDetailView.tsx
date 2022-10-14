@@ -3,8 +3,8 @@ import { styled } from '@mui/material/styles';
 import { Box, Chip, Grid, Sheet, Typography } from '@mui/joy';
 import Rating from '@mui/material/Rating';
 import { memo } from 'react';
-import { ChapterListType, MangaType } from '../../api/types';
-import { useIsEmptyManga, useIsPartialManga } from '../../api/hooks/manga';
+import { ChapterListType, MangaType } from '../../core/api/types';
+import { useIsEmptyManga, useIsPartialManga } from '../../core/api/hooks/manga';
 import { useWithOptionalSkeleton } from '../../common/components/SoraSkeleton';
 import { ChapterList } from '../manga/detail/ChapterList';
 

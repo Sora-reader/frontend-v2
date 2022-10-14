@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Fade } from '@mui/material';
 import { Alert } from '@mui/joy';
-import { ChapterImageList } from '../../api/types';
+import { ChapterImageList } from '../../core/api/types';
 
 type PageAlertProps = {
   page: number;

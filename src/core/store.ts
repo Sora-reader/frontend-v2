@@ -1,15 +1,19 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
-import { mangaApi } from '../api/mangaApi';
+import { mangaApi } from './api/mangaApi';
+import { notificationReducer } from './notificationSystem/slice';
+import { rtkQueryErrorLogger } from './notificationSystem/rtkMiddleware';
 
 const reducer = combineReducers({
   [mangaApi.reducerPath]: mangaApi.reducer,
+  notification: notificationReducer,
 });
 
 export const makeStore = () =>
   configureStore({
     reducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(mangaApi.middleware),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(mangaApi.middleware).concat(rtkQueryErrorLogger),
   });
 
 type Store = ReturnType<typeof makeStore>;

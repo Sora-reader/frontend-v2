@@ -1,7 +1,7 @@
 import { Box, IconButton } from '@mui/joy';
 import { useCallback, useEffect, useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { ChapterImageList } from '../../api/types';
+import { ChapterImageList } from '../../core/api/types';
 import { buttonContainerSx, Navbar } from '../layout/Navbar';
 import { useFakeAnchorProps } from '../../common/hooks';
 import { WebtoonPager } from '../pager/webtoon/WebtoonPager';

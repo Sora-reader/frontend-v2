@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useImagesQuery } from '../../../../api/mangaApi';
+import { useImagesQuery } from '../../../../core/api/mangaApi';
 import { useRouter } from 'next/router';
 import { ReadChapterView } from '../../../../components/views/ReadChapterView';
 

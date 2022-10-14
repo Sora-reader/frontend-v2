@@ -5,14 +5,14 @@ import {
   getRunningOperationPromises,
   useChaptersQuery,
   useDetailQuery,
-} from '../../../api/mangaApi';
+} from '../../../core/api/mangaApi';
 import { useRouter } from 'next/router';
 import { wrapper } from '../../../core/store';
 import { MangaDetailView } from '../../../components/views/MangaDetailView';
-import { ChaptersWithStatus, MangaWithStatus } from '../../../api/types';
+import { ChaptersWithStatus, MangaWithStatus } from '../../../core/api/types';
 import { isClientNavigation } from '../../../common/utils';
-import { usePollingQuery } from '../../../api/hooks/api';
-import { emptyManga } from '../../../api/stubs';
+import { usePollingQuery } from '../../../core/api/hooks/api';
+import { emptyManga } from '../../../core/api/stubs';
 
 type QueryProps = {
   id: string;
@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
       const isClient = isClientNavigation(req);
       if (!isClient) {
         const id = params?.id;
-        if (typeof id === 'string') {
+        if (typeof id === 'string' && id !== 'undefined') {
           store.dispatch(detail.initiate(id));
           store.dispatch(chapters.initiate(id));
         }
