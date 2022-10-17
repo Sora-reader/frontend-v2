@@ -23,11 +23,10 @@ export const NotificationSlice = createSlice({
       });
     },
     clearNotification: (state, action: PayloadAction<number>) => {
-      console.log('Removing element', action.payload);
-      return state.filter(n => n.id !== action.payload);
-    }
+      return state.filter((n) => n.id !== action.payload);
+    },
   },
 });
 
-export const {addNotification, clearNotification} = NotificationSlice.actions;
+export const { addNotification, clearNotification } = NotificationSlice.actions;
 export const notificationReducer = NotificationSlice.reducer;

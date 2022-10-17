@@ -1,7 +1,10 @@
 import { NextPage } from 'next';
-import { useImagesQuery } from '../../../../core/api/mangaApi';
+import { images, useImagesQuery } from '../../../../core/api/mangaApi';
 import { useRouter } from 'next/router';
 import { ReadChapterView } from '../../../../components/views/ReadChapterView';
+import { extractParam, RTKSSRBoilerplate } from '../../../../common/utils';
+import { usePollingQuery } from '../../../../core/api/hooks/api';
+import { ImagesWithStatus } from '../../../../core/api/types';
 
 type QueryProps = {
   id: string;
@@ -10,9 +13,26 @@ type QueryProps = {
 const ReadChapter: NextPage = () => {
   const router = useRouter();
   const { id, chapterId } = router.query as QueryProps;
-  const { data } = useImagesQuery({ mangaPk: id, chapterPk: chapterId }, { skip: !chapterId || !id });
 
-  return <ReadChapterView mangaId={id} images={data} />;
+  const { data, isLoading } = usePollingQuery<ImagesWithStatus>(
+    useImagesQuery,
+    {
+      mangaPk: id,
+      chapterPk: chapterId,
+    },
+    { skip: !chapterId || !id },
+    500
+  );
+
+  return <ReadChapterView mangaId={id} loading={isLoading} images={data?.data} />;
 };
+
+export const getServerSideProps = RTKSSRBoilerplate(async (store, { params }) => {
+  const id = extractParam(params, 'id');
+  const chapterId = extractParam(params, 'chapterId');
+  if (id && chapterId) {
+    store.dispatch(images.initiate({ mangaPk: id, chapterPk: chapterId }));
+  }
+});
 
 export default ReadChapter;

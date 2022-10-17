@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HYDRATE } from 'next-redux-wrapper';
 import { camelCaseKeys } from '../../common/utils';
-import { ChapterImageList, ChaptersWithStatus, MangaListType, MangaWithStatus } from './types';
+import { ChaptersWithStatus, ImagesWithStatus, MangaListType, MangaWithStatus } from './types';
 import { apiUrl } from './const';
 
 const mangaAPIBaseUrl = `${apiUrl}/manga/`;
@@ -28,7 +28,7 @@ export const mangaApi = createApi({
     chapters: builder.query<ChaptersWithStatus, PK>({
       query: (pk: PK) => `${pk}/chapters/`,
     }),
-    images: builder.query<ChapterImageList, ImagesQueryArg>({
+    images: builder.query<ImagesWithStatus, ImagesQueryArg>({
       query: ({ mangaPk, chapterPk }: ImagesQueryArg) => `${mangaPk}/chapters/${chapterPk}/images/`,
     }),
   }),

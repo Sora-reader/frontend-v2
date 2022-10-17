@@ -35,12 +35,11 @@ export type ChapterListType = Array<ChapterType>;
 export type ChapterImageList = Array<Image>;
 export type MangaListType = Array<MangaType>;
 
-export interface MangaWithStatus {
+interface WithStatus<T> {
   status: ParsingStatus;
-  data: MangaType;
+  data: T;
 }
 
-export interface ChaptersWithStatus {
-  status: ParsingStatus;
-  data: ChapterListType;
-}
+export type MangaWithStatus = WithStatus<MangaType>;
+export type ChaptersWithStatus = WithStatus<ChapterListType>;
+export type ImagesWithStatus = WithStatus<ChapterImageList>;

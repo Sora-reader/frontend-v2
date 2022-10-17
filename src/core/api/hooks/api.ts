@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 export interface PollingQueryResult<T> {
-  data: T | undefined;
+  data?: T;
   isLoading: boolean;
 
   [x: string]: any;
@@ -30,12 +30,12 @@ export const usePollingQuery = <R>(hook, arg, options, interval): PollingQueryRe
 
   // Continue polling when receiving 425 HTTP error
   useEffect(() => {
-    if (isError && error.originalStatus === 425) {
-      if (!refetchRef.current)
-        refetchRef.current = setTimeout(() => {
-          refetch();
-          refetchRef.current = null;
-        }, interval);
+    if (isError && error.status === 425) {
+      clearTimeout(refetchRef.current);
+      refetchRef.current = setTimeout(() => {
+        refetch();
+        refetchRef.current = null;
+      }, interval);
     }
   }, [otherQueryProps]);
 

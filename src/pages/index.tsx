@@ -1,8 +1,6 @@
 import type { NextPage } from 'next';
-import { GetServerSideProps } from 'next';
-import { getRunningOperationPromises, search, useSearchQuery } from '../core/api/mangaApi';
-import { wrapper } from '../core/store';
-import { isClientNavigation } from '../common/utils';
+import { search, useSearchQuery } from '../core/api/mangaApi';
+import { RTKSSRBoilerplate } from '../common/utils';
 import { MangaList } from '../components/manga/list/MangaList';
 
 const query = 'поднятия уровня';
@@ -19,20 +17,8 @@ const Home: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ req }) => {
-      const isClient = isClientNavigation(req);
-      if (!isClient) {
-        store.dispatch(search.initiate(query));
-
-        await Promise.all(getRunningOperationPromises());
-      }
-
-      return {
-        props: {},
-      };
-    }
-);
+export const getServerSideProps = RTKSSRBoilerplate(async (store) => {
+  store.dispatch(search.initiate(query));
+});
 
 export default Home;
