@@ -24,20 +24,21 @@ export const usePollingQuery = <R>(hook, arg, options, interval): PollingQueryRe
 
   // Continue polling when receive a response with "parsing" status
   useEffect(() => {
-    if (data && data.status === 'parsing') setPollingOptions({ pollingInterval: interval });
+    if (data && !error && data.status === 'parsing') setPollingOptions({ pollingInterval: interval });
     else setPollingOptions({});
-  }, [data]);
+  }, [data, error]);
 
   // Continue polling when receiving 425 HTTP error
   useEffect(() => {
     if (isError && error.status === 425) {
+      console.log('Refetch cuz of 425');
       clearTimeout(refetchRef.current);
       refetchRef.current = setTimeout(() => {
         refetch();
         refetchRef.current = null;
       }, interval);
     }
-  }, [otherQueryProps]);
+  }, [isError, error]);
 
   return {
     data,
