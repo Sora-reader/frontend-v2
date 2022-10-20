@@ -31,7 +31,6 @@ export const usePollingQuery = <R>(hook, arg, options, interval): PollingQueryRe
   // Continue polling when receiving 425 HTTP error
   useEffect(() => {
     if (isError && error.status === 425) {
-      console.log('Refetch cuz of 425');
       clearTimeout(refetchRef.current);
       refetchRef.current = setTimeout(() => {
         refetch();

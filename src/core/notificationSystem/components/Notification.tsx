@@ -44,7 +44,7 @@ export const Notification = ({ notification, closeCallback }: NotificationProps)
     >
       <Alert variant="solid" color={notification.type} sx={{ my: 1 }}>
         <p style={{ width: '90%', margin: 0 }}>{notification.message}</p>
-        <IconButton variant="solid" onClick={onClose}>
+        <IconButton variant="solid" color={notification.type} onClick={onClose}>
           <CloseIcon />
         </IconButton>
       </Alert>
