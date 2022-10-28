@@ -3,7 +3,7 @@ import { chapters, detail, useChaptersQuery, useDetailQuery } from '../../../cor
 import { useRouter } from 'next/router';
 import { MangaDetailView } from '../../../components/views/MangaDetailView';
 import { ChaptersWithStatus, MangaWithStatus } from '../../../core/api/types';
-import { extractParam, RTKSSRBoilerplate } from '../../../common/utils';
+import { extractParam, RTKSSRBoilerplate } from '../../../misc/utils';
 import { usePollingQuery } from '../../../core/api/hooks/api';
 import { emptyManga } from '../../../core/api/stubs';
 

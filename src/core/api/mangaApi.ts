@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HYDRATE } from 'next-redux-wrapper';
-import { camelCaseKeys } from '../../common/utils';
+import { camelCaseKeys } from '../../misc/utils';
 import { ChaptersWithStatus, ImagesWithStatus, MangaListType, MangaWithStatus } from './types';
 import { apiUrl } from './const';
 
@@ -11,7 +11,10 @@ type ImagesQueryArg = { mangaPk: PK; chapterPk: PK };
 export const mangaApi = createApi({
   reducerPath: 'mangaAPI',
   async baseQuery(...args) {
-    const res = await fetchBaseQuery({ baseUrl: mangaAPIBaseUrl })(...args);
+    const res = await fetchBaseQuery({
+      credentials: 'include',
+      baseUrl: mangaAPIBaseUrl,
+    })(...args);
     if (res.data) res.data = camelCaseKeys(res.data);
     return res;
   },

@@ -1,5 +1,5 @@
 import { ColorPaletteProp, IconButton, IconButtonProps, Sheet } from '@mui/joy';
-import { useFakeAnchorProps } from '../../../common/hooks';
+import { useFakeAnchorProps } from '../../../misc/hooks';
 
 type NavbarIconProps = Omit<IconButtonProps, 'color' | 'component'> & {
   name: string;

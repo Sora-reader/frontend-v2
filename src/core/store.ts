@@ -2,7 +2,7 @@ import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/t
 import { createWrapper } from 'next-redux-wrapper';
 import { mangaApi } from './api/mangaApi';
 import { notificationReducer } from './notificationSystem/slice';
-import { rtkQueryErrorLogger } from './notificationSystem/rtkMiddleware';
+import { rtkQueryErrorLogger } from './notificationSystem/middleware';
 
 const reducer = combineReducers({
   [mangaApi.reducerPath]: mangaApi.reducer,

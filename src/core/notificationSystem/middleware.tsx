@@ -12,8 +12,8 @@ export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => (next) =>
       addNotification({
         // App-returned error or generic JS error
         message,
-        type: "danger"
-      }),
+        type: 'danger',
+      })
     );
   }
 

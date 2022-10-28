@@ -1,0 +1,15 @@
+@keyframes spin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+.spinner {
+  $spin-duration: 2s;
+  -webkit-animation: spin $spin-duration linear infinite;
+  -moz-animation: spin $spin-duration linear infinite;
+  animation: spin $spin-duration linear infinite;
+}

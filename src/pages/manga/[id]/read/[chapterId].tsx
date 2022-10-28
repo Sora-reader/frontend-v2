@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import { images, useImagesQuery } from '../../../../core/api/mangaApi';
 import { useRouter } from 'next/router';
 import { ReadChapterView } from '../../../../components/views/ReadChapterView';
-import { extractParam, RTKSSRBoilerplate } from '../../../../common/utils';
+import { extractParam, RTKSSRBoilerplate } from '../../../../misc/utils';
 import { usePollingQuery } from '../../../../core/api/hooks/api';
 import { ImagesWithStatus } from '../../../../core/api/types';
 

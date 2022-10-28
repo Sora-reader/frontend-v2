@@ -1,10 +1,10 @@
 import Card from '@mui/joy/Card';
 import { Typography } from '@mui/joy';
-import { useFakeAnchorProps } from '../../../common/hooks';
+import { useFakeAnchorProps } from '../../../misc/hooks';
 import { MangaType } from '../../../core/api/types';
 import { MangaImage } from '../MangaImage';
 import { useIsEmptyManga } from '../../../core/api/hooks/manga';
-import { useWithOptionalSkeleton } from '../../../common/components/SoraSkeleton';
+import { useWithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
 
 const lineClampSx = (line: number) => ({
   overflow: 'hidden',

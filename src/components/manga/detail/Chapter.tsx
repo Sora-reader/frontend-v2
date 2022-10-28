@@ -1,8 +1,8 @@
 import Card from '@mui/joy/Card';
-import { LoadingProps } from '../../../common/types';
+import { LoadingProps } from '../../../misc/types';
 import { ChapterType } from '../../../core/api/types';
-import { useFakeAnchorProps } from '../../../common/hooks';
-import { useWithOptionalSkeleton } from '../../../common/components/SoraSkeleton';
+import { useFakeAnchorProps } from '../../../misc/hooks';
+import { useWithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
 
 type Props = {
   mangaId: number;

@@ -5,7 +5,7 @@ import Rating from '@mui/material/Rating';
 import { memo } from 'react';
 import { ChapterListType, MangaType } from '../../core/api/types';
 import { useIsEmptyManga, useIsPartialManga } from '../../core/api/hooks/manga';
-import { useWithOptionalSkeleton } from '../../common/components/SoraSkeleton';
+import { useWithOptionalSkeleton } from '../../misc/components/SoraSkeleton';
 import { ChapterList } from '../manga/detail/ChapterList';
 
 type BgProps = {

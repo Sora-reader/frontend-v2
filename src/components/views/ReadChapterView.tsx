@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { ChapterImageList } from '../../core/api/types';
 import { buttonContainerSx, Navbar } from '../layout/Navbar';
-import { useFakeAnchorProps } from '../../common/hooks';
+import { useFakeAnchorProps } from '../../misc/hooks';
 import { WebtoonPager } from '../pager/webtoon/WebtoonPager';
 import { PageAlert } from '../pager/PageAlert';
 import { DefaultPager } from '../pager/default/DefaultPager';
@@ -11,7 +11,7 @@ import { PagerProps, PagerType } from '../pager/types';
 import { Slide } from '@mui/material';
 import { useIsNavbarWrapped } from '../layout/Navbar/utils';
 import { getPagerType } from '../pager/utils';
-import { LoadingProps } from '../../common/types';
+import { LoadingProps } from '../../misc/types';
 
 type Props = {
   mangaId: string;

@@ -20,7 +20,7 @@ export const baseRoutes = {
 };
 
 export const extraRoutes = {
-  '/profile': {
+  '/signIn': {
     name: 'Profile',
     icon: AccountBoxIcon,
   },

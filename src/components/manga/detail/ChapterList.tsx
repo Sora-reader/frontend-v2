@@ -1,7 +1,7 @@
 import { Chapter } from './Chapter';
 import { Option, Select, Stack } from '@mui/joy';
 import SortIcon from '@mui/icons-material/Sort';
-import { LoadingProps } from '../../../common/types';
+import { LoadingProps } from '../../../misc/types';
 import { ChapterListType, ChapterType } from '../../../core/api/types';
 import { useMemo, useState } from 'react';
 
