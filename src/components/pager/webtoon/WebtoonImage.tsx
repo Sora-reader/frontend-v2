@@ -14,9 +14,12 @@ export const WebtoonImage = ({ src, position, setPage, setShowNavbar }: WebtoonI
 
   return (
     <img
-      style={{ width: '80%' }}
+      style={{
+        minWidth: '80%',
+        maxWidth: '100%',
+      }}
       loading="lazy"
-      id={`image=${position}`}
+      id={`image-${position}`}
       src={src}
       alt=""
       onClick={setShowNavbar}

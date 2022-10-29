@@ -1,19 +1,11 @@
 import { NextPage } from 'next';
 import { MangaList } from '../components/manga/list/MangaList';
 import { TextField } from '@mui/joy';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchQuery } from '../core/api/mangaApi';
 import { useRouter } from 'next/router';
 import { ParsedUrlQueryInput } from 'querystring';
-
-const useDelayedAction = (dynamicValue, callback, timeout = 500) => {
-  // Delay search for 500ms after user stopped typing
-  const timeoutRef = useRef<any>(null);
-  useEffect(() => {
-    clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(callback, timeout);
-  }, [dynamicValue]);
-};
+import { useTimeoutResettableEffect } from '../misc/hooks/useTimeoutResettableEffect';
 
 export const useQueryState = (paramName: string, initialState = '') => {
   const router = useRouter();
@@ -37,12 +29,12 @@ export const useQueryState = (paramName: string, initialState = '') => {
 };
 
 type Props = {
-  ssrTitle?: string;
+  ssrQueryValue?: string;
 };
-const SearchPage: NextPage<Props> = ({ ssrTitle }) => {
+const SearchPage: NextPage<Props> = ({ ssrQueryValue }) => {
   const [input, setInput] = useState('');
 
-  const [paramValue, setParamValue] = useQueryState('title', ssrTitle || '');
+  const [paramValue, setParamValue] = useQueryState('title', ssrQueryValue || '');
   const { data, isLoading } = useSearchQuery(paramValue, { skip: !paramValue });
 
   useEffect(() => {
@@ -53,9 +45,9 @@ const SearchPage: NextPage<Props> = ({ ssrTitle }) => {
   }, []);
 
   // On title change, delay an update to tsQuery
-  useDelayedAction(input, () => {
+  useTimeoutResettableEffect(() => {
     setParamValue(input);
-  });
+  }, [input]);
 
   return (
     <>

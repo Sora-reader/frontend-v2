@@ -53,7 +53,8 @@ export const MainLayout = ({ children }) => {
   const render = useCallback(renderBaseNavbarIcons, []);
 
   const sx = useMemo(() => {
-    if (isReaderRoute) return [navbarPaddingSx, { height: '100vh' }];
+    if (isReaderRoute)
+      return [navbarPaddingSx, { height: '100vh', display: 'flex', justifyContent: 'center' }];
     return navbarPaddingSx;
   }, [isReaderRoute]);
 

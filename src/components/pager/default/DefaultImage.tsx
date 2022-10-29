@@ -1,9 +1,8 @@
 import { ImageProps } from '../types';
-import Image from 'next/image';
 
 export const DefaultImage = ({ src, setShowNavbar }: ImageProps) => {
   return (
-    <Image
+    <img
       style={{
         height: 'fit-content',
         maxHeight: '100vh',

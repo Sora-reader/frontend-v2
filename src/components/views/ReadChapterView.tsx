@@ -12,26 +12,36 @@ import { Slide } from '@mui/material';
 import { useIsNavbarWrapped } from '../layout/Navbar/utils';
 import { getPagerType } from '../pager/utils';
 import { LoadingProps } from '../../misc/types';
+import { LogoSpinner } from '../../misc/components/LogoSpinner';
 
 type Props = {
   mangaId: string;
   images?: ChapterImageList;
 } & LoadingProps;
 
-export const ReadChapterView = ({ mangaId, loading, images }: Props) => {
+export const ReadChapterView = ({ mangaId, images }: Props) => {
   const [page, setPage] = useState(1);
   const mangaAnchorProps = useFakeAnchorProps(`/manga/${mangaId}/`);
   const [showNavbar, setShowNavbar] = useState(true);
   const isNavbarWrapped = useIsNavbarWrapped();
 
   const [pagerType, setPagerType] = useState<PagerType>('default');
+  const [firstImageLoading, setFirstImageLoading] = useState(true);
+
+  // Wait for the first image to fully load and then determine pager type + allow rendering
   useEffect(() => {
+    const img = new Image();
     if (images) {
-      const img = new Image();
       img.src = images[0];
-      img.onload = (e) => {
-        setPagerType(getPagerType(e.target as HTMLImageElement));
-      };
+      if (img.complete) {
+        setFirstImageLoading(false);
+        setPagerType(getPagerType(img as HTMLImageElement));
+      } else {
+        img.onload = (e) => {
+          setFirstImageLoading(false);
+          setPagerType(getPagerType(e.target as HTMLImageElement));
+        };
+      }
     }
   }, [images]);
 
@@ -52,21 +62,20 @@ export const ReadChapterView = ({ mangaId, loading, images }: Props) => {
   } as PagerProps;
   // Force type as images won't be undefined when used
 
-  return (
-    (!loading && (
-      <>
-        <Slide direction={isNavbarWrapped ? 'up' : 'right'} in={showNavbar} appear={false}>
-          <Navbar render={renderNavbarIcons} />
-        </Slide>
-        {images && <PageAlert page={page} images={images} />}
-        {images &&
-          (pagerType === 'webtoon' ? (
-            <WebtoonPager {...basePagerProps} />
-          ) : (
-            <DefaultPager {...basePagerProps} page={page} />
-          ))}
-      </>
-    )) ||
-    null
+  return firstImageLoading ? (
+    <LogoSpinner />
+  ) : (
+    <>
+      <Slide direction={isNavbarWrapped ? 'up' : 'right'} in={showNavbar} appear={false}>
+        <Navbar render={renderNavbarIcons} />
+      </Slide>
+      {images && <PageAlert page={page} images={images} />}
+      {images &&
+        (pagerType === 'webtoon' ? (
+          <WebtoonPager {...basePagerProps} />
+        ) : (
+          <DefaultPager {...basePagerProps} page={page} />
+        ))}
+    </>
   );
 };
