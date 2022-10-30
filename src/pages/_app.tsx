@@ -20,7 +20,9 @@ import NextNProgress from 'nextjs-progressbar';
 // - /signIn - Вход
 // OpenGraph
 
-// Mode pager types, allow changing on-demand (per-manga, saved in localstorage with other user preferences)
+// More pager types, allow changing on-demand (per-manga, saved in localstorage with other user preferences)
+
+// Disable swipe when pinched ???
 
 // TODO: New CSS tokens for logo path
 // TODO: Better styling for route progress bar

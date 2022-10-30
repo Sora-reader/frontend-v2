@@ -1,76 +1,45 @@
 import { NextPage } from 'next';
 import { MangaList } from '../components/manga/list/MangaList';
 import { TextField } from '@mui/joy';
-import { useEffect, useState } from 'react';
-import { useSearchQuery } from '../core/api/mangaApi';
-import { useRouter } from 'next/router';
-import { ParsedUrlQueryInput } from 'querystring';
-import { useTimeoutResettableEffect } from '../misc/hooks/useTimeoutResettableEffect';
+import { ChangeEvent, useCallback, useState } from 'react';
+import { useSearchMutation } from '../core/api/mangaApi';
+import Button from '@mui/joy/Button';
 
-export const useQueryState = (paramName: string, initialState = '') => {
-  const router = useRouter();
-  const [state, setState] = useState<string>(initialState);
-
-  useEffect(() => {
-    setState(String(router.query[paramName]) || initialState);
-  }, [router.query]);
-
-  const setQueryParams = (query: string = initialState) => {
-    router.push(
-      { pathname: router.pathname, query: { [paramName]: query } as ParsedUrlQueryInput },
-      undefined,
-      {
-        shallow: true,
-      }
-    );
-  };
-
-  return [state, setQueryParams] as [string, (q: string) => void];
-};
-
-type Props = {
-  ssrQueryValue?: string;
-};
-const SearchPage: NextPage<Props> = ({ ssrQueryValue }) => {
+const SearchPage: NextPage = () => {
   const [input, setInput] = useState('');
+  const [search, { data, isLoading }] = useSearchMutation();
 
-  const [paramValue, setParamValue] = useQueryState('title', ssrQueryValue || '');
-  const { data, isLoading } = useSearchQuery(paramValue, { skip: !paramValue });
-
-  useEffect(() => {
-    if (!input && paramValue) {
-      // Setting input to paramValue if it's already initialized, while input is empty
-      setInput(paramValue);
-    }
+  const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
   }, []);
 
-  // On title change, delay an update to tsQuery
-  useTimeoutResettableEffect(() => {
-    setParamValue(input);
-  }, [input]);
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      search(input);
+    },
+    [input]
+  );
 
   return (
     <>
       <h1>Поиск</h1>
-      <TextField
-        size="lg"
-        label="Название манги"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        sx={{ my: 2 }}
-        autoFocus={true}
-      />
-      <MangaList mangaList={data} loading={isLoading} />
+      <form onSubmit={onSubmit}>
+        <TextField
+          size="lg"
+          label="Название манги"
+          value={input}
+          onChange={onChange}
+          sx={{ display: 'inline-block', width: '85%', my: 2 }}
+          autoFocus={true}
+        />
+        <Button type="submit" sx={{ display: 'inline', mx: 1, width: '10%' }}>
+          Поиск
+        </Button>
+      </form>
+      {data || isLoading ? <MangaList mangaList={data} loading={isLoading} /> : null}
     </>
   );
 };
-
-export async function getServerSideProps({ query }) {
-  return {
-    props: {
-      ssrTitle: query.title || null,
-    },
-  };
-}
 
 export default SearchPage;

@@ -22,8 +22,9 @@ export const mangaApi = createApi({
     if (action.type === HYDRATE) return action.payload[reducerPath];
   },
   endpoints: (builder) => ({
-    search: builder.query<MangaListType, string>({
-      query: (pk: string) => `search/?title=${pk}`,
+    search: builder.mutation<MangaListType, string>({
+      // query: (pk: string) => `search/?title=${pk}`,
+      query: (pk) => `search/?title=${pk}`,
     }),
     detail: builder.query<MangaWithStatus, PK>({
       query: (pk: PK) => `${pk}/`,
@@ -38,7 +39,7 @@ export const mangaApi = createApi({
 });
 
 export const {
-  useSearchQuery,
+  useSearchMutation,
   useDetailQuery,
   useChaptersQuery,
   useImagesQuery,
