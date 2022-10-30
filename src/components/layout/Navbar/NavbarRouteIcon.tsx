@@ -30,6 +30,7 @@ export const NavbarRouteIcon = ({
           overflowX: 'hidden',
           display: 'flex',
           justifyContent: 'flex-start',
+          whiteSpace: 'nowrap',
         }}
       >
         {children}

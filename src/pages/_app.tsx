@@ -22,9 +22,6 @@ import NextNProgress from 'nextjs-progressbar';
 
 // Mode pager types, allow changing on-demand (per-manga, saved in localstorage with other user preferences)
 
-// TODO: Basic auth
-// TODO: Navbar route conditions (either /logout or /signIn)
-
 // TODO: New CSS tokens for logo path
 // TODO: Better styling for route progress bar
 
@@ -39,7 +36,6 @@ import NextNProgress from 'nextjs-progressbar';
 // TODO: PWA setup
 // TODO: Download chapters locally
 // TODO: Settings (show cache size, purge cache button)
-
 
 function MyApp({ Component, pageProps }: AppProps) {
   const theme = themeBase;

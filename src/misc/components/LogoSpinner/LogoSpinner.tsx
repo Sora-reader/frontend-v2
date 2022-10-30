@@ -1,9 +1,31 @@
-import { NextPage } from 'next';
-import Image from 'next/image';
 import styles from './spinner.module.scss';
+import { CSSProperties } from '@mui/system/CSSProperties';
 
-export const LogoSpinner: NextPage = () => {
+type Size = 'sm' | 'md' | 'lg' | 'xl';
+type Props = {
+  style?: CSSProperties;
+  size: Size;
+};
+export const LogoSpinner = ({ size, style }: Props) => {
+  const sizeMap: Record<Size, string> = {
+    sm: 'var(--CircularProgress-size, 24px)',
+    md: 'var(--CircularProgress-size, 40px)',
+    lg: 'var(--CircularProgress-size, 64px)',
+    xl: 'var(--CircularProgress-size, 128px)',
+  };
+  const progressSize = sizeMap[size];
+
   return (
-    <Image className={styles.spinner} alt="logo spinner" src="/logo-white.svg" height={100} width={100} />
+    <img
+      className={styles.spinner}
+      alt="logo spinner"
+      src="/logo-white.svg"
+      style={{ maxHeight: progressSize, maxWidth: progressSize, ...style }}
+    />
   );
+};
+
+LogoSpinner.defaultProps = {
+  style: {},
+  size: 'xl',
 };

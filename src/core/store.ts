@@ -3,9 +3,11 @@ import { createWrapper } from 'next-redux-wrapper';
 import { mangaApi } from './api/mangaApi';
 import { notificationReducer } from './notificationSystem/slice';
 import { rtkQueryErrorLogger } from './notificationSystem/middleware';
+import { userApi } from './auth/api';
 
 const reducer = combineReducers({
   [mangaApi.reducerPath]: mangaApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
   notification: notificationReducer,
 });
 
@@ -13,7 +15,10 @@ export const makeStore = () =>
   configureStore({
     reducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(mangaApi.middleware).concat(rtkQueryErrorLogger),
+      getDefaultMiddleware()
+        .concat(mangaApi.middleware)
+        .concat(userApi.middleware)
+        .concat(rtkQueryErrorLogger),
   });
 
 type Store = ReturnType<typeof makeStore>;
