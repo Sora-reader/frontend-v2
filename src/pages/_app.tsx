@@ -5,11 +5,8 @@ import { wrapper } from '../core/store';
 import React from 'react';
 import { CssVarsProvider } from '@mui/joy/styles';
 import Head from 'next/head';
-import { useMounted } from '../misc/hooks';
 import { MainLayout } from '../components/layout/MainLayout';
 import { themeBase } from '../core/styles/theme';
-import { ThemeSwitcher } from '../misc/components/ThemeSwitcher';
-import { useIsReaderRoute } from '../core/routing';
 import NextNProgress from 'nextjs-progressbar';
 
 // Source links in detail
@@ -27,7 +24,6 @@ import NextNProgress from 'nextjs-progressbar';
 // TODO: New CSS tokens for logo path
 // TODO: Better styling for route progress bar
 
-// TODO: Add lists
 // TODO: chapter image selector on navbar
 
 // TODO: Track read chapters & sync with backend (redux-persist)
@@ -40,13 +36,9 @@ import NextNProgress from 'nextjs-progressbar';
 // TODO: Settings (show cache size, purge cache button)
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const theme = themeBase;
-  const mounted = useMounted();
-  const isReaderRoute = useIsReaderRoute();
-
   return (
     <div id="app">
-      <CssVarsProvider theme={theme}>
+      <CssVarsProvider theme={themeBase}>
         <Head>
           <title>Sora reader</title>
           <meta
@@ -55,7 +47,6 @@ function MyApp({ Component, pageProps }: AppProps) {
             content="width=device-width, viewport-fit=cover, initial-scale=1"
           />
         </Head>
-        {mounted && !isReaderRoute && <ThemeSwitcher />}
         <MainLayout>
           <NextNProgress
             color="var(--joy-palette-primary-main)"

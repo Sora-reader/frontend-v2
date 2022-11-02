@@ -20,7 +20,6 @@
     "@mui/material": "5.10.6",
     "@mui/system": "5.10.6",
     "@mui/utils": "^5.10.6",
-    "@redux-devtools/extension": "^3.2.3",
     "@reduxjs/toolkit": "^1.8.5",
     "clsx": "^1.2.1",
     "lodash.camelcase": "^4.3.0",
@@ -40,6 +39,7 @@
   "devDependencies": {
     "@mui/types": "^7.2.0",
     "@next/bundle-analyzer": "^12.3.1",
+    "@redux-devtools/extension": "^3.2.3",
     "@types/node": "18.7.14",
     "@types/react": "18.0.18",
     "@types/react-dom": "18.0.6",

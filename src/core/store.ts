@@ -4,10 +4,12 @@ import { mangaApi } from './api/mangaApi';
 import { notificationReducer } from './notificationSystem/slice';
 import { rtkQueryErrorLogger } from './notificationSystem/middleware';
 import { userApi } from './auth/api';
+import { saveListApi } from './lists/api';
 
 const reducer = combineReducers({
   [mangaApi.reducerPath]: mangaApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
+  [saveListApi.reducerPath]: saveListApi.reducer,
   notification: notificationReducer,
 });
 
@@ -18,6 +20,7 @@ export const makeStore = () =>
       getDefaultMiddleware()
         .concat(mangaApi.middleware)
         .concat(userApi.middleware)
+        .concat(saveListApi.middleware)
         .concat(rtkQueryErrorLogger),
   });
 

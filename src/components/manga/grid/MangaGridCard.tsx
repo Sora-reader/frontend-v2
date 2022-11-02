@@ -15,7 +15,7 @@ const lineClampSx = (line: number) => ({
 
 type Props = MangaType;
 
-export const MangaListCard = ({ id, title, image }: Props) => {
+export const MangaGridCard = ({ id, title, image }: Props) => {
   const isEmptyManga = useIsEmptyManga(id);
   const fakeLinkProps = useFakeAnchorProps(isEmptyManga ? '#' : `/manga/${id}`);
   const WithOptionalSkeleton = useWithOptionalSkeleton(isEmptyManga);

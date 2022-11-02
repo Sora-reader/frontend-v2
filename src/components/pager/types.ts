@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { ChapterImageList } from '../../core/api/types/collections';
+import { ChapterImageList } from '../../core/api/types';
 
 export type PagerType = 'default' | 'webtoon';
 
