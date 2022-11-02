@@ -46,7 +46,7 @@ const renderBaseNavbarIcons = (allowAnimation, hovered) => {
 
 const navbarPaddingSx = (theme: Theme) => ({
   [theme.breakpoints.down('sm')]: {
-    paddingX: 0.5,
+    paddingX: 1,
   },
   [theme.breakpoints.down(navbarWrapBreakpointKey)]: {
     paddingBottom: `${navbarSize + 1}rem`,

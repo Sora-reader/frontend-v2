@@ -25,8 +25,10 @@ export const MangaGridCard = ({ id, title, image }: Props) => {
       {...fakeLinkProps}
       variant="outlined"
       sx={(theme) => ({
+        border: 'none',
+        boxShadow: '0px 0px 8px 0 rgba(0,0,0,0.2);',
         [theme.breakpoints.down('sm')]: {
-          padding: '.7rem',
+          padding: '.6rem',
         },
       })}
     >

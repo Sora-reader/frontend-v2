@@ -13,7 +13,7 @@ export const MangaGrid = ({ mangaList, loading }: Props) => {
     <Grid
       container
       spacing={{
-        xs: 0,
+        xs: 0.5,
         sm: 1,
         md: 2,
       }}
