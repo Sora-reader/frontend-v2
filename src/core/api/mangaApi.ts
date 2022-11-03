@@ -6,7 +6,7 @@ import { apiUrl } from './const';
 
 const mangaAPIBaseUrl = `${apiUrl}/manga/`;
 type PK = string | number;
-type ImagesQueryArg = { mangaPk: PK; chapterPk: PK };
+type ImagesQueryArg = { mangaId: PK; chapterPk: PK };
 
 export const mangaApi = createApi({
   reducerPath: 'mangaAPI',
@@ -32,7 +32,7 @@ export const mangaApi = createApi({
       query: (pk: PK) => `${pk}/chapters/`,
     }),
     images: builder.query<ImagesWithStatus, ImagesQueryArg>({
-      query: ({ mangaPk, chapterPk }: ImagesQueryArg) => `${mangaPk}/chapters/${chapterPk}/images/`,
+      query: ({ mangaId, chapterPk }: ImagesQueryArg) => `${mangaId}/chapters/${chapterPk}/images/`,
     }),
   }),
 });

@@ -20,6 +20,17 @@ const joyTheme: CssVarsThemeOptions = extendJoyTheme({
       'sans-serif',
     ].join(','),
   },
+  components: {
+    JoyTabs: {
+      styleOverrides: {
+        root: {
+          margin: '1rem 0',
+          // TODO: Remove when upgrade and everything is fixed
+          backgroundColor: 'transparent',
+        },
+      },
+    },
+  },
 });
 
 const muiTheme = extendMuiTheme({

@@ -1,1 +1,1 @@
-export const listNames = ['Читаю', 'Избранные', 'Читать позже', 'Брошеные'] as const;
+export const listNames = ['Читаю', 'Избранные', 'Читать позже', 'Брошенные'] as const;

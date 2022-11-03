@@ -17,7 +17,7 @@ const ReadChapter: NextPage = () => {
   const { data, isLoading } = usePollingQuery<ImagesWithStatus>(
     useImagesQuery,
     {
-      mangaPk: id,
+      mangaId: id,
       chapterPk: chapterId,
     },
     { skip: !chapterId || !id },
@@ -31,7 +31,7 @@ export const getServerSideProps = RTKSSRBoilerplate(async (store, { params }) =>
   const id = extractParam(params, 'id');
   const chapterId = extractParam(params, 'chapterId');
   if (id && chapterId) {
-    store.dispatch(images.initiate({ mangaPk: id, chapterPk: chapterId }));
+    store.dispatch(images.initiate({ mangaId: id, chapterPk: chapterId }));
   }
 });
 

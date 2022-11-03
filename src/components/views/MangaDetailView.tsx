@@ -7,6 +7,7 @@ import { ChapterListType, MangaType } from '../../core/api/types';
 import { useIsEmptyManga, useIsPartialManga } from '../../core/api/hooks/manga';
 import { useWithOptionalSkeleton } from '../../misc/components/SoraSkeleton';
 import { ChapterList } from '../manga/detail/ChapterList';
+import { ListSelect } from '../manga/lists/ListSelect';
 
 type BgProps = {
   img?: string;
@@ -54,19 +55,20 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
           <WithOptionalSkeleton width="467px" height="37px" sx={{ my: 3 }}>
             <h1>{manga?.title}</h1>
           </WithOptionalSkeleton>
-          <WithOptionalSkeleton width="300px" height="37px" sx={{ my: 1 }} forceWrap={isPartialManga}>
+          <WithOptionalSkeleton width="300px" height="37px" sx={{ my: 1 }} forceLoading={isPartialManga}>
             <Box sx={{ display: 'flex', gap: 1, marginBottom: 1, flexFlow: 'column nowrap' }}>
               <div>
                 {manga?.genres.map((g) => (
-                  <Chip variant="soft" key={g}>
-                    {g}
-                  </Chip>
+                  <Chip variant="soft" key={g} children={g} />
                 ))}
               </div>
               {manga?.rating && <Rating value={Number(manga.rating)} readOnly precision={0.1} />}
             </Box>
           </WithOptionalSkeleton>
-          <WithOptionalSkeleton width="467px" height="300px" sx={{ my: 3 }} forceWrap={isPartialManga}>
+
+          {!isEmptyManga && <ListSelect mangaId={manga.id} />}
+
+          <WithOptionalSkeleton width="467px" height="300px" sx={{ my: 3 }} forceLoading={isPartialManga}>
             <Typography level="h6">{manga?.description}</Typography>
           </WithOptionalSkeleton>
         </Grid>

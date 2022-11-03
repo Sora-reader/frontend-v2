@@ -7,11 +7,27 @@ import CloseIcon from '@mui/icons-material/Close';
 type NotificationProps = {
   notification: NotificationType;
   closeCallback: () => any;
+  autoHide?: number;
 };
-export const Notification = ({ notification, closeCallback }: NotificationProps) => {
+export const Notification = ({ notification, closeCallback, autoHide }: NotificationProps) => {
   const [open, setOpen] = useState(true);
   const [direction, setDirection] = useState<'up' | 'left'>('up');
   const closeTimeoutRef = useRef<any>();
+
+  // AutoHide
+  const autoHideTimeoutRef = useRef<any>();
+  useEffect(() => {
+    if (autoHide) {
+      autoHideTimeoutRef.current = setTimeout(() => {
+        onClose();
+      }, autoHide);
+    }
+
+    // Clear timeout on unmount
+    return () => {
+      clearTimeout(autoHideTimeoutRef.current);
+    };
+  }, []);
 
   const exitTimeout = 100;
 
@@ -50,4 +66,8 @@ export const Notification = ({ notification, closeCallback }: NotificationProps)
       </Alert>
     </Slide>
   );
+};
+
+Notification.defaultProps = {
+  autoHide: 3000,
 };
