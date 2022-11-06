@@ -4,6 +4,12 @@ import { experimental_extendTheme as extendMuiTheme } from '@mui/material/styles
 import colors from '@mui/joy/colors';
 import { extendTheme as extendJoyTheme } from '@mui/joy/styles';
 
+declare module '@mui/joy/styles' {
+  interface Palette {
+    logoSrc: string;
+  }
+}
+
 const joyTheme: CssVarsThemeOptions = extendJoyTheme({
   fontFamily: {
     body: [
@@ -28,6 +34,18 @@ const joyTheme: CssVarsThemeOptions = extendJoyTheme({
           // TODO: Remove when upgrade and everything is fixed
           backgroundColor: 'transparent',
         },
+      },
+    },
+  },
+  colorSchemes: {
+    light: {
+      palette: {
+        logoSrc: '/logo.svg',
+      },
+    },
+    dark: {
+      palette: {
+        logoSrc: '/logo-white.svg',
       },
     },
   },

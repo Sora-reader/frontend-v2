@@ -23,7 +23,7 @@ export const DefaultPager = ({ images, page, setPage, setShowNavbar }: DefaultPa
       threshold={10}
       index={page - 1}
       onChangeIndex={onChangeIndex}
-      style={{ width: '100%' }}
+      style={{ width: '100%', overflow: 'hidden', height: '100vh' }}
       slideStyle={{ height: '100vh', display: 'flex', justifyContent: 'center', position: 'relative' }}
     >
       {images.map((image) => (

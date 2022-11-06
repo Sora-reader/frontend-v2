@@ -7,7 +7,7 @@ export interface MangaType {
   sourceUrl: string;
   title: string;
   altTitle?: string;
-  rssUrl?: string;
+  chaptersUrl?: string;
   rating?: string;
   thumbnail: string;
   image?: string;

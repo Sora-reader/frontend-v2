@@ -56,12 +56,7 @@ const navbarPaddingSx = (theme: Theme) => ({
   },
 });
 
-const mainContainerSx = [
-  navbarPaddingSx,
-  {
-    my: 1,
-  },
-];
+const mainContainerSx = [navbarPaddingSx];
 
 export const MainLayout = ({ children }) => {
   const isReaderRoute = useIsReaderRoute();
@@ -70,7 +65,12 @@ export const MainLayout = ({ children }) => {
   const sx = useMemo(() => {
     if (isReaderRoute)
       return [...mainContainerSx, { height: '100vh', display: 'flex', justifyContent: 'center' }];
-    return mainContainerSx;
+    return [
+      ...mainContainerSx,
+      {
+        my: 1,
+      },
+    ];
   }, [isReaderRoute]);
 
   return (

@@ -20,7 +20,7 @@ const Manga: NextPage = () => {
   const chaptersQuery = usePollingQuery<ChaptersWithStatus>(
     useChaptersQuery,
     id,
-    { skip: !id || !manga.rssUrl },
+    { skip: !id || !manga.chaptersUrl },
     500
   );
   const chapters = chaptersQuery.data?.data;

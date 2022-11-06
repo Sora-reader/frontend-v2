@@ -21,9 +21,6 @@ import NextNProgress from 'nextjs-progressbar';
 
 // Disable swipe when pinched ???
 
-// TODO: New CSS tokens for logo path
-// TODO: Better styling for route progress bar
-
 // TODO: chapter image selector on navbar
 
 // TODO: Track read chapters & sync with backend (redux-persist)
@@ -38,6 +35,11 @@ import NextNProgress from 'nextjs-progressbar';
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <div id="app">
+      <NextNProgress
+        color="var(--joy-palette-primary-light)"
+        showOnShallow={false}
+        options={{ showSpinner: false }}
+      />
       <CssVarsProvider theme={themeBase}>
         <Head>
           <title>Sora reader</title>
@@ -48,11 +50,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           />
         </Head>
         <MainLayout>
-          <NextNProgress
-            color="var(--joy-palette-primary-main)"
-            showOnShallow={false}
-            options={{ showSpinner: false }}
-          />
           <Component {...pageProps} />
         </MainLayout>
       </CssVarsProvider>

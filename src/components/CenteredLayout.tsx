@@ -1,11 +1,11 @@
 import { Box } from '@mui/joy';
-import { navbarSize } from './layout/Navbar/const';
+import { heightWithoutNavbar } from '../misc/utils';
 
 export const CenteredLayout = ({ children, direction = 'column' }) => {
   return (
     <Box
       sx={{
-        height: `calc(100vh - ${navbarSize}rem)`,
+        height: heightWithoutNavbar,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

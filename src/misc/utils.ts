@@ -4,6 +4,7 @@ import { GetServerSideProps } from 'next';
 import { wrapper } from '../core/store';
 import { getRunningOperationPromises } from '../core/api/mangaApi';
 import { ParsedUrlQuery } from 'querystring';
+import { navbarSize } from '../components/layout/Navbar/const';
 
 export const isClientNavigation = (req: IncomingMessage) => req.url?.startsWith('/_next');
 
@@ -55,3 +56,6 @@ export const RTKSSRBoilerplate = (f: (a1: gsspStore, a2: gsspHandlerParams) => P
       props,
     };
   }) as GetServerSideProps;
+
+// TODO: make it a hook or something idk
+export const heightWithoutNavbar = `calc(100vh - ${navbarSize}rem)`;

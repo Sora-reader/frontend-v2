@@ -13,6 +13,8 @@ import { useIsNavbarWrapped } from '../layout/Navbar/utils';
 import { getPagerType } from '../pager/utils';
 import { LoadingProps } from '../../misc/types';
 import { LogoSpinner } from '../../misc/components/LogoSpinner';
+import ChangeChapterIcon from '@mui/icons-material/FormatAlignJustify';
+import ChangePagerIcon from '@mui/icons-material/AutoStories';
 
 type Props = {
   mangaId: string;
@@ -47,9 +49,24 @@ export const ReadChapterView = ({ mangaId, images }: Props) => {
 
   const renderNavbarIcons = useCallback(() => {
     return (
-      <Box sx={buttonContainerSx}>
+      <Box
+        sx={[
+          buttonContainerSx,
+          {
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+          },
+        ]}
+      >
         <IconButton {...mangaAnchorProps}>
           <ArrowBackIcon />
+        </IconButton>
+        <IconButton>
+          <ChangeChapterIcon />
+        </IconButton>
+        <IconButton>
+          <ChangePagerIcon />
         </IconButton>
       </Box>
     );

@@ -8,4 +8,4 @@ export const useIsEmptyManga = (value: MangaType | number) =>
 
 /** Determine if manga is partially parsed. Meaning there are still details to be parsed
  * @param value manda or it's id parameter */
-export const useIsPartialManga = (value: MangaType) => useMemo(() => !value?.rssUrl, [value]);
+export const useIsPartialManga = (value: MangaType) => useMemo(() => !value?.chaptersUrl, [value]);

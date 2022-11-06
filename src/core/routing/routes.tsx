@@ -7,22 +7,22 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 export const baseRoutes = {
   '/': {
-    name: 'Home',
+    name: 'Домой',
     icon: HomeIcon,
   },
   '/lists': {
-    name: 'Lists',
+    name: 'Списки',
     icon: FormatListBulletedIcon,
   },
   '/search': {
-    name: 'Search',
+    name: 'Поиск',
     icon: SearchIcon,
   },
 };
 
 export const extraRoutes = {
   '/settings': {
-    name: 'Settings',
+    name: 'Настройки',
     icon: SettingsIcon,
   },
 };
@@ -39,14 +39,14 @@ export const getAccountRoute = (): [string, any] => {
     ? [
         '/logout',
         {
-          name: 'Logout',
+          name: 'Выход',
           icon: LogoutIcon,
         },
       ]
     : [
         '/login',
         {
-          name: 'Log In',
+          name: 'Вход',
           icon: LoginIcon,
         },
       ];

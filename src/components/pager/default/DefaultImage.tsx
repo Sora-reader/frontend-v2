@@ -5,7 +5,7 @@ export const DefaultImage = ({ src, setShowNavbar }: ImageProps) => {
     <img
       style={{
         height: 'fit-content',
-        maxHeight: '100vh',
+        maxHeight: '100%',
         maxWidth: '100%',
         margin: 0,
         position: 'absolute',

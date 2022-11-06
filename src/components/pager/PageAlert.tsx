@@ -25,8 +25,8 @@ export const PageAlert = ({ page, images }: PageAlertProps) => {
         color="neutral"
         sx={{
           position: 'fixed',
-          right: '50%',
           left: '50%',
+          transform: 'translateX(-50%)',
           justifyContent: 'center',
           top: '1rem',
           width: 'max-content',

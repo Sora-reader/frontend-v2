@@ -20,8 +20,6 @@ export const ListSelect = ({ mangaId }: Props) => {
     useMemo(() => inWhichListId(mangaId, listsData), [listsData, mangaId])
   );
 
-  console.info('listId', listId, 'mangaId', mangaId, 'listData', listsData);
-
   const [addToList] = useAddToListMutation();
   const [removeFromList] = useRemoveFromListMutation();
 
