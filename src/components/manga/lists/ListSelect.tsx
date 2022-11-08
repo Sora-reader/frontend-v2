@@ -53,6 +53,7 @@ export const ListSelect = ({ mangaId }: Props) => {
     <WithOptionalSkeleton width="180px">
       <Select
         startDecorator={<FormatListBulletedIcon />}
+        variant="soft"
         indicator={null}
         sx={{ maxWidth: '180px', marginBottom: 1 }}
         onChange={onListChange}
