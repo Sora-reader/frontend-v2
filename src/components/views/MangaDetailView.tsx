@@ -8,6 +8,7 @@ import { useIsEmptyManga, useIsPartialManga } from '../../core/api/hooks/manga';
 import { useWithOptionalSkeleton } from '../../misc/components/SoraSkeleton';
 import { ChapterList } from '../manga/detail/ChapterList';
 import { ListSelect } from '../manga/lists/ListSelect';
+import PublicIcon from '@mui/icons-material/Public';
 
 type BgProps = {
   img?: string;
@@ -55,6 +56,7 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
           <WithOptionalSkeleton width="467px" height="37px" sx={{ my: 3 }}>
             <h1>{manga?.title}</h1>
           </WithOptionalSkeleton>
+
           <WithOptionalSkeleton width="300px" height="37px" sx={{ my: 1 }} forceLoading={isPartialManga}>
             <Box sx={{ display: 'flex', gap: 1, marginBottom: 1, flexFlow: 'column nowrap' }}>
               <div>
@@ -64,6 +66,22 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
               </div>
               {manga?.rating && <Rating value={Number(manga.rating)} readOnly precision={0.1} />}
             </Box>
+          </WithOptionalSkeleton>
+
+          {/* Strange margins cuz rating's margins are being squashed somehow */}
+          <WithOptionalSkeleton
+            width="130px"
+            height="32px"
+            sx={{ my: 1, marginTop: 2, borderRadius: '1.5rem' }}
+          >
+            <Chip
+              variant="soft"
+              startDecorator={<PublicIcon />}
+              sx={{ my: 1 }}
+              component="a"
+              href={manga.sourceUrl}
+              children={manga.source}
+            />
           </WithOptionalSkeleton>
 
           {!isEmptyManga && <ListSelect mangaId={manga.id} />}

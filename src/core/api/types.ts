@@ -5,6 +5,7 @@ export type Author = string;
 export interface MangaType {
   id: number;
   sourceUrl: string;
+  source: string;
   title: string;
   altTitle?: string;
   chaptersUrl?: string;
