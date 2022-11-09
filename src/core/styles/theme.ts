@@ -40,12 +40,12 @@ const joyTheme: CssVarsThemeOptions = extendJoyTheme({
   colorSchemes: {
     light: {
       palette: {
-        logoSrc: '/logo.svg',
+        logoSrc: 'url("/logo.svg")',
       },
     },
     dark: {
       palette: {
-        logoSrc: '/logo-white.svg',
+        logoSrc: 'url("/logo-white.svg")',
       },
     },
   },

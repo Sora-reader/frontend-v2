@@ -1,6 +1,5 @@
 import styles from './spinner.module.scss';
 import { CSSProperties } from '@mui/system/CSSProperties';
-import { useTheme } from '@mui/joy';
 
 type Size = 'sm' | 'md' | 'lg' | 'xl';
 type Props = {
@@ -15,14 +14,17 @@ export const LogoSpinner = ({ size, style }: Props) => {
     xl: 'var(--CircularProgress-size, 128px)',
   };
   const progressSize = sizeMap[size];
-  const theme = useTheme();
 
   return (
     <img
       className={styles.spinner}
       alt="logo spinner"
-      src={theme.palette.logoSrc}
-      style={{ maxHeight: progressSize, maxWidth: progressSize, ...style }}
+      style={{
+        maxHeight: progressSize,
+        maxWidth: progressSize,
+        content: 'var(--joy-palette-logoSrc)',
+        ...style,
+      }}
     />
   );
 };
