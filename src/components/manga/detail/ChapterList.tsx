@@ -33,8 +33,8 @@ export const ChapterList = ({ mangaId, chapters, loading }: Props) => {
           { '&:hover': { backgroundColor: 'var(--joy-palette-neutral-softHoverBg)' } },
         ]}
       >
-        <Option value="new">New first</Option>
-        <Option value="old">Old first</Option>
+        <Option value="new">Новые</Option>
+        <Option value="old">Старые</Option>
       </Select>
       <Stack spacing={1}>
         {(loading && [...Array(8)].map((_, i) => <Chapter loading={true} key={`chapter-${i}`} />)) ||

@@ -13,8 +13,8 @@ import PublicIcon from '@mui/icons-material/Public';
 type BgProps = {
   img?: string;
 };
+export const bgGradientColor = 'var(--joy-palette-secondary-contrastTextChannel)';
 const Bg = styled('div')<BgProps>(({ img }) => {
-  const bgColor = 'var(--joy-palette-secondary-contrastTextChannel)';
   return {
     position: 'fixed',
     height: '100vh',
@@ -22,7 +22,7 @@ const Bg = styled('div')<BgProps>(({ img }) => {
     zIndex: -1,
 
     transform: 'scale(1.5)',
-    backgroundImage: `linear-gradient(rgba(${bgColor} / 80%),rgba(${bgColor} / 60%)), url('${img}')`,
+    backgroundImage: `linear-gradient(rgba(${bgGradientColor} / 80%),rgba(${bgGradientColor} / 60%)), url('${img}')`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     WebkitFilter: 'blur(5px)',

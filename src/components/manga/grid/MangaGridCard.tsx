@@ -1,17 +1,11 @@
 import Card from '@mui/joy/Card';
-import { Typography } from '@mui/joy';
+import { CardContent, CardCover, Typography } from "@mui/joy";
 import { useFakeAnchorProps } from '../../../misc/hooks';
 import { MangaType } from '../../../core/api/types';
-import { MangaImage } from '../MangaImage';
+import { MangaImage, ScaledImage } from '../MangaImage';
 import { useIsEmptyManga } from '../../../core/api/hooks/manga';
 import { useWithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
-
-const lineClampSx = (line: number) => ({
-  overflow: 'hidden',
-  WebkitLineClamp: String(line),
-  display: '-webkit-box',
-  WebkitBoxOrient: 'vertical',
-});
+import { bgGradientColor } from '../../views/MangaDetailView';
 
 type Props = MangaType;
 
@@ -21,35 +15,38 @@ export const MangaGridCard = ({ id, title, image }: Props) => {
   const WithOptionalSkeleton = useWithOptionalSkeleton(isEmptyManga);
 
   return (
-    <Card
-      {...fakeLinkProps}
-      variant="outlined"
-      sx={(theme) => ({
-        border: 'none',
-        boxShadow: '0px 0px 8px 0 rgba(0,0,0,0.2);',
-        [theme.breakpoints.down('sm')]: {
-          padding: '.6rem',
-        },
-      })}
-    >
-      <div>
-        <WithOptionalSkeleton width="100%" height="3rem" sx={{ mb: '1rem' }}>
-          <Typography
-            component="h2"
-            fontWeight="bold"
-            marginBottom="1rem !important"
-            sx={{
-              height: '3rem',
-              ...lineClampSx(2),
-            }}
-          >
+    <WithOptionalSkeleton width="100%" height="3rem" sx={{ mb: '1rem' }}>
+      <Card
+        {...fakeLinkProps}
+        variant="outlined"
+        sx={(theme) => ({
+          border: 'none',
+          [theme.breakpoints.down('sm')]: {
+            padding: '.6rem',
+          },
+        })}
+      >
+        <CardCover sx={{ overflow: 'hidden' }}>
+          <ScaledImage src={image} />
+        </CardCover>
+        <CardCover
+          sx={{
+            background: `linear-gradient(rgba(${bgGradientColor} / 0%), rgba(${bgGradientColor} / 80%))`,
+          }}
+        />
+        <CardContent sx={{ justifyContent: 'flex-end' }}>
+          <Typography level="h2" fontSize="inherit" sx={{ position: 'absolute' }}>
             {title}
           </Typography>
-        </WithOptionalSkeleton>
-        <WithOptionalSkeleton width="100%" height="329px">
-          <MangaImage src={image} />
-        </WithOptionalSkeleton>
-      </div>
-    </Card>
+          {/* Those props are a hack to size the Card as it would contain an image
+          while the image is a CardCover which doesn't dictate height */}
+          <MangaImage
+            src={image}
+            imgProps={{ sx: { opacity: 0 } }}
+            ratioProps={{ sx: { div: { backgroundColor: 'transparent' } } }}
+          />
+        </CardContent>
+      </Card>
+    </WithOptionalSkeleton>
   );
 };

@@ -55,11 +55,11 @@ export const ListSelect = ({ mangaId }: Props) => {
         startDecorator={<FormatListBulletedIcon />}
         variant="soft"
         indicator={null}
-        sx={{ maxWidth: '180px', marginBottom: 1 }}
+        sx={{ maxWidth: '200px', marginBottom: 1 }}
         onChange={onListChange}
         value={listId || false}
       >
-        <Option value={false}>Не выбрано</Option>
+        <Option value={false}>Выберите список</Option>
         {listsData &&
           listsData.map((l) => (
             <Option key={`list-${l.id}`} value={l.id}>
