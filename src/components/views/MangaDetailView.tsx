@@ -1,5 +1,5 @@
 import { MangaImage } from '../manga/MangaImage';
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/system';
 import { Box, Chip, Grid, Sheet, Typography } from '@mui/joy';
 import Rating from '@mui/material/Rating';
 import { memo } from 'react';
@@ -29,6 +29,13 @@ const Bg = styled('div')<BgProps>(({ img }) => {
   };
 });
 
+const lineClampSx = (line: number) => ({
+  overflow: 'hidden',
+  WebkitLineClamp: String(line),
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+});
+
 type Props = {
   manga: MangaType;
   chapters?: ChapterListType;
@@ -43,51 +50,68 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
       <Grid container spacing={2}>
         <Bg img={manga?.image} />
 
-        <Grid xs={12} sm={12} md={4}>
-          <WithOptionalSkeleton sx={{ maxWidth: '300px', my: 3 }} loading={isEmptyManga}>
-            <Sheet variant="solid" sx={{ maxWidth: '300px', borderRadius: 'md', overflow: 'auto', my: 3 }}>
+        <Grid xs={12} sm={4} md={4}>
+          <WithOptionalSkeleton sx={{ maxWidth: '300px', mb: 1, mt: 1 }} loading={isEmptyManga}>
+            <Sheet
+              variant="solid"
+              sx={{ maxWidth: '300px', borderRadius: 'md', overflow: 'auto', mb: 1, mt: 1 }}
+            >
               <MangaImage src={manga?.image} />
             </Sheet>
           </WithOptionalSkeleton>
+
+          <WithOptionalSkeleton sx={{ maxWidth: '300px' }} loading={isEmptyManga}>
+            <ListSelect mangaId={manga.id} selectSx={{ maxWidth: '300px' }} />
+          </WithOptionalSkeleton>
         </Grid>
 
-        <Grid sm={12} md={8}>
-          <WithOptionalSkeleton width="467px" height="37px" sx={{ my: 3 }} loading={isEmptyManga}>
-            <h1>{manga?.title}</h1>
+        <Grid xs={12} sm={8} md={8}>
+          <WithOptionalSkeleton width="467px" height="37px" sx={{ marginBottom: 0 }} loading={false}>
+            <h1 style={{ marginBottom: 0 }}>{manga?.title}</h1>
           </WithOptionalSkeleton>
 
-          <WithOptionalSkeleton width="300px" height="37px" sx={{ my: 1 }} loading={isPartialManga}>
-            <Box sx={{ display: 'flex', gap: 1, marginBottom: 1, flexFlow: 'column nowrap' }}>
-              <div>
-                {manga?.genres.map((g) => (
-                  <Chip variant="soft" key={g} children={g} />
-                ))}
-              </div>
-              {manga?.rating && <Rating value={Number(manga.rating)} readOnly precision={0.1} />}
+          <Box
+            sx={{
+              display: 'flex',
+              flexFlow: 'row wrap',
+              gap: 1,
+              alignContent: 'center',
+              alignItems: 'center',
+              mb: 1,
+            }}
+          >
+            <WithOptionalSkeleton
+              width="130px"
+              height="32px"
+              sx={{ borderRadius: '1.5rem' }}
+              loading={isEmptyManga}
+            >
+              <Chip
+                variant="soft"
+                startDecorator={<PublicIcon />}
+                component="a"
+                href={manga.sourceUrl}
+                children={manga.source}
+              />
+            </WithOptionalSkeleton>
+
+            <WithOptionalSkeleton loading={!Boolean(manga?.rating)}>
+              <Rating value={Number(manga.rating)} readOnly precision={0.1} />
+            </WithOptionalSkeleton>
+          </Box>
+
+          <WithOptionalSkeleton width="300px" height="37px" loading={isPartialManga}>
+            <Box sx={{ display: 'flex', gap: 0.5, marginBottom: 1 }}>
+              {manga?.genres.map((g) => (
+                <Chip variant="soft" key={g} children={g} />
+              ))}
             </Box>
           </WithOptionalSkeleton>
 
-          {/* Strange margins cuz rating's margins are being squashed somehow */}
-          <WithOptionalSkeleton
-            width="130px"
-            height="32px"
-            sx={{ my: 1, marginTop: 2, borderRadius: '1.5rem' }}
-            loading={isEmptyManga}
-          >
-            <Chip
-              variant="soft"
-              startDecorator={<PublicIcon />}
-              sx={{ my: 1 }}
-              component="a"
-              href={manga.sourceUrl}
-              children={manga.source}
-            />
-          </WithOptionalSkeleton>
-
-          {!isEmptyManga && <ListSelect mangaId={manga.id} />}
-
           <WithOptionalSkeleton width="467px" height="300px" sx={{ my: 3 }} loading={isPartialManga}>
-            <Typography level="h6">{manga?.description}</Typography>
+            <Typography level="h5" sx={lineClampSx(10)}>
+              {manga?.description}
+            </Typography>
           </WithOptionalSkeleton>
         </Grid>
 
