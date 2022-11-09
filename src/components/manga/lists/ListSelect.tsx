@@ -2,11 +2,11 @@ import { Option, Select } from '@mui/joy';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { useAddToListMutation, useGetListsQuery, useRemoveFromListMutation } from '../../../core/lists/api';
 import { inWhichListId } from '../../../core/lists/utils';
-import { useWithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
 import { useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNotification } from '../../../core/notificationSystem/slice';
 import { useFutureMemo } from '../../../misc/hooks/useFututreMemo';
+import { WithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
 
 type Props = {
   mangaId: number;
@@ -22,11 +22,6 @@ export const ListSelect = ({ mangaId }: Props) => {
 
   const [addToList] = useAddToListMutation();
   const [removeFromList] = useRemoveFromListMutation();
-
-  const WithOptionalSkeleton = useMemo(
-    () => useWithOptionalSkeleton(listsFetching),
-    [listsFetching, listId, mangaId]
-  );
 
   const onListChange = useCallback(
     (e, newListId) => {
@@ -50,7 +45,7 @@ export const ListSelect = ({ mangaId }: Props) => {
   );
 
   return (
-    <WithOptionalSkeleton width="180px">
+    <WithOptionalSkeleton width="180px" loading={listsFetching}>
       <Select
         startDecorator={<FormatListBulletedIcon />}
         variant="soft"

@@ -1,5 +1,5 @@
 import { Skeleton, SkeletonProps } from '@mui/material';
-import { forwardRef, useMemo } from 'react';
+import { forwardRef } from 'react';
 
 export type SoraSkeletonProps = SkeletonProps;
 /** Skeleton override with better defaults (use joy theme style overrides when it's supported by JoyUI). */
@@ -12,18 +12,17 @@ export const SoraSkeleton = forwardRef<any, SoraSkeletonProps>(({ sx, variant, .
   return <Skeleton variant={variant} sx={mySx} {...props} ref={ref} />;
 });
 
-type OptionalSkeletonHookProps = SoraSkeletonProps & { forceLoading?: boolean };
-/** Hook to support rendering optional Skeleton wrapper depending on some value.
- * Returns a component which accepts children which should be wrapped and usual <Skeleton/> props.
+type OptionalSkeletonHookProps = SoraSkeletonProps & { loading: boolean };
+/** HOC to support rendering optional Skeleton wrapper depending on some value.
+ * children which should be wrapped and usual <Skeleton/> props.
  *
- * You can override initial shouldWrap argument with forceWrap argument to the component itself.
- * @param shouldWrap bool to determine if skeleton should be rendered
+ * @param loading bool to determine if skeleton should be rendered
+ * @param children
+ * @param props
  */
-export const useWithOptionalSkeleton =
-  (shouldWrap: boolean) =>
-  ({ forceLoading, children, ...props }: OptionalSkeletonHookProps): JSX.Element =>
-    useMemo(
-      () =>
-        shouldWrap || forceLoading ? <SoraSkeleton children={children} {...props} /> : (children as any),
-      []
-    );
+export const WithOptionalSkeleton = ({
+  loading,
+  children,
+  ...props
+}: OptionalSkeletonHookProps): JSX.Element =>
+  loading ? <SoraSkeleton children={children} {...props} /> : (children as any);

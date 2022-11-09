@@ -5,10 +5,10 @@ import Rating from '@mui/material/Rating';
 import { memo } from 'react';
 import { ChapterListType, MangaType } from '../../core/api/types';
 import { useIsEmptyManga, useIsPartialManga } from '../../core/api/hooks/manga';
-import { useWithOptionalSkeleton } from '../../misc/components/SoraSkeleton';
 import { ChapterList } from '../manga/detail/ChapterList';
 import { ListSelect } from '../manga/lists/ListSelect';
 import PublicIcon from '@mui/icons-material/Public';
+import { WithOptionalSkeleton } from '../../misc/components/SoraSkeleton';
 
 type BgProps = {
   img?: string;
@@ -37,7 +37,6 @@ type Props = {
 export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props) => {
   const isEmptyManga = useIsEmptyManga(manga);
   const isPartialManga = useIsPartialManga(manga);
-  const WithOptionalSkeleton = useWithOptionalSkeleton(isEmptyManga);
 
   return (
     <div>
@@ -45,7 +44,7 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
         <Bg img={manga?.image} />
 
         <Grid xs={12} sm={12} md={4}>
-          <WithOptionalSkeleton sx={{ maxWidth: '300px', my: 3 }}>
+          <WithOptionalSkeleton sx={{ maxWidth: '300px', my: 3 }} loading={isEmptyManga}>
             <Sheet variant="solid" sx={{ maxWidth: '300px', borderRadius: 'md', overflow: 'auto', my: 3 }}>
               <MangaImage src={manga?.image} />
             </Sheet>
@@ -53,11 +52,11 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
         </Grid>
 
         <Grid sm={12} md={8}>
-          <WithOptionalSkeleton width="467px" height="37px" sx={{ my: 3 }}>
+          <WithOptionalSkeleton width="467px" height="37px" sx={{ my: 3 }} loading={isEmptyManga}>
             <h1>{manga?.title}</h1>
           </WithOptionalSkeleton>
 
-          <WithOptionalSkeleton width="300px" height="37px" sx={{ my: 1 }} forceLoading={isPartialManga}>
+          <WithOptionalSkeleton width="300px" height="37px" sx={{ my: 1 }} loading={isPartialManga}>
             <Box sx={{ display: 'flex', gap: 1, marginBottom: 1, flexFlow: 'column nowrap' }}>
               <div>
                 {manga?.genres.map((g) => (
@@ -73,6 +72,7 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
             width="130px"
             height="32px"
             sx={{ my: 1, marginTop: 2, borderRadius: '1.5rem' }}
+            loading={isEmptyManga}
           >
             <Chip
               variant="soft"
@@ -86,7 +86,7 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
 
           {!isEmptyManga && <ListSelect mangaId={manga.id} />}
 
-          <WithOptionalSkeleton width="467px" height="300px" sx={{ my: 3 }} forceLoading={isPartialManga}>
+          <WithOptionalSkeleton width="467px" height="300px" sx={{ my: 3 }} loading={isPartialManga}>
             <Typography level="h6">{manga?.description}</Typography>
           </WithOptionalSkeleton>
         </Grid>

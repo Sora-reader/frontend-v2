@@ -1,21 +1,20 @@
 import Card from '@mui/joy/Card';
-import { CardContent, CardCover, Typography } from "@mui/joy";
+import { CardContent, CardCover, Typography } from '@mui/joy';
 import { useFakeAnchorProps } from '../../../misc/hooks';
 import { MangaType } from '../../../core/api/types';
 import { MangaImage, ScaledImage } from '../MangaImage';
 import { useIsEmptyManga } from '../../../core/api/hooks/manga';
-import { useWithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
 import { bgGradientColor } from '../../views/MangaDetailView';
+import { WithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
 
 type Props = MangaType;
 
 export const MangaGridCard = ({ id, title, image }: Props) => {
   const isEmptyManga = useIsEmptyManga(id);
   const fakeLinkProps = useFakeAnchorProps(isEmptyManga ? '#' : `/manga/${id}`);
-  const WithOptionalSkeleton = useWithOptionalSkeleton(isEmptyManga);
 
   return (
-    <WithOptionalSkeleton width="100%" height="3rem" sx={{ mb: '1rem' }}>
+    <WithOptionalSkeleton width="100%" height="350px" loading={isEmptyManga}>
       <Card
         {...fakeLinkProps}
         variant="outlined"
