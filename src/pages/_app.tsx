@@ -18,7 +18,6 @@ import NextNProgress from 'nextjs-progressbar';
 // OpenGraph
 
 // More pager types, allow changing on-demand (per-manga, saved in localstorage with other user preferences)
-
 // Disable swipe when pinched ???
 
 // TODO: chapter image selector on navbar

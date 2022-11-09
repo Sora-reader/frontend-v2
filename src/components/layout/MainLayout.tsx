@@ -64,7 +64,16 @@ export const MainLayout = ({ children }) => {
 
   const sx = useMemo(() => {
     if (isReaderRoute)
-      return [...mainContainerSx, { height: '100vh', display: 'flex', justifyContent: 'center' }];
+      return [
+        ...mainContainerSx,
+        {
+          height: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          // Override padding so the image is not affected by navbar size padding
+          padding: '0 !important',
+        },
+      ];
     return [
       ...mainContainerSx,
       {
