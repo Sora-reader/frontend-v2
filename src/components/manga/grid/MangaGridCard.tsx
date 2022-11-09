@@ -2,7 +2,7 @@ import Card from '@mui/joy/Card';
 import { CardContent, CardCover, Typography } from '@mui/joy';
 import { useFakeAnchorProps } from '../../../misc/hooks';
 import { MangaType } from '../../../core/api/types';
-import { MangaImage, ScaledImage } from '../MangaImage';
+import { BaseMangaImage, MangaImage } from '../MangaImage';
 import { useIsEmptyManga } from '../../../core/api/hooks/manga';
 import { bgGradientColor } from '../../views/MangaDetailView';
 import { WithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
@@ -20,13 +20,14 @@ export const MangaGridCard = ({ id, title, image }: Props) => {
         variant="outlined"
         sx={(theme) => ({
           border: 'none',
+          padding: 0,
           [theme.breakpoints.down('sm')]: {
             padding: '.6rem',
           },
         })}
       >
         <CardCover sx={{ overflow: 'hidden' }}>
-          <ScaledImage src={image} />
+          <BaseMangaImage src={image} />
         </CardCover>
         <CardCover
           sx={{
@@ -34,14 +35,14 @@ export const MangaGridCard = ({ id, title, image }: Props) => {
           }}
         />
         <CardContent sx={{ justifyContent: 'flex-end' }}>
-          <Typography level="h2" fontSize="inherit" sx={{ position: 'absolute' }}>
+          <Typography level="h2" fontSize="inherit" sx={{ position: 'absolute', padding: 2 }}>
             {title}
           </Typography>
           {/* Those props are a hack to size the Card as it would contain an image
           while the image is a CardCover which doesn't dictate height */}
           <MangaImage
             src={image}
-            imgProps={{ sx: { opacity: 0 } }}
+            imgProps={{ style: { opacity: 0 } }}
             ratioProps={{ sx: { div: { backgroundColor: 'transparent' } } }}
           />
         </CardContent>

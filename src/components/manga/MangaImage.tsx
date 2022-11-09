@@ -1,10 +1,7 @@
-import { styled } from '@mui/material/styles';
 import { AspectRatio } from '@mui/joy';
+import Image from 'next/image';
 
-// Scale readmanga's thumbnail to remove white borders and stuff
-export const ScaledImage = styled('img')({
-  transform: 'scale(1.2)',
-});
+export const BaseMangaImage = ({ ...props }: any) => <Image layout="fill" {...props} />;
 
 type Props = {
   src: string;
@@ -14,7 +11,7 @@ type Props = {
 
 export const MangaImage = ({ src, ratioProps, imgProps }: Props) => (
   <AspectRatio ratio="310/500" {...ratioProps}>
-    <ScaledImage src={src} loading="lazy" {...imgProps} />
+    <BaseMangaImage src={src} loading="lazy" {...imgProps} />
   </AspectRatio>
 );
 

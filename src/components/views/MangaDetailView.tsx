@@ -95,8 +95,8 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
               />
             </WithOptionalSkeleton>
 
-            <WithOptionalSkeleton loading={!Boolean(manga?.rating)}>
-              <Rating value={Number(manga.rating)} readOnly precision={0.1} />
+            <WithOptionalSkeleton loading={manga?.rating === undefined}>
+              {manga.rating && <Rating value={Number(manga.rating)} readOnly precision={0.1} />}
             </WithOptionalSkeleton>
           </Box>
 

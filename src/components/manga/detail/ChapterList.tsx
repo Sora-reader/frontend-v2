@@ -24,7 +24,7 @@ export const ChapterList = ({ mangaId, chapters, loading }: Props) => {
 
   return (
     <>
-      <WithOptionalSkeleton loading={loading}>
+      <WithOptionalSkeleton loading={loading || !chaptersLoaded}>
         <Select
           startDecorator={<SortIcon />}
           placeholder=""

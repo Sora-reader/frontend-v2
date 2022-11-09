@@ -10,9 +10,10 @@ import { WithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
 
 type Props = {
   mangaId: number;
+  selectSx;
 };
 
-export const ListSelect = ({ mangaId }: Props) => {
+export const ListSelect = ({ mangaId, selectSx }: Props) => {
   const dispatch = useDispatch();
 
   const { data: listsData, isLoading: listsFetching } = useGetListsQuery(null);
@@ -50,7 +51,7 @@ export const ListSelect = ({ mangaId }: Props) => {
         startDecorator={<FormatListBulletedIcon />}
         variant="soft"
         indicator={null}
-        sx={{ maxWidth: '200px', marginBottom: 1 }}
+        sx={selectSx}
         onChange={onListChange}
         value={listId || false}
       >

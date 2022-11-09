@@ -10,6 +10,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  images: {
+    domains: ['imgcover.manga-chan.me', 'staticrm.rmr.rocks'],
+  },
 };
 
 if (process.env.ANALYZE === 'true') {
