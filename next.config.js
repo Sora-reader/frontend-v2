@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
   output: 'standalone',
   reactStrictMode: true,
@@ -11,7 +11,11 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: ['imgcover.manga-chan.me', 'staticrm.rmr.rocks'],
+    domains: [
+      'imgcover.manga-chan.me',
+      'staticrm.rmr.rocks',
+      ...[...Array(30)].map((_, i) => `h${i}.rmr.rocks`),
+    ],
   },
 };
 

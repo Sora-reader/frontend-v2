@@ -62,12 +62,18 @@ export const MainLayout = ({ children }) => {
   const isReaderRoute = useIsReaderRoute();
   const render = useCallback(renderBaseNavbarIcons, []);
 
+  // 100vh doesn't work when mobile app bar is visible :)
+  const jsViewportHeight = useMemo(
+    () => (typeof window !== 'undefined' && `${window.innerHeight}px`) || 'initial',
+    undefined
+  );
+
   const sx = useMemo(() => {
     if (isReaderRoute)
       return [
         ...mainContainerSx,
         {
-          height: '100vh',
+          height: jsViewportHeight,
           display: 'flex',
           justifyContent: 'center',
           // Override padding so the image is not affected by navbar size padding

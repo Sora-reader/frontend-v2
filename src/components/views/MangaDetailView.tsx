@@ -48,7 +48,10 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
   return (
     <div>
       <Grid container spacing={2}>
-        <Bg img={manga?.image} />
+        {/* Load this image as it would be loaded with <img/> following noreferrer */}
+        {/* This is needed because CSS url("...") doesn't follow those policies, and
+        it's needed to not get a 403 */}
+        {manga?.image && <Bg img={`/_next/image?url=${encodeURIComponent(manga?.image)}&w=1080&q=75`} />}
 
         <Grid xs={12} sm={4} md={4}>
           <WithOptionalSkeleton sx={{ maxWidth: '300px', mb: 1, mt: 1 }} loading={isEmptyManga}>
@@ -92,6 +95,10 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
                 component="a"
                 href={manga.sourceUrl}
                 children={manga.source}
+                sx={
+                  // Without this the Icon overlaps the NavBar
+                  { zIndex: 0 }
+                }
               />
             </WithOptionalSkeleton>
 
@@ -101,7 +108,7 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
           </Box>
 
           <WithOptionalSkeleton width="300px" height="37px" loading={isPartialManga}>
-            <Box sx={{ display: 'flex', gap: 0.5, marginBottom: 1 }}>
+            <Box sx={{ display: 'flex', flexFlow: 'row wrap', gap: 0.5, marginBottom: 1 }}>
               {manga?.genres.map((g) => (
                 <Chip variant="soft" key={g} children={g} />
               ))}

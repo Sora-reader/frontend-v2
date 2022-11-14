@@ -1,21 +1,16 @@
 import { ImageProps } from '../types';
+import Image from 'next/image';
+import { Box } from '@mui/joy';
 
-export const DefaultImage = ({ src, setShowNavbar }: ImageProps) => {
-  return (
-    <img
-      style={{
-        height: 'fit-content',
-        maxHeight: '100%',
-        maxWidth: '100%',
-        margin: 0,
-        position: 'absolute',
-        top: '50%',
-        transform: 'translateY(-50%)',
-      }}
-      loading="lazy"
-      src={src}
-      alt=""
-      onClick={setShowNavbar}
-    />
-  );
-};
+export const DefaultImage = ({ src, priority, setShowNavbar }: ImageProps) => (
+  <Box
+    sx={{
+      // Style property on Image doesn't fucking work
+      '& img': {
+        objectFit: 'contain',
+      },
+    }}
+  >
+    <Image priority={priority} layout="fill" src={src} alt="" onClick={setShowNavbar} />
+  </Box>
+);

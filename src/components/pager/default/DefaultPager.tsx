@@ -1,6 +1,6 @@
 import { DefaultPagerProps } from './types';
 import { DefaultImage } from './DefaultImage';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { bindKeyboard } from 'react-swipeable-views-utils';
 
@@ -17,17 +17,25 @@ export const DefaultPager = ({ images, page, setPage, setShowNavbar }: DefaultPa
     [images, page]
   );
 
+  // 100vh doesn't work when mobile app bar is visible :)
+  const jsViewportHeight = useMemo(() => `${window.innerHeight}px`, undefined);
+
   return (
     <BindKeyboardSwipeableViews
       hysteresis={0.3}
       threshold={10}
       index={page - 1}
       onChangeIndex={onChangeIndex}
-      style={{ width: '100%', overflow: 'hidden', height: '100vh' }}
-      slideStyle={{ height: '100vh', display: 'flex', justifyContent: 'center', position: 'relative' }}
+      style={{ width: '100%', overflow: 'hidden' }}
+      slideStyle={{
+        height: jsViewportHeight,
+        display: 'flex',
+        justifyContent: 'center',
+        position: 'relative',
+      }}
     >
-      {images.map((image) => (
-        <DefaultImage key={image} src={image} setShowNavbar={setShowNavbar} />
+      {images.map((image, n) => (
+        <DefaultImage priority={n === 0} key={image} src={image} setShowNavbar={setShowNavbar} />
       ))}
     </BindKeyboardSwipeableViews>
   );

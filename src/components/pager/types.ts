@@ -11,5 +11,6 @@ export type PagerProps = {
 
 export type ImageProps = {
   src: string;
+  priority?: boolean;
   setShowNavbar: () => any;
 };
