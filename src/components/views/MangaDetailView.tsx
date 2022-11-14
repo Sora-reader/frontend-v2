@@ -54,12 +54,15 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
         {manga?.image && <Bg img={`/_next/image?url=${encodeURIComponent(manga?.image)}&w=1080&q=75`} />}
 
         <Grid xs={12} sm={4} md={4}>
-          <WithOptionalSkeleton sx={{ maxWidth: '300px', mb: 1, mt: 1 }} loading={isEmptyManga}>
+          <WithOptionalSkeleton
+            sx={{ maxWidth: '300px', mb: 1, mt: 1 }}
+            loading={isEmptyManga && !manga?.image}
+          >
             <Sheet
               variant="solid"
               sx={{ maxWidth: '300px', borderRadius: 'md', overflow: 'auto', mb: 1, mt: 1 }}
             >
-              <MangaImage src={manga?.image} />
+              <MangaImage src={manga?.image} alt="manga-image" />
             </Sheet>
           </WithOptionalSkeleton>
 

@@ -43,7 +43,7 @@ export const {
   useDetailQuery,
   useChaptersQuery,
   useImagesQuery,
-  util: { getRunningOperationPromises },
+  util: { getRunningQueriesThunk },
 } = mangaApi;
 
 export const { search, detail, chapters, images } = mangaApi.endpoints;

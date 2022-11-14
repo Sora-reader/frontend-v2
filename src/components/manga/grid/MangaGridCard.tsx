@@ -27,7 +27,7 @@ export const MangaGridCard = ({ id, title, image }: Props) => {
         })}
       >
         <CardCover sx={{ overflow: 'hidden' }}>
-          <BaseMangaImage src={image} />
+          <BaseMangaImage src={image} alt="manga-background" />
         </CardCover>
         <CardCover
           sx={{
@@ -44,6 +44,7 @@ export const MangaGridCard = ({ id, title, image }: Props) => {
             src={image}
             imgProps={{ style: { opacity: 0 } }}
             ratioProps={{ sx: { div: { backgroundColor: 'transparent' } } }}
+            alt={`card-image-for-${title}`}
           />
         </CardContent>
       </Card>

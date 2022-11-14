@@ -1,5 +1,5 @@
 import { DefaultPagerProps } from './types';
-import { DefaultImage } from './DefaultImage';
+import { DefaultPagerImage } from './DefaultPagerImage';
 import { useCallback, useMemo } from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { bindKeyboard } from 'react-swipeable-views-utils';
@@ -35,7 +35,13 @@ export const DefaultPager = ({ images, page, setPage, setShowNavbar }: DefaultPa
       }}
     >
       {images.map((image, n) => (
-        <DefaultImage priority={n === 0} key={image} src={image} setShowNavbar={setShowNavbar} />
+        <DefaultPagerImage
+          priority={n === 0}
+          key={image}
+          src={image}
+          setShowNavbar={setShowNavbar}
+          alt={`manga-image-${n}`}
+        />
       ))}
     </BindKeyboardSwipeableViews>
   );

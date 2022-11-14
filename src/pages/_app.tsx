@@ -8,6 +8,7 @@ import Head from 'next/head';
 import { MainLayout } from '../components/layout/MainLayout';
 import { themeBase } from '../core/styles/theme';
 import NextNProgress from 'nextjs-progressbar';
+import { CssBaseline } from '@mui/joy';
 
 // Source links in detail
 // Titles
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         options={{ showSpinner: false }}
       />
       <CssVarsProvider theme={themeBase}>
+        <CssBaseline />
         <Head>
           <title>Sora reader</title>
           <meta

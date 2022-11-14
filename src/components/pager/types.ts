@@ -13,4 +13,5 @@ export type ImageProps = {
   src: string;
   priority?: boolean;
   setShowNavbar: () => any;
+  alt;
 };

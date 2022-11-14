@@ -2,7 +2,7 @@ import camelCase from 'lodash.camelcase';
 import { IncomingMessage } from 'http';
 import { GetServerSideProps } from 'next';
 import { wrapper } from '../core/store';
-import { getRunningOperationPromises } from '../core/api/mangaApi';
+import { getRunningQueriesThunk } from '../core/api/mangaApi';
 import { ParsedUrlQuery } from 'querystring';
 import { navbarSize } from '../components/layout/Navbar/const';
 
@@ -49,7 +49,7 @@ export const RTKSSRBoilerplate = (f: (a1: gsspStore, a2: gsspHandlerParams) => P
       const requiredParams = params as ParsedUrlQuery;
       props = (await f(store, { req, params: requiredParams, ...other })) || {};
 
-      await Promise.all(getRunningOperationPromises());
+      await Promise.all(store.dispatch(getRunningQueriesThunk()));
     }
 
     return {

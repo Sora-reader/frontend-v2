@@ -11,10 +11,14 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
-    domains: [
-      'imgcover.manga-chan.me',
-      'staticrm.rmr.rocks',
-      ...[...Array(30)].map((_, i) => `h${i}.rmr.rocks`),
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        hostname: '*.rmr.rocks',
+      },
+      {
+        hostname: 'imgcover.manga-chan.me',
+      },
     ],
   },
 };
