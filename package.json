@@ -21,6 +21,7 @@
     "@mui/system": "^5.10.6",
     "@mui/utils": "^5.10.6",
     "@reduxjs/toolkit": "^1.8.5",
+    "@sentry/nextjs": "^7.20.0",
     "clsx": "^1.2.1",
     "lodash.camelcase": "^4.3.0",
     "next": "13",

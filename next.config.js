@@ -1,3 +1,4 @@
+var withSentryConfig = require('@sentry/nextjs').withSentryConfig;
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   output: 'standalone',
@@ -30,5 +31,10 @@ if (process.env.ANALYZE === 'true') {
   const withBundleAnalyzer = require('@next/bundle-analyzer')(bundleAnalyzerConfig);
   module.exports = withBundleAnalyzer(nextConfig);
 } else {
-  module.exports = nextConfig;
+  const { withSentryConfig } = require('@sentry/nextjs');
+  module.exports.sentry = {
+    hideSourceMaps: true,
+  };
+
+  module.exports = withSentryConfig(nextConfig, { silent: true });
 }

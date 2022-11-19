@@ -12,6 +12,8 @@ steps:
     env:
       - 'NEXT_PUBLIC_API_URL=${_NEXT_PUBLIC_API_URL}'
       - 'API_URL=${_API_URL}'
+      - 'NEXT_PUBLIC_SENTRY_DSN=${_SENTRY_DSN}'
+      - 'SENTRY_DSN=${_SENTRY_DSN}'
 
   - name: "gcr.io/cloud-builders/gcloud"
     args: [ "app", "deploy", "--appyaml=infra/app.yaml" ]
