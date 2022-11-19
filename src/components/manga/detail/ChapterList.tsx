@@ -5,6 +5,7 @@ import { LoadingProps } from '../../../misc/types';
 import { ChapterListType, ChapterType } from '../../../core/api/types';
 import { useMemo, useState } from 'react';
 import { useIsEmptyManga } from '../../../core/api/hooks/manga';
+import { useGetBookmarkQuery } from '../../../core/bookmarks/api';
 
 type Props = {
   mangaId: number;
@@ -20,11 +21,18 @@ const sortMapping: Record<Sort, (a: ChapterType, b: ChapterType) => number> = {
 export const ChapterList = ({ mangaId, chapters, loading }: Props) => {
   const [sort, setSort] = useState('new');
   const chaptersSorted = useMemo(() => [...chapters].sort(sortMapping[sort]), [sort, chapters]);
+
   const isEmptyManga = useIsEmptyManga(mangaId);
+  const { data: bookmark, isLoading: bookmarksLoading } = useGetBookmarkQuery(mangaId, {
+    skip: isEmptyManga,
+  });
 
   const isInitialized = !isEmptyManga;
   const chaptersLoading = !isInitialized || loading;
   const skeletonCount = chaptersSorted.length ? 1 : 8;
+
+  const bookmarkedChapterIndex =
+    bookmarksLoading || !bookmark ? -1 : chaptersSorted.findIndex((c) => c.id === bookmark.chapterId);
 
   return (
     <>
@@ -45,8 +53,20 @@ export const ChapterList = ({ mangaId, chapters, loading }: Props) => {
       <Stack spacing={1}>
         {chaptersLoading &&
           [...Array(skeletonCount)].map((_, i) => <Chapter loading={true} key={`chapter-${i}`} />)}
-        {chaptersSorted.map((chapter) => (
-          <Chapter mangaId={mangaId} chapter={chapter} key={JSON.stringify(chapter)} />
+        {chaptersSorted.map((chapter, ind) => (
+          <Chapter
+            mangaId={mangaId}
+            chapter={chapter}
+            key={JSON.stringify(chapter)}
+            isBookmark={ind === bookmarkedChapterIndex}
+            isNew={
+              bookmarkedChapterIndex !== -1
+                ? sort === 'new'
+                  ? ind < bookmarkedChapterIndex
+                  : ind > bookmarkedChapterIndex
+                : true
+            }
+          />
         ))}
         {!chaptersLoading && !chaptersSorted.length && (
           <Card>

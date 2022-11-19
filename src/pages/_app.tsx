@@ -18,15 +18,14 @@ import { CssBaseline } from '@mui/joy';
 // - /signIn - Вход
 // OpenGraph
 
-// More pager types, allow changing on-demand (per-manga, saved in localstorage with other user preferences)
-// Disable swipe when pinched ???
+// TODO: Cleanup
+//  How to use -moz-available cross-platform
 
 // TODO: chapter image selector on navbar
-
-// TODO: Track read chapters & sync with backend (redux-persist)
-//    Possibly required sync system slice aggregator
 // TODO: Next chapter link at the end of the chapter
 
+// Disable swipe when pinched ???
+// More pager types, allow changing on-demand (per-manga, saved in localstorage with other user preferences)
 // TODO: Error pages: 404, 500, etc...
 // TODO: PWA setup
 // TODO: Download chapters locally

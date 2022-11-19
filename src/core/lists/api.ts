@@ -1,12 +1,20 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { apiUrl } from '../api/const';
 import { SaveListEditIn, SaveListEditOut, SaveLists } from './types';
+import { camelCaseKeys } from '../../misc/utils';
 
 const tags = ['Lists'];
 
 export const saveListApi = createApi({
   reducerPath: 'saveListApi',
-  baseQuery: fetchBaseQuery({ baseUrl: `${apiUrl}/lists/`, credentials: 'include' }),
+  async baseQuery(...args) {
+    const res = await fetchBaseQuery({
+      credentials: 'include',
+      baseUrl: `${apiUrl}/lists/`,
+    })(...args);
+    if (res.data) res.data = camelCaseKeys(res.data);
+    return res;
+  },
   tagTypes: tags,
   endpoints: (builder) => ({
     getLists: builder.query<SaveLists, any>({
