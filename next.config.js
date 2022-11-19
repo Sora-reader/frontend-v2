@@ -1,4 +1,3 @@
-var withSentryConfig = require('@sentry/nextjs').withSentryConfig;
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   output: 'standalone',
@@ -18,7 +17,7 @@ const nextConfig = {
         hostname: '*.rmr.rocks',
       },
       {
-        hostname: 'imgcover.manga-chan.me',
+        hostname: '*.manga-chan.me',
       },
     ],
   },

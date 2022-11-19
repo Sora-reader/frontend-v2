@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { chapters, detail, useChaptersQuery, useDetailQuery } from '../../../core/api/mangaApi';
+import { detail, useChaptersQuery, useDetailQuery } from '../../../core/api/mangaApi';
 import { useRouter } from 'next/router';
 import { MangaDetailView } from '../../../components/views/MangaDetailView';
 import { ChaptersWithStatus, MangaWithStatus } from '../../../core/api/types';
@@ -33,7 +33,6 @@ export const getServerSideProps = RTKSSRBoilerplate(async (store, { params }) =>
   const id = extractParam(params, 'id');
   if (id) {
     store.dispatch(detail.initiate(id));
-    store.dispatch(chapters.initiate(id));
   }
 });
 

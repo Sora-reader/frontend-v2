@@ -64,7 +64,7 @@ export const MainLayout = ({ children }) => {
 
   // 100vh doesn't work when mobile app bar is visible :)
   const jsViewportHeight = useMemo(
-    () => (typeof window !== 'undefined' && `${window.innerHeight}px`) || 'initial',
+    () => (typeof window !== 'undefined' && `${window.innerHeight}px`) || '100vh',
     undefined
   );
 
@@ -76,6 +76,7 @@ export const MainLayout = ({ children }) => {
           height: jsViewportHeight,
           display: 'flex',
           justifyContent: 'center',
+          alignItems: 'center',
           // Override padding so the image is not affected by navbar size padding
           padding: '0 !important',
         },

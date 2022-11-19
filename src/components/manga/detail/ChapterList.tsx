@@ -1,14 +1,14 @@
 import { Chapter } from './Chapter';
-import { Option, Select, Stack } from '@mui/joy';
+import { Card, Option, Select, Stack, Typography } from '@mui/joy';
 import SortIcon from '@mui/icons-material/Sort';
 import { LoadingProps } from '../../../misc/types';
 import { ChapterListType, ChapterType } from '../../../core/api/types';
 import { useMemo, useState } from 'react';
-import { WithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
+import { useIsEmptyManga } from '../../../core/api/hooks/manga';
 
 type Props = {
   mangaId: number;
-  chapters?: ChapterListType;
+  chapters: ChapterListType;
 } & LoadingProps;
 
 type Sort = 'new' | 'old';
@@ -19,33 +19,42 @@ const sortMapping: Record<Sort, (a: ChapterType, b: ChapterType) => number> = {
 
 export const ChapterList = ({ mangaId, chapters, loading }: Props) => {
   const [sort, setSort] = useState('new');
-  const chaptersSorted = useMemo(() => chapters && [...chapters].sort(sortMapping[sort]), [sort, chapters]);
-  const chaptersLoaded = chaptersSorted && mangaId;
+  const chaptersSorted = useMemo(() => [...chapters].sort(sortMapping[sort]), [sort, chapters]);
+  const isEmptyManga = useIsEmptyManga(mangaId);
+
+  const isInitialized = !isEmptyManga;
+  const chaptersLoading = !isInitialized || loading;
+  const skeletonCount = chaptersSorted.length ? 1 : 8;
 
   return (
     <>
-      <WithOptionalSkeleton loading={loading || !chaptersLoaded}>
-        <Select
-          startDecorator={<SortIcon />}
-          placeholder=""
-          value={sort}
-          onChange={(e, v) => setSort(v as Sort)}
-          variant="soft"
-          sx={[
-            { marginBottom: 1, backgroundColor: 'var(--joy-palette-neutral-softBg)', width: 'fit-content' },
-            { '&:hover': { backgroundColor: 'var(--joy-palette-neutral-softHoverBg)' } },
-          ]}
-        >
-          <Option value="new">Новые</Option>
-          <Option value="old">Старые</Option>
-        </Select>
-      </WithOptionalSkeleton>
+      <Select
+        startDecorator={<SortIcon />}
+        placeholder=""
+        value={sort}
+        onChange={(e, v) => setSort(v as Sort)}
+        variant="soft"
+        sx={[
+          { marginBottom: 1, backgroundColor: 'var(--joy-palette-neutral-softBg)', width: 'fit-content' },
+          { '&:hover': { backgroundColor: 'var(--joy-palette-neutral-softHoverBg)' } },
+        ]}
+      >
+        <Option value="new">Новые</Option>
+        <Option value="old">Старые</Option>
+      </Select>
       <Stack spacing={1}>
-        {(loading && [...Array(8)].map((_, i) => <Chapter loading={true} key={`chapter-${i}`} />)) ||
-          (chaptersLoaded &&
-            chaptersSorted.map((chapter) => (
-              <Chapter mangaId={mangaId} chapter={chapter} key={JSON.stringify(chapter)} />
-            )))}
+        {chaptersLoading &&
+          [...Array(skeletonCount)].map((_, i) => <Chapter loading={true} key={`chapter-${i}`} />)}
+        {chaptersSorted.map((chapter) => (
+          <Chapter mangaId={mangaId} chapter={chapter} key={JSON.stringify(chapter)} />
+        ))}
+        {!chaptersLoading && !chaptersSorted.length && (
+          <Card>
+            <Typography level="body1" textAlign="center">
+              Список глав пуст. Попробуйте проверить источник
+            </Typography>
+          </Card>
+        )}
       </Stack>
     </>
   );
@@ -53,4 +62,5 @@ export const ChapterList = ({ mangaId, chapters, loading }: Props) => {
 
 ChapterList.defaultProps = {
   mangaId: -1,
+  chapters: [],
 };

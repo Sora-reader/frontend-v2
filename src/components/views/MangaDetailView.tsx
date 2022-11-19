@@ -62,7 +62,7 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
               variant="solid"
               sx={{ maxWidth: '300px', borderRadius: 'md', overflow: 'auto', mb: 1, mt: 1 }}
             >
-              <MangaImage src={manga?.image} alt="manga-image" />
+              {manga?.image && <MangaImage src={manga.image} alt="manga-image" />}
             </Sheet>
           </WithOptionalSkeleton>
 
@@ -97,7 +97,7 @@ export const MangaDetailView = memo(({ manga, chapters, chaptersLoading }: Props
                 startDecorator={<PublicIcon />}
                 component="a"
                 href={manga.sourceUrl}
-                children={manga.source}
+                children={`Читать на ${manga.source}`}
                 sx={
                   // Without this the Icon overlaps the NavBar
                   { zIndex: 0 }
