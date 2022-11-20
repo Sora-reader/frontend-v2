@@ -9,7 +9,7 @@ import { forwardRef } from 'react';
 const navbarSx = (theme) => ({
   position: 'fixed',
   left: 0,
-  zIndex: 1,
+  zIndex: 10,
   // flex
   display: 'flex',
   justifyContent: 'space-between',

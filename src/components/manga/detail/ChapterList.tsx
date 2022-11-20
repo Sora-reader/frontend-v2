@@ -6,6 +6,7 @@ import { ChapterListType, ChapterType } from '../../../core/api/types';
 import { useMemo, useState } from 'react';
 import { useIsEmptyManga } from '../../../core/api/hooks/manga';
 import { useGetBookmarkQuery } from '../../../core/bookmarks/api';
+import LinearProgress from '@mui/joy/LinearProgress';
 
 type Props = {
   mangaId: number;
@@ -29,7 +30,6 @@ export const ChapterList = ({ mangaId, chapters, loading }: Props) => {
 
   const isInitialized = !isEmptyManga;
   const chaptersLoading = !isInitialized || loading;
-  const skeletonCount = chaptersSorted.length ? 1 : 8;
 
   const bookmarkedChapterIndex =
     bookmarksLoading || !bookmark ? -1 : chaptersSorted.findIndex((c) => c.id === bookmark.chapterId);
@@ -52,7 +52,11 @@ export const ChapterList = ({ mangaId, chapters, loading }: Props) => {
       </Select>
       <Stack spacing={1}>
         {chaptersLoading &&
-          [...Array(skeletonCount)].map((_, i) => <Chapter loading={true} key={`chapter-${i}`} />)}
+          (chaptersSorted.length ? (
+            <LinearProgress />
+          ) : (
+            [...Array(8)].map((_, i) => <Chapter loading={true} key={`chapter-${i}`} />)
+          ))}
         {chaptersSorted.map((chapter, ind) => (
           <Chapter
             mangaId={mangaId}

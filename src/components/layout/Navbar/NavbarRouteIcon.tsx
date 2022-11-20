@@ -1,4 +1,4 @@
-import { ColorPaletteProp, IconButton, IconButtonProps, Sheet } from '@mui/joy';
+import { ColorPaletteProp, IconButton, IconButtonProps } from '@mui/joy';
 import { useFakeAnchorProps } from '../../../misc/hooks';
 
 type NavbarIconProps = Omit<IconButtonProps, 'color' | 'component'> & {
@@ -20,22 +20,20 @@ export const NavbarRouteIcon = ({
   const color: ColorPaletteProp = activeRoute === href ? 'primary' : 'neutral';
 
   return (
-    <Sheet>
-      <IconButton
-        color={color}
-        {...useFakeAnchorProps(href)}
-        {...props}
-        sx={{
-          padding: 0,
-          overflowX: 'hidden',
-          display: 'flex',
-          justifyContent: 'flex-start',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {children}
-        {allowAnimation && <span>{name}</span>}
-      </IconButton>
-    </Sheet>
+    <IconButton
+      color={color}
+      {...useFakeAnchorProps(href)}
+      {...props}
+      sx={{
+        padding: 0,
+        overflowX: 'hidden',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      {children}
+      {allowAnimation && <span>{name}</span>}
+    </IconButton>
   );
 };

@@ -1,12 +1,6 @@
-import { Box, Container, Theme } from '@mui/joy';
-import { useCallback, useMemo } from 'react';
-import {
-  baseRoutes,
-  extraRoutes,
-  getAccountRoute,
-  useActiveRoute,
-  useIsReaderRoute,
-} from '../../core/routing';
+import { Badge, Box, Container, Theme } from '@mui/joy';
+import { Fragment, useCallback, useMemo } from 'react';
+import { baseRoutes, evalRoute, extraRoutes, useActiveRoute, useIsReaderRoute } from '../../core/routing';
 import { NavbarRouteIcon } from './Navbar/NavbarRouteIcon';
 import { buttonContainerSx, Navbar } from './Navbar';
 import { navbarSize } from './Navbar/const';
@@ -21,24 +15,29 @@ const renderBaseNavbarIcons = (allowAnimation, hovered) => {
     activeRoute,
   };
 
-  const extraRoutesArray = [...Object.entries(extraRoutes), getAccountRoute()];
+  const renderIcon = ([href, { name, icon: Icon, badge }]) => {
+    const Wrapper = !!badge ? Badge : Fragment;
+    return (
+      <Wrapper>
+        <NavbarRouteIcon key={href} name={name} href={href} {...iconExtraProps}>
+          <Icon sx={{ margin: '8px' }} />
+        </NavbarRouteIcon>
+      </Wrapper>
+    );
+  };
+
+  const renderIconArray = (arr) =>
+    Object.entries(arr)
+      .map((r) => evalRoute(r))
+      .map(renderIcon);
 
   return (
     <>
       <Box id="base-routes" sx={buttonContainerSx}>
-        {Object.entries(baseRoutes).map(([href, { name, icon: Icon }]) => (
-          <NavbarRouteIcon key={href} name={name} href={href} {...iconExtraProps}>
-            <Icon sx={{ margin: '8px' }} />
-          </NavbarRouteIcon>
-        ))}
+        {renderIconArray(baseRoutes)}
       </Box>
-
       <Box id="extra-routes" sx={buttonContainerSx}>
-        {extraRoutesArray.map(([href, { name, icon: Icon }]) => (
-          <NavbarRouteIcon key={href} name={name} href={href} {...iconExtraProps}>
-            <Icon sx={{ margin: '8px' }} />
-          </NavbarRouteIcon>
-        ))}
+        {renderIconArray(extraRoutes)}
       </Box>
     </>
   );
