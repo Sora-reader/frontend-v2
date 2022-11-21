@@ -1,26 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { apiUrl } from '../api/const';
 import { SaveListEditIn, SaveListEditOut, SaveLists } from './types';
-import { camelCaseKeys } from '../../misc/utils';
-import { handle401res } from '../auth/utils';
-import { RootState } from '../store';
+import { fbqWithRefresh } from '../api/utils';
 
 const tags = ['Lists'];
 
 export const saveListApi = createApi({
   reducerPath: 'saveListApi',
-  async baseQuery(args, api, ...other) {
-    const state = api.getState() as RootState;
-    const res = await fetchBaseQuery({
-      headers: {
-        Authorization: `Bearer ${state.token?.access}`,
-      },
-      baseUrl: `${apiUrl}/lists/`,
-    })(args, api, ...other);
-    await handle401res(res, false, api.dispatch);
-    if (res.data) res.data = camelCaseKeys(res.data);
-    return res;
-  },
+  baseQuery: fbqWithRefresh(`${apiUrl}/lists/`, true),
   tagTypes: tags,
   endpoints: (builder) => ({
     getLists: builder.query<SaveLists, any>({

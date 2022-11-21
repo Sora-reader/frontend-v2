@@ -1,23 +1,16 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { HYDRATE } from 'next-redux-wrapper';
-import { camelCaseKeys } from '../../misc/utils';
 import { ChaptersWithStatus, ImagesWithStatus, MangaListType, MangaWithStatus } from './types';
 import { apiUrl } from './const';
+import { fbqBoilerplate } from './utils';
 
-const mangaAPIBaseUrl = `${apiUrl}/manga/`;
+const baseUrl = `${apiUrl}/manga/`;
 type PK = string | number;
 type ImagesQueryArg = { mangaId: PK; chapterPk: PK };
 
 export const mangaApi = createApi({
   reducerPath: 'mangaAPI',
-  async baseQuery(...args) {
-    const res = await fetchBaseQuery({
-      credentials: 'include',
-      baseUrl: mangaAPIBaseUrl,
-    })(...args);
-    if (res.data) res.data = camelCaseKeys(res.data);
-    return res;
-  },
+  baseQuery: fbqBoilerplate(baseUrl, false),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) return action.payload[reducerPath];
   },

@@ -8,11 +8,8 @@ export type TokenObtainOut = {
   access: string;
 };
 
-export type TokenRefreshIn = {
-  refresh: string;
-};
+export type TokenRefreshIn = string | null;
 export type TokenRefreshOut = {
-  refresh: string;
   access: string;
 };
 

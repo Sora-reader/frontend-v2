@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { getLists, useGetListsQuery } from '../core/lists/api';
+import { useGetListsQuery } from '../core/lists/api';
 import { Tab, TabList, Tabs, useTheme } from '@mui/joy';
 import { useCallback, useState } from 'react';
 import { MangaGrid } from '../components/manga/grid/MangaGrid';
@@ -7,8 +7,6 @@ import SwipeableViews from 'react-swipeable-views';
 import { bindKeyboard } from 'react-swipeable-views-utils';
 import { Breakpoint, useMediaQuery } from '@mui/material';
 import { TabSelectWithModal } from '../components/system/TabSelectWithModal';
-import { RTKSSRBoilerplate } from '../misc/utils';
-import { handle401res } from '../core/auth/utils';
 
 const mobileBP: Breakpoint = 'sm';
 const BindKeyboardSwipeableViews = bindKeyboard(SwipeableViews);
@@ -80,11 +78,5 @@ const ListsPage: NextPage = () => {
     null
   );
 };
-
-export const getServerSideProps = RTKSSRBoilerplate(async (store) => {
-  const res = await store.dispatch(getLists.initiate(null));
-  let redirect = await handle401res(res, true, store.dispatch);
-  if (redirect) return redirect;
-});
 
 export default ListsPage;

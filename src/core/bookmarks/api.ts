@@ -1,20 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { apiUrl } from '../api/const';
 import { Bookmark, BookmarkEditIn, BookmarkEditOut } from './types';
-import { camelCaseKeys } from '../../misc/utils';
+import { fbqWithRefresh } from '../api/utils';
 
 const tags = ['Bookmarks'];
 
 export const bookmarkApi = createApi({
   reducerPath: 'bookmarkApi',
-  async baseQuery(...args) {
-    const res = await fetchBaseQuery({
-      credentials: 'include',
-      baseUrl: `${apiUrl}/bookmarks/`,
-    })(...args);
-    if (res.data) res.data = camelCaseKeys(res.data);
-    return res;
-  },
+  baseQuery: fbqWithRefresh(`${apiUrl}/bookmarks/`, true),
   tagTypes: tags,
   endpoints: (builder) => ({
     getBookmark: builder.query<Bookmark, number>({

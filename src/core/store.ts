@@ -33,9 +33,11 @@ export const makeStore = () =>
         .concat(rtkQueryErrorLogger),
   });
 
+// @ts-ignore
 type Store = ReturnType<typeof makeStore>;
 
 export type AppDispatch = Store['dispatch'];
+// @ts-ignore
 export type RootState = ReturnType<Store['getState']>;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
 

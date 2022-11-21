@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import { LogoSpinner } from '../misc/components/LogoSpinner';
 import { CenteredLayout } from '../components/CenteredLayout';
-import { useDispatch } from "react-redux";
-import { tokenSlice } from "../core/auth/slice";
+import { useDispatch } from 'react-redux';
+import { tokenSlice } from '../core/auth/slice';
 
 const LogoutPage: NextPage = () => {
   const dispatch = useDispatch();
