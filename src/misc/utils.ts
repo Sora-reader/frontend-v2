@@ -43,18 +43,16 @@ type gsspHandlerParams = Parameters<ReturnType<gsspPropsCallbackParams>>[0] & { 
 export const RTKSSRBoilerplate = (f: (a1: gsspStore, a2: gsspHandlerParams) => Promise<any>) =>
   wrapper.getServerSideProps((store) => async ({ req, params, ...other }) => {
     const isClient = isClientNavigation(req);
-    let props = {};
+    let res = { props: {} };
 
     if (!isClient) {
       const requiredParams = params as ParsedUrlQuery;
-      props = (await f(store, { req, params: requiredParams, ...other })) || {};
+      res = (await f(store, { req, params: requiredParams, ...other })) || {};
 
       await Promise.all(store.dispatch(getRunningQueriesThunk()));
     }
 
-    return {
-      props,
-    };
+    return res;
   }) as GetServerSideProps;
 
 // TODO: make it a hook or something idk

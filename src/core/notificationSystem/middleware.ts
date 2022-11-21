@@ -4,7 +4,7 @@ import { addNotification } from './slice';
 
 export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => (next) => (action) => {
   // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
-  if (isRejectedWithValue(action) && action?.payload?.status !== 425) {
+  if (isRejectedWithValue(action) && ![401, 405, 425].includes(action?.payload?.status)) {
     let message = action?.payload?.data?.error || action?.payload?.error;
     if (!message) message = JSON.stringify(action.payload);
 

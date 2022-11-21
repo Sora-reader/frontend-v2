@@ -2,16 +2,22 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { apiUrl } from '../api/const';
 import { SaveListEditIn, SaveListEditOut, SaveLists } from './types';
 import { camelCaseKeys } from '../../misc/utils';
+import { handle401res } from '../auth/utils';
+import { RootState } from '../store';
 
 const tags = ['Lists'];
 
 export const saveListApi = createApi({
   reducerPath: 'saveListApi',
-  async baseQuery(...args) {
+  async baseQuery(args, api, ...other) {
+    const state = api.getState() as RootState;
     const res = await fetchBaseQuery({
-      credentials: 'include',
+      headers: {
+        Authorization: `Bearer ${state.token?.access}`,
+      },
       baseUrl: `${apiUrl}/lists/`,
-    })(...args);
+    })(args, api, ...other);
+    await handle401res(res, false, api.dispatch);
     if (res.data) res.data = camelCaseKeys(res.data);
     return res;
   },
@@ -39,3 +45,4 @@ export const saveListApi = createApi({
 });
 
 export const { useGetListsQuery, useAddToListMutation, useRemoveFromListMutation } = saveListApi;
+export const { getLists } = saveListApi.endpoints;

@@ -1,27 +1,33 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import { createWrapper } from 'next-redux-wrapper';
+import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import { mangaApi } from './api/mangaApi';
 import { notificationReducer } from './notificationSystem/slice';
 import { rtkQueryErrorLogger } from './notificationSystem/middleware';
-import { userApi } from './auth/api';
 import { saveListApi } from './lists/api';
 import { bookmarkApi } from './bookmarks/api';
+import { tokenReducer } from './auth/slice';
 
-const reducer = combineReducers({
+const combinedReducer = combineReducers({
   [mangaApi.reducerPath]: mangaApi.reducer,
-  [userApi.reducerPath]: userApi.reducer,
   [saveListApi.reducerPath]: saveListApi.reducer,
   [bookmarkApi.reducerPath]: bookmarkApi.reducer,
   notification: notificationReducer,
+  token: tokenReducer,
 });
 
 export const makeStore = () =>
   configureStore({
-    reducer,
+    reducer: (state, action) => {
+      if (action.type === HYDRATE) {
+        // As is for now. Possibly can be leveraged later
+        return combinedReducer(state, action);
+      } else {
+        return combinedReducer(state, action);
+      }
+    },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware()
         .concat(mangaApi.middleware)
-        .concat(userApi.middleware)
         .concat(saveListApi.middleware)
         .concat(bookmarkApi.middleware)
         .concat(rtkQueryErrorLogger),

@@ -9,11 +9,11 @@ export interface NotificationType {
 
 export type NotificationState = Array<NotificationType>;
 
-export const notificationInitialState: NotificationState = [];
+const initialState: NotificationState = [];
 
 export const NotificationSlice = createSlice({
   name: 'notification',
-  initialState: notificationInitialState,
+  initialState,
   reducers: {
     addNotification: (state, action: PayloadAction<Omit<NotificationType, 'id'>>) => {
       const rand = Math.random();

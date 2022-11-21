@@ -1,16 +1,13 @@
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { LogoSpinner } from '../misc/components/LogoSpinner';
 import { CenteredLayout } from '../components/CenteredLayout';
+import { useDispatch } from "react-redux";
+import { tokenSlice } from "../core/auth/slice";
 
 const LogoutPage: NextPage = () => {
-  const router = useRouter();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    document.cookie = `sessionId=;SameSite=Lax`;
-    router.push('/');
-  }, []);
+  dispatch(tokenSlice.actions.reset());
 
   return (
     <CenteredLayout>

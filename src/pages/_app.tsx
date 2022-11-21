@@ -10,26 +10,23 @@ import { themeBase } from '../core/styles/theme';
 import NextNProgress from 'nextjs-progressbar';
 import { CssBaseline } from '@mui/joy';
 
-// Source links in detail
-// Titles
-// - /search - Поиск
-// - /detail - {manga.title}
-// - /read - [{chapter}-{vol}] {manga.title}
-// - /signIn - Вход
-// OpenGraph
-
+// TODO: Fix webtoon
 // TODO: Cleanup
 //  How to use -moz-available cross-platform
 
-// TODO: chapter image selector on navbar
-// TODO: Next chapter link at the end of the chapter
-
+// => Later
+// Titles
+// OpenGraph
+// Chapter image selector on navbar
+// Next chapter link at the end of the chapter
 // Disable swipe when pinched ???
 // More pager types, allow changing on-demand (per-manga, saved in localstorage with other user preferences)
-// TODO: Error pages: 404, 500, etc...
-// TODO: PWA setup
-// TODO: Download chapters locally
-// TODO: Settings (show cache size, purge cache button)
+
+// => PWA
+// Error pages: 404, 500, etc...
+// PWA setup
+// Download chapters locally
+// Settings (show cache size, purge cache button)
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

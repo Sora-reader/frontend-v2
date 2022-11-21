@@ -33,6 +33,8 @@ export const baseRoutes = {
   notificationRoute,
 };
 
+export const loginUrl = '/login';
+
 export const getAccountRoute = (): [string, any] => {
   let loggedIn = false;
   if (typeof window !== 'undefined') {
@@ -50,7 +52,7 @@ export const getAccountRoute = (): [string, any] => {
         },
       ]
     : [
-        '/login',
+        loginUrl,
         {
           name: 'Вход',
           icon: LoginIcon,

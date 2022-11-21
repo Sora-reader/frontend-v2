@@ -1,6 +1,6 @@
 /** Get active route's base route from the mapping */
 import { useRouter } from 'next/router';
-import { routes } from './routes';
+import { evalRoute, routes } from './routes';
 import { useMemo } from 'react';
 
 export const useActiveRoute = () => {
@@ -8,11 +8,13 @@ export const useActiveRoute = () => {
 
   return useMemo(() => {
     let match;
-    Object.keys(routes).forEach((route) => {
-      if (router.asPath.startsWith(route)) {
-        match = route;
-      }
-    });
+    Object.entries(routes)
+      .map((r) => evalRoute(r))
+      .forEach(([key]) => {
+        if (router.asPath.startsWith(key)) {
+          match = key;
+        }
+      });
     return match;
   }, [router.asPath]);
 };
