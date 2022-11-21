@@ -18,8 +18,8 @@ const renderBaseNavbarIcons = (allowAnimation, hovered) => {
   const renderIcon = ([href, { name, icon: Icon, badge }]) => {
     const Wrapper = !!badge ? Badge : Fragment;
     return (
-      <Wrapper>
-        <NavbarRouteIcon key={href} name={name} href={href} {...iconExtraProps}>
+      <Wrapper key={href}>
+        <NavbarRouteIcon name={name} href={href} {...iconExtraProps}>
           <Icon sx={{ margin: '8px' }} />
         </NavbarRouteIcon>
       </Wrapper>
