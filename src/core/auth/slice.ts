@@ -35,18 +35,20 @@ export const tokenObtainThunk = createAsyncThunk(
 export const tokenRefreshThunk = createAsyncThunk(
   'tokenRefresh',
   async (token: TokenRefreshIn, { dispatch }): Promise<TokenRefreshOut> => {
+    token = token || getRefreshTokenCookie();
     try {
       const response = await axios.post(`${apiPrefix}/refresh`, {
-        refresh: token || getRefreshTokenCookie(),
+        refresh: token,
       });
       return response.data;
     } catch (e) {
-      dispatch(
-        addNotification({
-          type: 'warning',
-          message: 'Время сессии истекло',
-        })
-      );
+      if (token)
+        dispatch(
+          addNotification({
+            type: 'warning',
+            message: 'Время сессии истекло',
+          })
+        );
       await Router.push(loginUrl);
       throw e;
     }
