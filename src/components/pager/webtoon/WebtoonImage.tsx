@@ -5,30 +5,42 @@ import { LogoSpinner } from '../../../misc/components/LogoSpinner';
 import { Card, Typography } from '@mui/joy';
 
 export const WebtoonImage = ({ src, position, setPage, setShowNavbar }: WebtoonImageProps) => {
+  // TODO: may be change it
+  const [startedLoading, setStartedLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
 
+  const { ref: inViewportRef, inView: inViewport } = useInView({
+    rootMargin: '0% 0% 0% 0%',
+    threshold: 0,
+  });
+
   useEffect(() => {
-    const img = new Image();
-    if (src) {
-      img.src = src;
-      if (img.complete) {
-        setImageLoading(false);
-      } else {
-        img.onload = () => {
+    if (inViewport && !startedLoading) {
+      const img = new Image();
+      if (src) {
+        setStartedLoading(true);
+        img.src = src;
+        if (img.complete) {
           setImageLoading(false);
-        };
+        } else {
+          img.onload = () => {
+            setImageLoading(false);
+          };
+        }
       }
     }
-  }, [src]);
+  }, [src, inViewport, startedLoading]);
 
-  const { ref, inView } = useInView({
+  const { ref: centeredRef, inView: inCenter } = useInView({
     rootMargin: '-50% 0% -50% 0%',
     threshold: 0,
   });
 
   useEffect(() => {
-    if (inView) setPage(position);
-  }, [inView]);
+    if (inCenter) setPage(position);
+  }, [inCenter]);
+
+  const ref = startedLoading ? centeredRef : inViewportRef;
 
   return imageLoading ? (
     // TODO: Make a separate component out of it and provide similar interface for next/image (default pager)
@@ -36,7 +48,7 @@ export const WebtoonImage = ({ src, position, setPage, setShowNavbar }: WebtoonI
       sx={{
         minWidth: '80%',
         maxWidth: '100%',
-        height: '150vh',
+        height: '30vh',
 
         display: 'flex',
         justifyContent: 'center',
@@ -44,7 +56,7 @@ export const WebtoonImage = ({ src, position, setPage, setShowNavbar }: WebtoonI
       }}
       ref={ref}
     >
-      <Typography level="h3">Изображение загружается</Typography>
+      <Typography level="h3">{position} Изображение загружается</Typography>
       <LogoSpinner />
     </Card>
   ) : (

@@ -3,12 +3,12 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { useAddToListMutation, useGetListsQuery, useRemoveFromListMutation } from '../../../core/lists/api';
 import { inWhichListId } from '../../../core/lists/utils';
 import { useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { addNotification } from '../../../core/notificationSystem/slice';
 import { useFutureMemo } from '../../../misc/hooks/useFututreMemo';
 import { WithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
-import { RootState } from "../../../core/store";
-import { listNames } from "../../../core/lists/const";
+import { RootState } from '../../../core/store';
+import { listNames } from '../../../core/lists/const';
 
 type Props = {
   mangaId: number;
@@ -20,7 +20,7 @@ export const ListSelect = ({ mangaId, selectSx }: Props) => {
 
   const access = useSelector<RootState>((state) => state.token?.access);
 
-  const { data: listsData, isLoading: listsFetching } = useGetListsQuery(null, {skip: !access});
+  const { data: listsData, isLoading: listsFetching } = useGetListsQuery(null, { skip: !access });
   const [listId, setFutureListId] = useFutureMemo(
     useMemo(() => inWhichListId(mangaId, listsData), [listsData, mangaId])
   );
@@ -60,16 +60,17 @@ export const ListSelect = ({ mangaId, selectSx }: Props) => {
         value={listId || false}
       >
         <Option value={false}>Выберите список</Option>
-        {listsData ?
-          listsData.map((l) => (
-            <Option key={`list-${l.id}`} value={l.id}>
-              {l.name}
-            </Option>
-          )) : listNames.map(n => (
-            <Option key={`list-placeholder-${n}`} value={-1}>
-              {n}
-            </Option>
-          ))}
+        {listsData
+          ? listsData.map((l) => (
+              <Option key={`list-${l.id}`} value={l.id}>
+                {l.name}
+              </Option>
+            ))
+          : listNames.map((n) => (
+              <Option key={`list-placeholder-${n}`} value={-1}>
+                {n}
+              </Option>
+            ))}
       </Select>
     </WithOptionalSkeleton>
   );

@@ -6,6 +6,10 @@ import { buttonContainerSx, Navbar } from './Navbar';
 import { navbarSize } from './Navbar/const';
 import { navbarWrapBreakpointKey } from './Navbar/utils';
 import { NotificationContainer } from '../../core/notificationSystem/components/NotificationContainer';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../core/store';
+import { useRouter } from 'next/router';
+import { isClient } from '../../misc/utils';
 
 const renderBaseNavbarIcons = (allowAnimation, hovered) => {
   const activeRoute = useActiveRoute();
@@ -57,36 +61,47 @@ const navbarPaddingSx = (theme: Theme) => ({
 
 const mainContainerSx = [navbarPaddingSx];
 
+const baseReaderSx = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  // Override padding so the image is not affected by navbar size padding
+  padding: '0 !important',
+};
+
+const routeCustomSx = {
+  '/read': (pagerType) => {
+    switch (pagerType) {
+      case 'default':
+        return {
+          ...baseReaderSx,
+          height: (isClient() && `${window.innerHeight}px`) || '100vh',
+          margin: 0,
+        };
+      default:
+        return baseReaderSx;
+    }
+  },
+  '/': () => ({
+    my: 1,
+  }),
+};
+
 export const MainLayout = ({ children }) => {
+  const router = useRouter();
   const isReaderRoute = useIsReaderRoute();
+
+  const customSxEntries = useMemo(
+    () => Object.entries(routeCustomSx).find(([route]) => router.asPath.includes(route)),
+    [router.asPath]
+  );
   const render = useCallback(renderBaseNavbarIcons, []);
 
-  // 100vh doesn't work when mobile app bar is visible :)
-  const jsViewportHeight = useMemo(
-    () => (typeof window !== 'undefined' && `${window.innerHeight}px`) || '100vh',
-    undefined
-  );
-
+  const pagerType = useSelector<RootState>((state) => state.pager);
   const sx = useMemo(() => {
-    if (isReaderRoute)
-      return [
-        ...mainContainerSx,
-        {
-          height: jsViewportHeight,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          // Override padding so the image is not affected by navbar size padding
-          padding: '0 !important',
-        },
-      ];
-    return [
-      ...mainContainerSx,
-      {
-        my: 1,
-      },
-    ];
-  }, [isReaderRoute]);
+    if (customSxEntries) return [...mainContainerSx, customSxEntries[1](pagerType)];
+    return mainContainerSx;
+  }, [customSxEntries]);
 
   return (
     <>

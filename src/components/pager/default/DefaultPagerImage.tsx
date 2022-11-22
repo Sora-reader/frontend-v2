@@ -1,4 +1,4 @@
-import { ImageProps } from '../types';
+import { ImageProps } from '../../../core/pager/types';
 import Image from 'next/image';
 import { Box } from '@mui/joy';
 

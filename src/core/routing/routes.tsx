@@ -5,6 +5,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NewChaptersIcon from '@mui/icons-material/AutoStories';
+import { getRefreshTokenCookie } from '../auth/slice';
+import { isClient } from '../../misc/utils';
 
 const notificationRoute = () => {
   return [
@@ -37,11 +39,8 @@ export const loginUrl = '/login';
 
 export const getAccountRoute = (): [string, any] => {
   let loggedIn = false;
-  if (typeof window !== 'undefined') {
-    loggedIn = !!document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('sessionId='))
-      ?.split('=')[1];
+  if (isClient()) {
+    loggedIn = !!getRefreshTokenCookie();
   }
   return loggedIn
     ? [

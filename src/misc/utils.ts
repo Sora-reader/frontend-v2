@@ -55,5 +55,7 @@ export const RTKSSRBoilerplate = (f: (a1: gsspStore, a2: gsspHandlerParams) => P
     return res;
   }) as GetServerSideProps;
 
-// TODO: make it a hook or something idk
+// TODO: make it a hook or something IDK
 export const heightWithoutNavbar = `calc(100vh - ${navbarSize}rem)`;
+
+export const isClient = () => typeof window !== 'undefined';

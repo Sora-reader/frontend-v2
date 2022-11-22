@@ -6,6 +6,7 @@ import { rtkQueryErrorLogger } from './notificationSystem/middleware';
 import { saveListApi } from './lists/api';
 import { bookmarkApi } from './bookmarks/api';
 import { tokenReducer } from './auth/slice';
+import { pagerReducer } from './pager/slice';
 
 const combinedReducer = combineReducers({
   [mangaApi.reducerPath]: mangaApi.reducer,
@@ -13,6 +14,7 @@ const combinedReducer = combineReducers({
   [bookmarkApi.reducerPath]: bookmarkApi.reducer,
   notification: notificationReducer,
   token: tokenReducer,
+  pager: pagerReducer,
 });
 
 export const makeStore = () =>
@@ -33,11 +35,9 @@ export const makeStore = () =>
         .concat(rtkQueryErrorLogger),
   });
 
-// @ts-ignore
 type Store = ReturnType<typeof makeStore>;
 
 export type AppDispatch = Store['dispatch'];
-// @ts-ignore
 export type RootState = ReturnType<Store['getState']>;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
 

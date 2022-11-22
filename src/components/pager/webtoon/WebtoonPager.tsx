@@ -1,6 +1,6 @@
 import { Box } from '@mui/joy';
 import { WebtoonImage } from './WebtoonImage';
-import { PagerProps } from '../types';
+import { PagerProps } from '../../../core/pager/types';
 
 export const WebtoonPager = ({ images, setPage, setShowNavbar }: PagerProps) => {
   return (

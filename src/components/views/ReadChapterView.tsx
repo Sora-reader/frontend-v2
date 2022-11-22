@@ -7,14 +7,17 @@ import { useFakeAnchorProps } from '../../misc/hooks';
 import { WebtoonPager } from '../pager/webtoon/WebtoonPager';
 import { PageAlert } from '../pager/PageAlert';
 import { DefaultPager } from '../pager/default/DefaultPager';
-import { PagerProps, PagerType } from '../pager/types';
+import { PagerProps } from '../../core/pager/types';
 import { Slide } from '@mui/material';
 import { useIsNavbarWrapped } from '../layout/Navbar/utils';
-import { getPagerType } from '../pager/utils';
+import { getPagerType } from '../../core/pager/utils';
 import { LoadingProps } from '../../misc/types';
 import { LogoSpinner } from '../../misc/components/LogoSpinner';
 import ChangeChapterIcon from '@mui/icons-material/FormatAlignJustify';
 import ChangePagerIcon from '@mui/icons-material/AutoStories';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPagerType } from '../../core/pager/slice';
+import { RootState } from '../../core/store';
 
 type Props = {
   mangaId: string;
@@ -27,7 +30,8 @@ export const ReadChapterView = ({ mangaId, images }: Props) => {
   const [showNavbar, setShowNavbar] = useState(true);
   const isNavbarWrapped = useIsNavbarWrapped();
 
-  const [pagerType, setPagerType] = useState<PagerType>('default');
+  const pagerType = useSelector<RootState>((state) => state.pager);
+  const dispatch = useDispatch();
   const [firstImageLoading, setFirstImageLoading] = useState(true);
 
   // Wait for the first image to fully load and then determine pager type + allow rendering
@@ -37,11 +41,11 @@ export const ReadChapterView = ({ mangaId, images }: Props) => {
       img.src = images[0];
       if (img.complete) {
         setFirstImageLoading(false);
-        setPagerType(getPagerType(img as HTMLImageElement));
+        dispatch(setPagerType(getPagerType(img as HTMLImageElement)));
       } else {
         img.onload = (e) => {
           setFirstImageLoading(false);
-          setPagerType(getPagerType(e.target as HTMLImageElement));
+          dispatch(setPagerType(getPagerType(e.target as HTMLImageElement)));
         };
       }
     }
