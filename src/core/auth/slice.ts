@@ -1,5 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TokenObtainIn, TokenObtainOut, TokenRefreshIn, TokenRefreshOut, TokenState } from './types';
+import {
+  TokenObtainIn,
+  TokenObtainOut,
+  TokenRefreshIn,
+  TokenRefreshOut,
+  TokenState,
+  TokenVerifyIn,
+  TokenVerifyOut,
+} from './types';
 import axios from 'axios';
 import { Cookies } from 'react-cookie';
 import { apiUrl } from '../api/const';
@@ -42,14 +50,30 @@ export const tokenRefreshThunk = createAsyncThunk(
       });
       return response.data;
     } catch (e) {
-      if (token)
+      if (token) {
         dispatch(
           addNotification({
             type: 'warning',
             message: 'Время сессии истекло',
           })
         );
-      await Router.push(loginUrl);
+        await Router.push(loginUrl);
+      }
+      throw e;
+    }
+  }
+);
+
+export const tokenVerifyThunk = createAsyncThunk(
+  'tokenVerify',
+  async (data: TokenVerifyIn, { dispatch }): Promise<TokenVerifyOut> => {
+    try {
+      const response = await axios.post(`${apiPrefix}/verify`, data);
+      return response.data;
+    } catch (e) {
+      if (String(e).includes('401')) {
+        dispatch(tokenRefreshThunk(null));
+      }
       throw e;
     }
   }
