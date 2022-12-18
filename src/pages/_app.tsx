@@ -1,16 +1,17 @@
-import '../core/styles/globals.scss';
-import '../core/routing';
-import type { AppProps } from 'next/app';
-import { wrapper } from '../core/store';
-import React from 'react';
-import { CssVarsProvider } from '@mui/joy/styles';
-import Head from 'next/head';
-import { MainLayout } from '../components/layout/MainLayout';
-import { themeBase } from '../core/styles/theme';
-import NextNProgress from 'nextjs-progressbar';
-import { CssBaseline } from '@mui/joy';
+import "../core/styles/globals.scss";
+import "../core/routing";
+import type { AppProps } from "next/app";
+import { wrapper } from "../core/store";
+import React from "react";
+import { CssVarsProvider } from "@mui/joy/styles";
+import Head from "next/head";
+import { MainLayout } from "../components/layout/MainLayout";
+import { themeBase } from "../core/styles/theme";
+import NextNProgress from "nextjs-progressbar";
+import { CssBaseline } from "@mui/joy";
+import { useIsReaderRoute } from "../core/routing";
+import { BaseNavbar } from "../components/layout/BaseNavbar";
 
-// TODO: Fix webtoon
 // TODO: Cleanup
 //  How to use -moz-available cross-platform
 
@@ -29,6 +30,8 @@ import { CssBaseline } from '@mui/joy';
 // Settings (show cache size, purge cache button)
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const isReaderRoute = useIsReaderRoute();
+
   return (
     <div id="app">
       <NextNProgress
@@ -36,7 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         showOnShallow={false}
         options={{ showSpinner: false }}
       />
-      <CssVarsProvider theme={themeBase}>
+      <CssVarsProvider theme={themeBase} defaultMode="dark">
         <CssBaseline />
         <Head>
           <title>Sora reader</title>
@@ -47,6 +50,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           />
         </Head>
         <MainLayout>
+          {!isReaderRoute ? <BaseNavbar /> : null}
           <Component {...pageProps} />
         </MainLayout>
       </CssVarsProvider>

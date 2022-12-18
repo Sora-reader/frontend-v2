@@ -2,7 +2,7 @@ import { ImageProps } from '../../../core/pager/types';
 import Image from 'next/image';
 import { Box } from '@mui/joy';
 
-export const DefaultPagerImage = ({ src, priority, setShowNavbar, alt }: ImageProps) => (
+export const DefaultPagerImage = ({ src, setShowNavbar, alt }: ImageProps) => (
   <Box
     sx={{
       position: 'relative',

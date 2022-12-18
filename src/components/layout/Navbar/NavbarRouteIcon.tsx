@@ -26,6 +26,10 @@ export const NavbarRouteIcon = ({
       {...props}
       sx={{
         padding: 0,
+        // Prevent text from showing
+        '& svg': {
+          margin: '8px',
+        },
         overflowX: 'hidden',
         display: 'flex',
         justifyContent: 'flex-start',
