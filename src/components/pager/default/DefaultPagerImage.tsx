@@ -13,6 +13,6 @@ export const DefaultPagerImage = ({ src, priority, setShowNavbar, alt }: ImagePr
       },
     }}
   >
-    <Image priority={priority} fill={true} src={src} onClick={setShowNavbar} alt={alt} sizes="100vw" />
+    <Image loading={'lazy'} fill={true} src={src} onClick={setShowNavbar} alt={alt} sizes="100vw" />
   </Box>
 );
