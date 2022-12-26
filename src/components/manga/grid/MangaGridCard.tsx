@@ -1,5 +1,5 @@
 import Card from '@mui/joy/Card';
-import { CardContent, CardCover, Typography } from '@mui/joy';
+import { CardContent, CardCover, Chip, Typography } from '@mui/joy';
 import { useFakeAnchorProps } from '../../../misc/hooks';
 import { MangaType } from '../../../core/api/types';
 import { BaseMangaImage, MangaImage } from '../MangaImage';
@@ -9,7 +9,7 @@ import { WithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
 
 type Props = MangaType;
 
-export const MangaGridCard = ({ id, title, image }: Props) => {
+export const MangaGridCard = ({ id, title, image, source }: Props) => {
   const isEmptyManga = useIsEmptyManga(id);
   const fakeLinkProps = useFakeAnchorProps(isEmptyManga ? '#' : `/manga/${id}`);
 
@@ -37,6 +37,8 @@ export const MangaGridCard = ({ id, title, image }: Props) => {
         <CardContent sx={{ justifyContent: 'flex-end' }}>
           <Typography level="h2" fontSize="inherit" sx={{ position: 'absolute', padding: 2 }}>
             {title}
+            <br/>
+            <Chip size="sm">{source}</Chip>
           </Typography>
           {/* Those props are a hack to size the Card as it would contain an image
           while the image is a CardCover which doesn't dictate height */}
