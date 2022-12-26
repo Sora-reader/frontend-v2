@@ -7,8 +7,7 @@ import { useMemo, useState } from 'react';
 import { useIsEmptyManga } from '../../../core/api/hooks/manga';
 import { useGetBookmarkQuery } from '../../../core/bookmarks/api';
 import LinearProgress from '@mui/joy/LinearProgress';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../core/store';
+import { useSession } from 'next-auth/react';
 
 type Props = {
   mangaId: number;
@@ -25,12 +24,10 @@ export const ChapterList = ({ mangaId, chapters, loading }: Props) => {
   const [sort, setSort] = useState('new');
   const chaptersSorted = useMemo(() => [...chapters].sort(sortMapping[sort]), [sort, chapters]);
 
-  // FIXME: Change the logic or add a middleware for verifying token
-  const access = useSelector<RootState>((state) => state.token?.access);
-
+  const { data: session } = useSession();
   const isEmptyManga = useIsEmptyManga(mangaId);
   const { data: bookmark, isLoading: bookmarksLoading } = useGetBookmarkQuery(mangaId, {
-    skip: isEmptyManga || !access,
+    skip: isEmptyManga || !session,
   });
 
   const isInitialized = !isEmptyManga;

@@ -3,12 +3,12 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { useAddToListMutation, useGetListsQuery, useRemoveFromListMutation } from '../../../core/lists/api';
 import { inWhichListId } from '../../../core/lists/utils';
 import { useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addNotification } from '../../../core/notificationSystem/slice';
 import { useFutureMemo } from '../../../misc/hooks/useFututreMemo';
 import { WithOptionalSkeleton } from '../../../misc/components/SoraSkeleton';
-import { RootState } from '../../../core/store';
 import { listNames } from '../../../core/lists/const';
+import { useSession } from 'next-auth/react';
 
 type Props = {
   mangaId: number;
@@ -17,10 +17,9 @@ type Props = {
 
 export const ListSelect = ({ mangaId, selectSx }: Props) => {
   const dispatch = useDispatch();
+  const { data: session } = useSession();
 
-  const access = useSelector<RootState>((state) => state.token?.access);
-
-  const { data: listsData, isLoading: listsFetching } = useGetListsQuery(null, { skip: !access });
+  const { data: listsData, isLoading: listsFetching } = useGetListsQuery(null, { skip: !session });
   const [listId, setFutureListId] = useFutureMemo(
     useMemo(() => inWhichListId(mangaId, listsData), [listsData, mangaId])
   );

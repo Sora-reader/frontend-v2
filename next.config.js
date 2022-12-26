@@ -35,5 +35,5 @@ if (process.env.ANALYZE === 'true') {
     hideSourceMaps: true,
   };
 
-  module.exports = withSentryConfig(nextConfig, { silent: true });
+  module.exports = withSentryConfig(nextConfig, { silent: true, hideSourceMaps: false });
 }

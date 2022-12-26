@@ -1,24 +1,16 @@
-import { Badge, Box, Container, Theme } from '@mui/joy';
-import { Fragment, useCallback, useMemo } from 'react';
-import { baseRoutes, evalRoute, extraRoutes, useActiveRoute, useIsReaderRoute } from '../../core/routing';
+import { Badge, Box } from '@mui/joy';
+import { useActiveRoute } from '../../core/routing';
 import { NavbarRouteIcon } from './Navbar/NavbarRouteIcon';
-import { navbarSize } from './Navbar/const';
-import { navbarWrapBreakpointKey } from './Navbar/utils';
-import { NotificationContainer } from '../../core/notificationSystem/components/NotificationContainer';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../core/store';
-import { useRouter } from 'next/router';
 import HomeIcon from '@mui/icons-material/Home';
 import ListsIcon from '@mui/icons-material/FormatListBulleted';
 import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from '@mui/icons-material/MeetingRoom';
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NewChaptersIcon from '@mui/icons-material/AutoStories';
-import { useGetChapterNotificationsQuery } from '../../core/chapterNotifications/api';
-import { isClient } from '../../misc/utils';
-import { buttonContainerSx, Navbar } from "./Navbar";
-import { getRefreshTokenCookie } from "../../core/auth/slice";
+import { buttonContainerSx, Navbar } from './Navbar';
+import { signOut, useSession } from 'next-auth/react';
+import { loginUrl } from '../../core/routing/const';
 
 const renderBaseNavbarIcons = (allowAnimation, hovered) => {
   const activeRoute = useActiveRoute();
@@ -27,8 +19,8 @@ const renderBaseNavbarIcons = (allowAnimation, hovered) => {
     hovered,
     activeRoute,
   };
-  const { data: chaptersUpdated, isLoading } = useGetChapterNotificationsQuery(null);
   const NewChaptersWrapper = Badge;
+  const { data: session } = useSession();
 
   return (
     <>
@@ -52,8 +44,14 @@ const renderBaseNavbarIcons = (allowAnimation, hovered) => {
           children={<SettingsIcon />}
           {...iconExtraProps}
         />
-        {isClient() && !!getRefreshTokenCookie() ? (
-          <NavbarRouteIcon name={'Выход'} href={'/logout'} children={<LogoutIcon />} {...iconExtraProps} />
+        {session ? (
+          <NavbarRouteIcon
+            name={'Выход'}
+            href={null}
+            children={<LogoutIcon />}
+            onClick={() => signOut({ callbackUrl: loginUrl, redirect: true })}
+            {...iconExtraProps}
+          />
         ) : (
           <NavbarRouteIcon name={'Вход'} href={'/login'} children={<LoginIcon />} {...iconExtraProps} />
         )}

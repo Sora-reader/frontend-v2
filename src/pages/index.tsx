@@ -1,14 +1,19 @@
 import type { NextPage } from 'next';
-import { MangaGrid } from '../components/manga/grid/MangaGrid';
-import { useSearchQuery } from '../core/api/mangaApi';
+import Button from '@mui/joy/Button';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 const Home: NextPage = () => {
-  const { data } = useSearchQuery('бибоп');
+  // const { data } = useSearchQuery('бибоп');
+  const { data: session, status } = useSession();
 
   return (
     <>
       <h1>Sora Reader</h1>
-      {data && <MangaGrid mangaList={data.slice(0, 4)} loading={false} />}
+      <p>Is auth {status}</p>
+      <p style={{ wordBreak: 'break-word' }}>{JSON.stringify(session)}</p>
+      <Button onClick={() => signIn('credentials', { username: 'r', password: 'r' })}>SignIn</Button>
+      <Button onClick={() => signOut()}>SignOut</Button>
+      {/*{data && <MangaGrid mangaList={data.slice(0, 4)} loading={false} />}*/}
     </>
   );
 };

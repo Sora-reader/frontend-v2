@@ -6,7 +6,6 @@ import { rtkQueryErrorLogger } from './notificationSystem/middleware';
 import { saveListApi } from './lists/api';
 import { bookmarkApi } from './bookmarks/api';
 import { chapterNotificationApi } from './chapterNotifications/api';
-import { tokenReducer } from './auth/slice';
 import { pagerReducer } from './pager/slice';
 
 const combinedReducer = combineReducers({
@@ -15,7 +14,6 @@ const combinedReducer = combineReducers({
   [bookmarkApi.reducerPath]: bookmarkApi.reducer,
   [chapterNotificationApi.reducerPath]: chapterNotificationApi.reducer,
   notification: notificationReducer,
-  token: tokenReducer,
   pager: pagerReducer,
 });
 

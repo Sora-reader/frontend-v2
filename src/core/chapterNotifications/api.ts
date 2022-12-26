@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { apiUrl } from '../api/const';
-import { ChapterNotificationList, ChapterNotificationEditOut, ChapterNotificationEditIn } from './types';
+import { ChapterNotificationEditIn, ChapterNotificationEditOut, ChapterNotificationList } from './types';
 import { fbqWithRefresh } from '../api/utils';
 
 const tags = ['ChapterNotifications'];
@@ -24,4 +24,5 @@ export const chapterNotificationApi = createApi({
   }),
 });
 
-export const { useGetChapterNotificationsQuery, useRemoveChapterNotificationMutation } = chapterNotificationApi;
+export const { useGetChapterNotificationsQuery, useRemoveChapterNotificationMutation } =
+  chapterNotificationApi;

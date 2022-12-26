@@ -1,7 +1,6 @@
 import { BaseQueryFn, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../store';
 import { camelCaseKeys } from '../../misc/utils';
-import { handleQueryAuthRefresh } from '../auth/utils';
+import { fetchAccessToken } from '../auth/utils';
 
 /** Boilerplate for fetchBaseQuery with camelCasing and auth option */
 export const fbqBoilerplate =
@@ -9,9 +8,8 @@ export const fbqBoilerplate =
   async (args, api, ...rest) => {
     let headers = {};
     if (auth) {
-      const state = api.getState() as RootState;
       headers = {
-        Authorization: `Bearer ${state.token?.access}`,
+        Authorization: `Bearer ${await fetchAccessToken()}`,
       };
     }
 
@@ -28,12 +26,13 @@ export const fbqBoilerplate =
 export const fbqWithRefresh =
   (baseUrl, auth: boolean = false): BaseQueryFn =>
   async (args, api, ...other) => {
-    let res = await fbqBoilerplate(baseUrl, auth)(args, api, ...other);
+    return fbqBoilerplate(baseUrl, auth)(args, api, ...other);
+    // let res = await fbqBoilerplate(baseUrl, auth)(args, api, ...other);
 
-    const refreshed = await handleQueryAuthRefresh(res, api.dispatch);
-    if (refreshed) {
-      res = await fbqBoilerplate(baseUrl, auth)(args, api, ...other);
-    }
+    // const refreshed = await handleQueryAuthRefresh(res, api.dispatch);
+    // if (refreshed) {
+    //   res = await fbqBoilerplate(baseUrl, auth)(args, api, ...other);
+    // }
 
-    return res;
+    // return res;
   };

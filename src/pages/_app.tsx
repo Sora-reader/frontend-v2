@@ -1,16 +1,17 @@
-import "../core/styles/globals.scss";
-import "../core/routing";
-import type { AppProps } from "next/app";
-import { wrapper } from "../core/store";
-import React from "react";
-import { CssVarsProvider } from "@mui/joy/styles";
-import Head from "next/head";
-import { MainLayout } from "../components/layout/MainLayout";
-import { themeBase } from "../core/styles/theme";
-import NextNProgress from "nextjs-progressbar";
-import { CssBaseline } from "@mui/joy";
-import { useIsReaderRoute } from "../core/routing";
-import { BaseNavbar } from "../components/layout/BaseNavbar";
+import '../core/styles/globals.scss';
+import '../core/routing';
+import type { AppProps } from 'next/app';
+import { wrapper } from '../core/store';
+import React from 'react';
+import { CssVarsProvider } from '@mui/joy/styles';
+import Head from 'next/head';
+import { MainLayout } from '../components/layout/MainLayout';
+import { themeBase } from '../core/styles/theme';
+import NextNProgress from 'nextjs-progressbar';
+import { CssBaseline } from '@mui/joy';
+import { useIsReaderRoute } from '../core/routing';
+import { BaseNavbar } from '../components/layout/BaseNavbar';
+import { SessionProvider } from 'next-auth/react';
 
 // TODO: Cleanup
 //  How to use -moz-available cross-platform
@@ -29,7 +30,7 @@ import { BaseNavbar } from "../components/layout/BaseNavbar";
 // Download chapters locally
 // Settings (show cache size, purge cache button)
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const isReaderRoute = useIsReaderRoute();
 
   return (
@@ -49,10 +50,12 @@ function MyApp({ Component, pageProps }: AppProps) {
             content="width=device-width, viewport-fit=cover, initial-scale=1"
           />
         </Head>
-        <MainLayout>
-          {!isReaderRoute ? <BaseNavbar /> : null}
-          <Component {...pageProps} />
-        </MainLayout>
+        <SessionProvider session={session}>
+          <MainLayout>
+            {!isReaderRoute ? <BaseNavbar /> : null}
+            <Component {...pageProps} />
+          </MainLayout>
+        </SessionProvider>
       </CssVarsProvider>
     </div>
   );

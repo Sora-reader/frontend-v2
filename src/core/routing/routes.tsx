@@ -1,5 +1,3 @@
-import { loginUrl } from './const';
-
 export const baseRoutes = {
   '/': {
     name: 'Домой',

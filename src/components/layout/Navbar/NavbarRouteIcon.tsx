@@ -3,7 +3,7 @@ import { useFakeAnchorProps } from '../../../misc/hooks';
 
 type NavbarIconProps = Omit<IconButtonProps, 'color' | 'component'> & {
   name: string;
-  href: string;
+  href: string | null;
   activeRoute: string;
   allowAnimation: boolean;
   hovered: boolean;
@@ -22,7 +22,7 @@ export const NavbarRouteIcon = ({
   return (
     <IconButton
       color={color}
-      {...useFakeAnchorProps(href)}
+      {...(href === null ? {} : useFakeAnchorProps(href))}
       {...props}
       sx={{
         padding: 0,

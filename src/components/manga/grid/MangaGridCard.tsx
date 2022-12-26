@@ -37,7 +37,7 @@ export const MangaGridCard = ({ id, title, image, source }: Props) => {
         <CardContent sx={{ justifyContent: 'flex-end' }}>
           <Typography level="h2" fontSize="inherit" sx={{ position: 'absolute', padding: 2 }}>
             {title}
-            <br/>
+            <br />
             <Chip size="sm">{source}</Chip>
           </Typography>
           {/* Those props are a hack to size the Card as it would contain an image
