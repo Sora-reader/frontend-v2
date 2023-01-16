@@ -15,6 +15,7 @@ steps:
       - 'NEXT_PUBLIC_SENTRY_DSN=${_SENTRY_DSN}'
       - 'SENTRY_DSN=${_SENTRY_DSN}'
       - 'SENTRY_AUTH_TOKEN=${_SENTRY_AUTH_TOKEN}'
+      - 'NEXTAUTH_URL=${_NEXTAUTH_URL}'
 
   - name: "gcr.io/cloud-builders/gcloud"
     args: [ "app", "deploy", "--appyaml=infra/app.yaml" ]
